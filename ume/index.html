@@ -218,17 +218,29 @@
     }
     .library-zone.is-open { grid-template-rows: 52px minmax(0, 1fr); }
     .artist-tabs {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      display: flex;
       gap: 8px;
       align-items: center;
       min-width: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      overscroll-behavior-x: contain;
+    }
+    .artist-tabs::-webkit-scrollbar { display: none; }
+    .artist-tabs-placeholder {
+      flex: 1 0 100%;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
     }
     .artist-button {
       position: relative;
-      min-width: 0;
+      flex: 1 0 0;
+      min-width: 64px;
       min-height: 40px;
       padding: 0 12px;
+      white-space: nowrap;
       border: 1px solid var(--line);
       border-radius: 12px;
       color: #a7a8b3;
@@ -312,6 +324,7 @@
       transition: background .2s ease, border-color .2s ease, transform .2s ease;
     }
     .song-button:active { transform: scale(.99); }
+    .song-button:disabled { opacity: .72; cursor: not-allowed; }
     .song-button.is-active {
       border-color: rgba(5,120,255,.32);
       background: linear-gradient(90deg, rgba(5,120,255,.14), rgba(5,120,255,.045));
@@ -339,6 +352,13 @@
       font-size: 10px;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .song-warning {
+      display: block;
+      margin-top: 3px;
+      color: #ffbd69;
+      font-size: 9px;
+      line-height: 1.35;
     }
     .song-state {
       display: grid;
@@ -529,10 +549,8 @@
     </section>
 
     <section class="library-zone" id="libraryZone" aria-label="아티스트 및 재생목록">
-      <nav class="artist-tabs" aria-label="아티스트 선택">
-        <button class="artist-button" type="button" data-artist="uni" aria-expanded="false" aria-controls="playlistPanel" disabled>유니</button>
-        <button class="artist-button" type="button" data-artist="nana" aria-expanded="false" aria-controls="playlistPanel" disabled>나나</button>
-        <button class="artist-button" type="button" data-artist="rico" aria-expanded="false" aria-controls="playlistPanel" disabled>리코</button>
+      <nav class="artist-tabs" id="artistTabs" aria-label="아티스트 선택">
+        <span class="artist-tabs-placeholder">재생목록 불러오는 중…</span>
       </nav>
       <div class="playlist-panel" id="playlistPanel">
         <div class="playlist-inner" id="playlistInner">
@@ -632,27 +650,24 @@
 
     /* ============================================================
        외부 JSON 재생목록 설정
-       - 현재는 아래 GitHub Raw URL에서 JSON을 가져옵니다.
+       - 아래 GitHub Raw URL에서 JSON을 가져옵니다.
+       - artists 안의 고유한 ID마다 버튼이 자동 생성되므로 새 아티스트도 JSON에 추가하면 됩니다.
        - JSON 위치를 변경하려면 PLAYLIST_JSON_URL 값만 바꾸세요.
        - 원격 URL은 CORS 요청을 허용해야 합니다. file://로 직접 열면 fetch가
          차단될 수 있으므로 GitHub Pages 등 HTTP(S) 주소로 실행하는 것을 권장합니다.
        ============================================================ */
     const PLAYLIST_JSON_URL = 'https://raw.githubusercontent.com/JisungEda55/music/refs/heads/main/ume/playlist.json';
 
-    const ARTIST_DEFAULTS = {
-      uni:  { label: '유니', artist: '아야츠노 유니' },
-      nana: { label: '나나', artist: '나나' },
-      rico: { label: '리코', artist: '리코' }
-    };
-
-    let PLAYLISTS = Object.fromEntries(
-      Object.entries(ARTIST_DEFAULTS).map(([id, artistInfo]) => [id, { ...artistInfo, songs: [] }])
-    );
+    // 아티스트 ID를 HTML에 고정하지 않습니다. playlist.json의 artists 키가 버튼이 됩니다.
+    let PLAYLISTS = Object.create(null);
+    let ARTIST_ORDER = [];
+    let artistButtons = [];
+    let playlistWarnings = [];
     let playlistLoadError = null;
 
     const player = document.getElementById('youtubePlayer');
     const libraryZone = document.getElementById('libraryZone');
-    const artistButtons = Array.from(document.querySelectorAll('.artist-button'));
+    const artistTabs = document.getElementById('artistTabs');
     const songList = document.getElementById('songList');
     const playlistArtistName = document.getElementById('playlistArtistName');
     const playlistCount = document.getElementById('playlistCount');
@@ -664,71 +679,164 @@
     let activeArtistId = null;
     let activeTrackKey = null;
 
+    // videoId에는 11자리 ID 또는 일반적인 YouTube 링크를 입력할 수 있습니다.
+    // 지원 예시:
+    // - u5Ud4h9K8gs
+    // - https://www.youtube.com/watch?v=y-rdBQSrzSs
+    // - https://youtu.be/y-rdBQSrzSs
+    // - https://www.youtube.com/embed/y-rdBQSrzSs
+    // - https://www.youtube.com/shorts/y-rdBQSrzSs
+    // - https://www.youtube.com/live/y-rdBQSrzSs
+    function extractYouTubeVideoId(value) {
+      if (typeof value !== 'string') return null;
+      const input = value.trim();
+      if (!input) return null;
+
+      // 기존처럼 ID만 입력하는 형식도 지원합니다.
+      if (/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
+
+      let url;
+      try {
+        url = new URL(input);
+      } catch {
+        // 프로토콜을 생략한 www.youtube.com/watch?v=... 형식도 허용합니다.
+        try {
+          url = new URL(`https://${input}`);
+        } catch {
+          return null;
+        }
+      }
+
+      const hostname = url.hostname.toLowerCase().replace(/^www\./, '');
+      const allowedHosts = new Set([
+        'youtube.com', 'm.youtube.com', 'music.youtube.com',
+        'youtube-nocookie.com', 'youtu.be'
+      ]);
+      if (!allowedHosts.has(hostname)) return null;
+
+      let candidate = '';
+      if (hostname === 'youtu.be') {
+        candidate = url.pathname.split('/').filter(Boolean)[0] || '';
+      } else {
+        candidate = url.searchParams.get('v') || '';
+        if (!candidate) {
+          const match = url.pathname.match(/^\/(?:embed|shorts|live|v)\/([^/?#]+)/i);
+          if (match) candidate = match[1];
+        }
+      }
+
+      return /^[A-Za-z0-9_-]{11}$/.test(candidate) ? candidate : null;
+    }
+
     function parsePlaylistJson(data) {
       if (!data || typeof data !== 'object' || Array.isArray(data) ||
           !data.artists || typeof data.artists !== 'object' || Array.isArray(data.artists)) {
         throw new Error('JSON 최상위에 artists 객체가 필요합니다.');
       }
 
-      const parsed = Object.fromEntries(
-        Object.entries(ARTIST_DEFAULTS).map(([id, defaults]) => [id, { ...defaults, songs: [] }])
-      );
+      const entries = Object.entries(data.artists);
+      if (entries.length === 0) throw new Error('artists 객체에 아티스트를 한 명 이상 등록하세요.');
 
-      for (const id of Object.keys(ARTIST_DEFAULTS)) {
-        const source = data.artists[id];
-        if (source === undefined) continue;
+      const parsed = Object.create(null);
+      const warnings = [];
+
+      for (const [id, source] of entries) {
+        if (!/^[A-Za-z0-9_-]+$/.test(id)) {
+          throw new Error(`아티스트 ID "${id}"는 영문자, 숫자, 하이픈, 밑줄만 사용할 수 있습니다.`);
+        }
         if (!source || typeof source !== 'object' || Array.isArray(source)) {
           throw new Error(`artists.${id}는 객체여야 합니다.`);
         }
 
-        if (source.label !== undefined) {
-          if (typeof source.label !== 'string' || !source.label.trim()) {
-            throw new Error(`artists.${id}.label은 비어 있지 않은 문자열이어야 합니다.`);
-          }
-          parsed[id].label = source.label.trim();
+        const label = source.label === undefined ? id : source.label;
+        const artist = source.artist === undefined ? label : source.artist;
+        if (typeof label !== 'string' || !label.trim()) {
+          throw new Error(`artists.${id}.label은 비어 있지 않은 문자열이어야 합니다.`);
         }
-        if (source.artist !== undefined) {
-          if (typeof source.artist !== 'string' || !source.artist.trim()) {
-            throw new Error(`artists.${id}.artist는 비어 있지 않은 문자열이어야 합니다.`);
-          }
-          parsed[id].artist = source.artist.trim();
+        if (typeof artist !== 'string' || !artist.trim()) {
+          throw new Error(`artists.${id}.artist는 비어 있지 않은 문자열이어야 합니다.`);
         }
         if (source.songs !== undefined && !Array.isArray(source.songs)) {
           throw new Error(`artists.${id}.songs는 배열이어야 합니다.`);
         }
 
-        const songs = source.songs || [];
-        parsed[id].songs = songs.map((song, index) => {
-          const label = `artists.${id}.songs[${index}]`;
+        const songs = [];
+        (source.songs || []).forEach((song, index) => {
+          const itemLabel = `artists.${id}.songs[${index}]`;
           if (!song || typeof song !== 'object' || Array.isArray(song)) {
-            throw new Error(`${label}는 객체여야 합니다.`);
+            warnings.push(`${itemLabel}: 곡 데이터가 객체가 아니어서 제외했습니다.`);
+            return;
           }
+
           const title = typeof song.title === 'string' ? song.title.trim() : '';
-          const videoId = typeof song.videoId === 'string' ? song.videoId.trim() : '';
-          const songArtist = song.artist === undefined ? parsed[id].artist : song.artist;
+          const rawVideoSource = typeof song.videoId === 'string' ? song.videoId.trim() : '';
+          const normalizedVideoId = extractYouTubeVideoId(rawVideoSource);
+          const songArtist = song.artist === undefined ? artist : song.artist;
           const startNumber = Number(song.start);
 
-          if (!title) throw new Error(`${label}.title이 비어 있습니다.`);
-          if (!/^[A-Za-z0-9_-]{6,}$/.test(videoId)) {
-            throw new Error(`${label}.videoId에 올바른 YouTube 영상 ID를 입력하세요.`);
+          if (!title) {
+            warnings.push(`${itemLabel}: title이 비어 있어 제외했습니다.`);
+            return;
           }
           if (song.start === '' || song.start === null || song.start === undefined ||
               !Number.isFinite(startNumber) || startNumber < 0) {
-            throw new Error(`${label}.start는 0 이상의 숫자(초)여야 합니다.`);
+            warnings.push(`${itemLabel} (${title}): start는 0 이상의 숫자여야 해서 해당 곡을 제외했습니다.`);
+            return;
           }
           if (typeof songArtist !== 'string' || !songArtist.trim()) {
-            throw new Error(`${label}.artist는 비어 있지 않은 문자열이어야 합니다.`);
+            warnings.push(`${itemLabel} (${title}): artist가 비어 있어 제외했습니다.`);
+            return;
           }
 
-          return {
+          const videoIdValid = Boolean(normalizedVideoId);
+          if (!videoIdValid) {
+            warnings.push(`${itemLabel} (${title}): videoId에 유효한 11자리 YouTube ID 또는 지원되는 YouTube URL을 입력하세요. 입력값: "${rawVideoSource || '(비어 있음)'}"`);
+          }
+
+          songs.push({
             title,
             artist: songArtist.trim(),
-            videoId,
+            // iframe에는 URL 전체가 아니라 추출된 ID만 전달합니다.
+            videoId: normalizedVideoId || '',
+            videoIdInput: rawVideoSource,
+            videoIdValid,
             start: Math.floor(startNumber)
-          };
+          });
         });
+
+        parsed[id] = {
+          label: label.trim(),
+          artist: artist.trim(),
+          songs
+        };
       }
-      return parsed;
+      return { playlists: parsed, warnings };
+    }
+
+    function renderArtistButtons() {
+      artistTabs.replaceChildren();
+      artistButtons = [];
+
+      ARTIST_ORDER.forEach(id => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'artist-button';
+        button.dataset.artist = id;
+        button.textContent = PLAYLISTS[id].label;
+        button.disabled = false;
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-controls', 'playlistPanel');
+        button.addEventListener('click', () => openArtist(id));
+        artistTabs.appendChild(button);
+        artistButtons.push(button);
+      });
+
+      if (ARTIST_ORDER.length === 0) {
+        const placeholder = document.createElement('span');
+        placeholder.className = 'artist-tabs-placeholder';
+        placeholder.textContent = '등록된 아티스트가 없습니다.';
+        artistTabs.appendChild(placeholder);
+      }
     }
 
     async function loadPlaylistsFromJson() {
@@ -741,30 +849,48 @@
         try {
           data = await response.json();
         } catch {
-          throw new Error('JSON 구문을 읽을 수 없습니다. 쉼표와 따옴표를 확인하세요.');
+          throw new Error('JSON 구문을 읽을 수 없습니다. 쉼표와 큰따옴표를 확인하세요.');
         }
 
-        const parsed = parsePlaylistJson(data);
-        const trackCount = Object.values(parsed).reduce((sum, list) => sum + list.songs.length, 0);
-        if (trackCount === 0) {
-          throw new Error('JSON에 등록된 곡이 없습니다. artists의 songs 배열을 확인하세요.');
-        }
-
-        PLAYLISTS = parsed;
+        const result = parsePlaylistJson(data);
+        PLAYLISTS = result.playlists;
+        ARTIST_ORDER = Object.keys(PLAYLISTS);
+        playlistWarnings = result.warnings;
         playlistLoadError = null;
-        artistButtons.forEach(button => {
-          const id = button.dataset.artist;
-          button.textContent = PLAYLISTS[id].label;
-          button.disabled = false;
-        });
-        playlistStatus.textContent = `PLAYLIST READY · ${trackCount} TRACKS`;
+        renderArtistButtons();
 
-        const firstArtistId = ['uni', 'nana', 'rico'].find(id => PLAYLISTS[id].songs.length > 0);
-        const firstSong = PLAYLISTS[firstArtistId].songs[0];
-        setCurrentTrack(firstArtistId, 0, false);
-        currentSubtitle.textContent = `재생목록 로드 완료 · ${firstSong.title}`;
-        playlistArtistName.textContent = `${PLAYLISTS[firstArtistId].label}의 노래`;
-        renderSongs(firstArtistId);
+        const trackCount = Object.values(PLAYLISTS).reduce((sum, list) => sum + list.songs.length, 0);
+        const validTrackCount = Object.values(PLAYLISTS).reduce(
+          (sum, list) => sum + list.songs.filter(song => song.videoIdValid).length, 0
+        );
+        playlistStatus.textContent = `PLAYLIST READY · ${trackCount} TRACKS` +
+          (playlistWarnings.length ? ` · ${playlistWarnings.length} WARNINGS` : '');
+
+        const firstArtistWithValidTrack = ARTIST_ORDER.find(id =>
+          PLAYLISTS[id].songs.some(song => song.videoIdValid)
+        );
+
+        if (firstArtistWithValidTrack) {
+          const firstSongIndex = PLAYLISTS[firstArtistWithValidTrack].songs.findIndex(song => song.videoIdValid);
+          setCurrentTrack(firstArtistWithValidTrack, firstSongIndex, false);
+          currentSubtitle.textContent = playlistWarnings.length
+            ? `재생목록 로드 완료 · ${validTrackCount}곡 재생 가능 · ${playlistWarnings.length}개 항목 확인 필요`
+            : `재생목록 로드 완료 · ${PLAYLISTS[firstArtistWithValidTrack].songs[firstSongIndex].title}`;
+          playlistArtistName.textContent = `${PLAYLISTS[firstArtistWithValidTrack].label}의 노래`;
+          renderSongs(firstArtistWithValidTrack);
+        } else {
+          currentTitle.textContent = trackCount ? '재생 가능한 영상이 없습니다' : '등록된 곡이 없습니다';
+          currentSubtitle.textContent = playlistWarnings.length
+            ? `${playlistWarnings.length}개 항목을 확인하세요. videoId는 일반적으로 YouTube 영상 ID 11자입니다.`
+            : 'playlist.json의 artists 아래 songs 배열에 곡을 추가하세요.';
+          const firstArtist = ARTIST_ORDER[0];
+          playlistArtistName.textContent = `${PLAYLISTS[firstArtist].label}의 노래`;
+          renderSongs(firstArtist);
+        }
+
+        if (playlistWarnings.length) {
+          console.warn('[ume Opera] playlist.json 확인이 필요한 항목:', playlistWarnings);
+        }
       } catch (error) {
         playlistLoadError = error instanceof Error ? error.message : String(error);
         playlistStatus.textContent = 'PLAYLIST LOAD FAILED';
@@ -772,8 +898,13 @@
         currentSubtitle.textContent = `${playlistLoadError} · URL/CORS 설정을 확인하세요.`;
         playlistArtistName.textContent = '재생목록 오류';
         playlistCount.textContent = 'ERROR';
-        artistButtons.forEach(button => { button.disabled = false; });
-        renderSongs('uni');
+        artistTabs.replaceChildren();
+        const placeholder = document.createElement('span');
+        placeholder.className = 'artist-tabs-placeholder';
+        placeholder.textContent = '재생목록 로드 실패';
+        artistTabs.appendChild(placeholder);
+        artistButtons = [];
+        renderSongs(null);
         console.error('[ume Opera] playlist.json 로드 실패:', error);
       }
     }
@@ -792,6 +923,10 @@
       const playlist = PLAYLISTS[artistId];
       const song = playlist && playlist.songs[trackIndex];
       if (!song || !song.videoId) return;
+      if (!song.videoIdValid) {
+        currentSubtitle.textContent = `영상 ID 형식 오류 · ${song.videoId} (일반적인 YouTube 영상 ID는 11자입니다)`;
+        return;
+      }
 
       activeTrackKey = `${artistId}-${trackIndex}`;
       currentTitle.textContent = `${song.artist || playlist.artist} / ${song.title}`;
@@ -801,7 +936,7 @@
     }
 
     function renderSongs(artistId) {
-      const playlist = PLAYLISTS[artistId];
+      const playlist = artistId ? PLAYLISTS[artistId] : null;
       songList.replaceChildren();
 
       if (!playlist || playlist.songs.length === 0) {
@@ -810,7 +945,7 @@
         if (playlistLoadError) {
           empty.textContent = `외부 재생목록을 불러오지 못했습니다. URL과 CORS 설정을 확인한 뒤 페이지를 새로고침하세요. (${playlistLoadError})`;
         } else {
-          empty.innerHTML = '아직 등록된 곡이 없습니다.<br><code>playlist.json</code>의 해당 아티스트 섹션에 곡을 추가하세요.';
+          empty.textContent = '아직 등록된 곡이 없습니다. playlist.json의 해당 아티스트 songs 배열에 곡을 추가하세요.';
         }
         songList.appendChild(empty);
         playlistCount.textContent = '0 TRACKS';
@@ -824,6 +959,8 @@
         button.type = 'button';
         button.className = 'song-button' + (activeTrackKey === key ? ' is-active' : '');
         button.setAttribute('aria-pressed', String(activeTrackKey === key));
+        button.disabled = !song.videoIdValid;
+        if (!song.videoIdValid) button.title = `YouTube 영상 ID 또는 URL 확인 필요: ${song.videoIdInput || '(비어 있음)'}`;
 
         const number = document.createElement('span');
         number.className = 'song-number';
@@ -839,27 +976,37 @@
         artist.textContent = song.artist || playlist.artist;
         copy.append(title, artist);
 
+        if (!song.videoIdValid) {
+          const warning = document.createElement('span');
+          warning.className = 'song-warning';
+          warning.textContent = '영상 ID 또는 링크 확인 필요';
+          copy.appendChild(warning);
+        }
+
         const state = document.createElement('span');
         state.className = 'song-state';
         state.setAttribute('aria-hidden', 'true');
-        state.innerHTML = activeTrackKey === key
-          ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="3" height="10" rx="1"></rect><rect x="7" y="1" width="3" height="10" rx="1"></rect></svg>'
-          : '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 1.8c0-.5.55-.8.98-.53l6.2 4.02a.85.85 0 0 1 0 1.42l-6.2 4.02A.65.65 0 0 1 3 10.18V1.8Z"></path></svg>';
+        if (!song.videoIdValid) {
+          state.textContent = '!';
+        } else {
+          state.innerHTML = activeTrackKey === key
+            ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="3" height="10" rx="1"></rect><rect x="7" y="1" width="3" height="10" rx="1"></rect></svg>'
+            : '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 1.8c0-.5.55-.8.98-.53l6.2 4.02a.85.85 0 0 1 0 1.42l-6.2 4.02A.65.65 0 0 1 3 10.18V1.8Z"></path></svg>';
+        }
 
         button.append(number, copy, state);
-        button.addEventListener('click', () => setCurrentTrack(artistId, index, true));
+        if (song.videoIdValid) button.addEventListener('click', () => setCurrentTrack(artistId, index, true));
         songList.appendChild(button);
       });
     }
 
     function openArtist(artistId) {
+      if (!Object.prototype.hasOwnProperty.call(PLAYLISTS, artistId)) return;
       const alreadyOpen = activeArtistId === artistId && libraryZone.classList.contains('is-open');
       if (alreadyOpen) {
         libraryZone.classList.remove('is-open');
         activeArtistId = null;
-        artistButtons.forEach(button => {
-          button.setAttribute('aria-expanded', 'false');
-        });
+        artistButtons.forEach(button => button.setAttribute('aria-expanded', 'false'));
         return;
       }
 
@@ -872,10 +1019,6 @@
       renderSongs(artistId);
       playlistInner.scrollTop = 0;
     }
-
-    artistButtons.forEach(button => {
-      button.addEventListener('click', () => openArtist(button.dataset.artist));
-    });
 
     // 곡 정보는 외부 playlist.json에서 비동기로 불러옵니다.
     // 브라우저의 자동 재생 정책에 따라 곡을 눌러도 자동 재생이 제한될 수 있습니다.
