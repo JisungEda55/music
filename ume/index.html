@@ -170,34 +170,6 @@
       border: 0;
       background: #000;
     }
-    .video-corner-label {
-      position: absolute;
-      z-index: 2;
-      top: 9px;
-      left: 9px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 8px;
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 7px;
-      color: #fff;
-      background: rgba(0,0,0,.58);
-      backdrop-filter: blur(9px);
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: .09em;
-      pointer-events: none;
-    }
-    .video-corner-label span {
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(5,120,255,.7);
-    }
-
     /* 6~7/10: 아티스트 / 제목 */
     .track-info {
       grid-row: 6 / 8;
@@ -417,16 +389,49 @@
         width: 100%;
         max-width: none;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        grid-template-rows: repeat(3, minmax(0, 1fr));
+        /* 곡 정보 행을 약간 줄여 영상 영역에 세로 공간을 더 배분합니다. */
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .82fr);
       }
 
-      /* 브랜드 바는 별도 그리드 칸을 차지하지 않도록 숨겨 5×3 비율을 유지 */
-      .topbar { display: none; }
-
+      /* 브랜드 마크는 그리드 칸을 차지하지 않는 오버레이로 표시합니다.
+         따라서 5×3 레이아웃을 유지하면서 가로 화면에서도 로고가 보입니다. */
+      .topbar {
+        position: absolute;
+        z-index: 5;
+        top: auto;
+        left: auto;
+        right: 8px;
+        bottom: calc(var(--safe-bottom) + 8px);
+        display: flex;
+        width: auto;
+        height: auto;
+        min-height: 0;
+        padding: 0;
+        pointer-events: none;
+      }
+      .brand {
+        gap: 7px;
+        padding: 5px 9px;
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 10px;
+        background: rgba(9,10,15,.76);
+        box-shadow: 0 4px 16px rgba(0,0,0,.2);
+        backdrop-filter: blur(10px);
+        font-size: 10px;
+        letter-spacing: .08em;
+        pointer-events: none;
+      }
+      .brand-mark {
+        width: 24px;
+        height: 24px;
+        flex-basis: 24px;
+        border-radius: 6px;
+      }
+      .topbar-label { display: none; }
       .player-zone {
         grid-column: 1 / 4;
         grid-row: 1 / 3;
-        padding: 8px 14px;
+        padding: 5px 8px;
       }
       .video-frame {
         width: min(100%, 104dvh);
@@ -439,7 +444,8 @@
       .track-info {
         grid-column: 1 / 4;
         grid-row: 3 / 4;
-        padding: 8px clamp(14px, 2.4vw, 34px);
+        /* 제목 영역의 위아래 여백을 줄여 그리드의 축소된 행을 효율적으로 씁니다. */
+        padding: 2px clamp(10px, 1.8vw, 24px);
       }
       .eyebrow {
         margin-bottom: 6px;
@@ -458,7 +464,7 @@
         grid-column: 4 / 6;
         grid-row: 1 / 4;
         grid-template-rows: clamp(44px, 7.5vh, 64px) minmax(0, 0fr);
-        padding: calc(8px + var(--safe-top)) 12px calc(8px + var(--safe-bottom));
+        padding: calc(6px + var(--safe-top)) 6px calc(6px + var(--safe-bottom));
         border-left: 1px solid var(--line);
         background: rgba(12, 13, 19, .62);
       }
@@ -472,7 +478,8 @@
         border-radius: 10px;
         font-size: clamp(11px, 1.25vw, 14px);
       }
-      .playlist-inner { padding-top: 10px; }
+      /* 우측 하단 브랜드가 마지막 곡을 가리지 않도록 스크롤 끝 여백을 확보합니다. */
+      .playlist-inner { padding-top: 10px; padding-bottom: 48px; }
       .playlist-heading { padding-bottom: 9px; }
       .song-list { gap: 6px; }
       .song-button {
@@ -503,7 +510,6 @@
 
     <section class="player-zone" aria-label="영상 플레이어">
       <div class="video-frame">
-        <div class="video-corner-label"><span></span> PLAYER</div>
         <iframe
           id="youtubePlayer"
           src="about:blank"
@@ -544,29 +550,31 @@
 
     /* ============================================================
        ume Opera 사이트 설정
-       - BRAND_IMAGE_URL: 브랜드 마크로 쓸 정사각형 WEBP 이미지의 URL.
-         비워 두면 이미지 마크를 숨기고 텍스트 로고만 표시합니다.
-       - FAVICON_URL: 파비콘 이미지 URL(ICO, PNG, SVG 등).
-       - OPENGRAPH_CONFIG: 링크 공유 미리보기용 제목/설명/이미지/페이지 주소.
-         imageUrl에는 공개적으로 접근 가능한 절대 HTTPS 이미지 URL을 지정하세요.
-       - 소셜 플랫폼은 보통 HTML의 초기 <head> 메타 태그만 읽습니다.
-         따라서 Open Graph 설정을 바꿀 때 아래 설정값과 <head>의 기본 메타 태그를
-         동일하게 맞추면 JavaScript 실행 여부와 관계없이 미리보기 호환성이 높아집니다.
+       - BRAND_IMAGE_URL: 헤더의 정사각형 WEBP 브랜드 이미지.
+       - FAVICON_URL: 파비콘 URL.
+       - OPENGRAPH_CONFIG: 검색 설명 및 SNS 공유 미리보기 설정.
+       - 빈 문자열은 기존 <head> 메타데이터를 삭제하지 않고 기존 값을 유지합니다.
+       - SNS 공유 크롤러 호환성을 위해 <head>의 초기 메타데이터도 같은 값으로
+         유지해 주세요. 일부 크롤러는 JavaScript를 실행하지 않습니다.
        ============================================================ */
-    const BRAND_IMAGE_URL = '';
-    const FAVICON_URL = '';
+    const BRAND_IMAGE_URL = 'https://i.ibb.co/rfzm8PY1/ume.webp';
+    const FAVICON_URL = 'https://i.ibb.co/rfzm8PY1/ume.webp';
     const OPENGRAPH_CONFIG = {
       title: 'ume Opera',
-      description: '아티스트와 곡을 선택해 감상하는 음악 플레이어 ume Opera입니다.',
+      pageDescription: 'ume opera',
+      description: 'ALT Music',
       type: 'website',
       siteName: 'ume Opera',
       locale: 'ko_KR',
-      url: '',
-      imageUrl: '',
+      url: 'https://jisungeda55.github.io/music/ume/',
+      imageUrl: 'https://i.ibb.co/8Lb0GTQF/ume-OG.webp',
       twitterCard: 'summary_large_image'
     };
 
     function setMetaContent(attribute, key, value) {
+      // 빈 값이면 기존 <head> 값을 보존합니다. 빈 content로 덮거나 제거하지 않습니다.
+      if (typeof value !== 'string' || !value.trim()) return;
+
       const selector = `meta[${attribute}="${key}"]`;
       let element = document.head.querySelector(selector);
       if (!element) {
@@ -574,11 +582,7 @@
         element.setAttribute(attribute, key);
         document.head.appendChild(element);
       }
-      if (typeof value !== 'string' || !value.trim()) {
-        element.removeAttribute('content');
-      } else {
-        element.setAttribute('content', value.trim());
-      }
+      element.setAttribute('content', value.trim());
     }
 
     function applySiteConfiguration() {
@@ -591,31 +595,36 @@
           console.warn('[ume Opera] 브랜드 이미지 URL을 불러오지 못했습니다. BRAND_IMAGE_URL을 확인하세요.');
         }, { once: true });
       } else {
+        // 이미지 URL이 비어 있으면 이미지 엘리먼트만 숨기고 텍스트 로고를 유지합니다.
         brandImage.hidden = true;
       }
 
       const favicon = document.getElementById('siteFavicon');
       if (FAVICON_URL.trim()) favicon.href = FAVICON_URL.trim();
-      else favicon.removeAttribute('href');
+      // FAVICON_URL이 비어 있으면 HTML <head>에 설정된 기본 파비콘을 유지합니다.
 
       const config = OPENGRAPH_CONFIG;
-      document.title = config.title || 'ume Opera';
-      setMetaContent('name', 'description', config.description);
+      if (typeof config.title === 'string' && config.title.trim()) {
+        document.title = config.title.trim();
+      }
+      setMetaContent('name', 'description', config.pageDescription || config.description);
       setMetaContent('property', 'og:type', config.type || 'website');
-      setMetaContent('property', 'og:title', config.title || 'ume Opera');
+      setMetaContent('property', 'og:title', config.title);
       setMetaContent('property', 'og:description', config.description);
-      setMetaContent('property', 'og:site_name', config.siteName || config.title || 'ume Opera');
+      setMetaContent('property', 'og:site_name', config.siteName || config.title);
       setMetaContent('property', 'og:locale', config.locale || 'ko_KR');
       setMetaContent('property', 'og:url', config.url);
       setMetaContent('property', 'og:image', config.imageUrl);
       setMetaContent('name', 'twitter:card', config.twitterCard || 'summary_large_image');
-      setMetaContent('name', 'twitter:title', config.title || 'ume Opera');
+      setMetaContent('name', 'twitter:title', config.title);
       setMetaContent('name', 'twitter:description', config.description);
       setMetaContent('name', 'twitter:image', config.imageUrl);
 
       const canonicalLink = document.getElementById('canonicalLink');
-      if (config.url && config.url.trim()) canonicalLink.href = config.url.trim();
-      else canonicalLink.removeAttribute('href');
+      if (config.url && config.url.trim()) {
+        canonicalLink.href = config.url.trim();
+      }
+      // config.url이 비어 있으면 기존 canonical href를 유지합니다.
     }
 
     applySiteConfiguration();
