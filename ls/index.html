@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="color-scheme" content="dark">
+  <title>Music LandScape</title>
+  <style>
+    :root {
+      --bg: #090a0f;
+      --panel: #12131a;
+      --panel-2: #1a1b24;
+      --line: rgba(255,255,255,.09);
+      --text: #f7f7fa;
+      --muted: #999ba9;
+      --accent: #fc3c1c;
+      --accent-soft: rgba(252,60,28,.14);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body {
+      overflow: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(252,60,28,.13), transparent 42%),
+        radial-gradient(ellipse at 110% 70%, rgba(100,80,180,.10), transparent 38%),
+        var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    button { color: inherit; font: inherit; }
+
+    .app-shell {
+      position: relative;
+      display: grid;
+      grid-template-rows: repeat(10, minmax(0, 1fr));
+      width: min(100%, 520px);
+      height: 100vh;
+      height: 100dvh;
+      margin: 0 auto;
+      padding-top: var(--safe-top);
+      padding-bottom: var(--safe-bottom);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .app-shell::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255,255,255,.018), transparent 30%, rgba(255,255,255,.012));
+    }
+
+    /* 1/10: 작은 상단 브랜드 영역 */
+    .topbar {
+      grid-row: 1 / 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      min-height: 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      color: #e7e7ed;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 18px;
+    }
+    .brand-mark i {
+      display: block;
+      width: 3px;
+      border-radius: 5px;
+      background: var(--accent);
+    }
+    .brand-mark i:nth-child(1) { height: 7px; }
+    .brand-mark i:nth-child(2) { height: 14px; }
+    .brand-mark i:nth-child(3) { height: 10px; }
+    .brand-mark i:nth-child(4) { height: 17px; }
+    .topbar-label {
+      color: #747684;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    /* 2~5/10: YouTube 영상 영역 */
+    .player-zone {
+      grid-row: 2 / 6;
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      padding: 10px 15px 14px;
+    }
+    .video-frame {
+      position: relative;
+      width: min(100%, calc((40dvh - 24px) * 1.7777778));
+      max-height: calc(40dvh - 24px);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.42), 0 0 0 1px rgba(255,255,255,.015);
+    }
+    .video-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000;
+    }
+    .video-corner-label {
+      position: absolute;
+      z-index: 2;
+      top: 9px;
+      left: 9px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 7px;
+      color: #fff;
+      background: rgba(0,0,0,.58);
+      backdrop-filter: blur(9px);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      pointer-events: none;
+    }
+    .video-corner-label span {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(252,60,28,.7);
+    }
+
+    /* 6~7/10: 아티스트 / 제목 */
+    .track-info {
+      grid-row: 6 / 8;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px 24px 12px;
+    }
+    .eyebrow {
+      margin-bottom: 11px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .18em;
+    }
+    .current-title {
+      max-width: 100%;
+      margin: 0;
+      font-size: clamp(19px, 5.3vw, 25px);
+      line-height: 1.32;
+      letter-spacing: -.045em;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+    .current-subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* 8~10/10: 아티스트 버튼 + 부드러운 재생목록 */
+    .library-zone {
+      grid-row: 8 / 11;
+      display: grid;
+      grid-template-rows: 52px minmax(0, 0fr);
+      min-width: 0;
+      min-height: 0;
+      padding: 0 15px calc(8px + var(--safe-bottom));
+      transition: grid-template-rows .34s cubic-bezier(.2,.75,.25,1);
+    }
+    .library-zone.is-open { grid-template-rows: 52px minmax(0, 1fr); }
+    .artist-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      align-items: center;
+      min-width: 0;
+    }
+    .artist-button {
+      position: relative;
+      min-width: 0;
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: #a7a8b3;
+      background: rgba(255,255,255,.035);
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: background .22s ease, color .22s ease, border-color .22s ease, transform .22s ease;
+    }
+    .artist-button:active { transform: scale(.97); }
+    .artist-button:disabled { opacity: .48; cursor: wait; }
+    .artist-button[aria-expanded="true"] {
+      color: #fff;
+      border-color: rgba(252,60,28,.55);
+      background: var(--accent-soft);
+    }
+    .artist-button[aria-expanded="true"]::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--accent);
+      transform: translateX(-50%);
+    }
+    .playlist-panel {
+      min-height: 0;
+      overflow: hidden;
+      border-top: 1px solid transparent;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .2s ease, transform .28s ease, border-color .28s ease;
+      pointer-events: none;
+    }
+    .is-open .playlist-panel {
+      border-top-color: var(--line);
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .playlist-inner {
+      height: 100%;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 8px 1px 2px;
+      scrollbar-width: thin;
+      scrollbar-color: #444550 transparent;
+    }
+    .playlist-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 1px 3px 8px;
+    }
+    .playlist-heading strong {
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+    .playlist-heading span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+    .song-list { display: grid; gap: 5px; }
+    .song-button {
+      display: grid;
+      grid-template-columns: 27px minmax(0, 1fr) 26px;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 47px;
+      padding: 7px 11px;
+      text-align: left;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      background: rgba(255,255,255,.035);
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .song-button:active { transform: scale(.99); }
+    .song-button.is-active {
+      border-color: rgba(252,60,28,.32);
+      background: linear-gradient(90deg, rgba(252,60,28,.14), rgba(252,60,28,.045));
+    }
+    .song-number {
+      color: #777987;
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+    .song-copy { min-width: 0; }
+    .song-title {
+      overflow: hidden;
+      color: #e8e8ed;
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.35;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .song-artist {
+      margin-top: 3px;
+      overflow: hidden;
+      color: #878995;
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .song-state {
+      display: grid;
+      place-items: center;
+      width: 25px;
+      height: 25px;
+      border-radius: 8px;
+      color: #8a8b97;
+      background: rgba(255,255,255,.045);
+    }
+    .song-button.is-active .song-state {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .empty-state {
+      padding: 22px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    .empty-state code {
+      color: #e6b2a8;
+      font-size: 11px;
+    }
+
+    @media (max-height: 680px) {
+      .topbar { padding: 0 17px; }
+      .player-zone { padding-top: 4px; padding-bottom: 6px; }
+      .track-info { padding-top: 2px; padding-bottom: 5px; }
+      .eyebrow { margin-bottom: 6px; }
+      .current-subtitle { margin-top: 4px; }
+      .library-zone { grid-template-rows: 46px minmax(0, 0fr); padding-right: 10px; padding-left: 10px; }
+      .library-zone.is-open { grid-template-rows: 46px minmax(0, 1fr); }
+      .artist-button { min-height: 36px; }
+      .song-button { min-height: 40px; }
+    }
+    /* ============================================================
+       넓은 가로 화면 레이아웃 (PC / 태블릿 가로 / 폴더블 가로)
+       5열 × 3행 그리드:
+       - 열 1~3, 행 1~2: YouTube 영상
+       - 열 1~3, 행 3: 아티스트 / 제목
+       - 열 4~5, 행 1~3: 아티스트 버튼 및 재생목록
+       세로 화면은 위의 기존 10분할 레이아웃을 그대로 사용합니다.
+       ============================================================ */
+    @media (orientation: landscape) and (min-width: 680px) {
+      .app-shell {
+        width: 100%;
+        max-width: none;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+      }
+
+      /* 브랜드 바는 별도 그리드 칸을 차지하지 않도록 숨겨 5×3 비율을 유지 */
+      .topbar { display: none; }
+
+      .player-zone {
+        grid-column: 1 / 4;
+        grid-row: 1 / 3;
+        padding: 8px 14px;
+      }
+      .video-frame {
+        width: min(100%, 104dvh);
+        max-width: 100%;
+        max-height: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 14px;
+      }
+
+      .track-info {
+        grid-column: 1 / 4;
+        grid-row: 3 / 4;
+        padding: 8px clamp(14px, 2.4vw, 34px);
+      }
+      .eyebrow {
+        margin-bottom: 6px;
+        font-size: clamp(9px, 1.05vw, 11px);
+      }
+      .current-title {
+        font-size: clamp(16px, 2.3vw, 30px);
+        line-height: 1.25;
+      }
+      .current-subtitle {
+        margin-top: 5px;
+        font-size: clamp(10px, 1.15vw, 13px);
+      }
+
+      .library-zone {
+        grid-column: 4 / 6;
+        grid-row: 1 / 4;
+        grid-template-rows: clamp(44px, 7.5vh, 64px) minmax(0, 0fr);
+        padding: calc(8px + var(--safe-top)) 12px calc(8px + var(--safe-bottom));
+        border-left: 1px solid var(--line);
+        background: rgba(12, 13, 19, .62);
+      }
+      .library-zone.is-open {
+        grid-template-rows: clamp(44px, 7.5vh, 64px) minmax(0, 1fr);
+      }
+      .artist-tabs { gap: 6px; }
+      .artist-button {
+        min-height: 36px;
+        padding: 0 6px;
+        border-radius: 10px;
+        font-size: clamp(11px, 1.25vw, 14px);
+      }
+      .playlist-inner { padding-top: 10px; }
+      .playlist-heading { padding-bottom: 9px; }
+      .song-list { gap: 6px; }
+      .song-button {
+        grid-template-columns: 24px minmax(0, 1fr) 24px;
+        gap: 7px;
+        min-height: 44px;
+        padding: 7px 8px;
+      }
+      .song-title { font-size: clamp(11px, 1.05vw, 13px); }
+      .song-artist { font-size: clamp(9px, .9vw, 11px); }
+      .empty-state { padding: 18px 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell" aria-label="음악 플레이어">
+    <header class="topbar">
+      <div class="brand" aria-label="Music Deck">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>MUSIC DECK</span>
+      </div>
+      <div class="topbar-label" id="playlistStatus" role="status" aria-live="polite">PLAYLIST LOADING...</div>
+    </header>
+
+    <section class="player-zone" aria-label="영상 플레이어">
+      <div class="video-frame">
+        <div class="video-corner-label"><span></span> PLAYER</div>
+        <iframe
+          id="youtubePlayer"
+          src="about:blank"
+          title="YouTube music player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <section class="track-info" aria-live="polite" aria-atomic="true">
+      <div class="eyebrow">NOW SELECTED</div>
+      <h1 class="current-title" id="currentTitle">재생목록을 불러오는 중</h1>
+      <div class="current-subtitle" id="currentSubtitle">외부 playlist.json에서 곡 정보를 불러오고 있습니다.</div>
+    </section>
+
+    <section class="library-zone" id="libraryZone" aria-label="아티스트 및 재생목록">
+      <nav class="artist-tabs" aria-label="아티스트 선택">
+        <button class="artist-button" type="button" data-artist="uni" aria-expanded="false" aria-controls="playlistPanel" disabled>유니</button>
+        <button class="artist-button" type="button" data-artist="nana" aria-expanded="false" aria-controls="playlistPanel" disabled>나나</button>
+        <button class="artist-button" type="button" data-artist="rico" aria-expanded="false" aria-controls="playlistPanel" disabled>리코</button>
+      </nav>
+      <div class="playlist-panel" id="playlistPanel">
+        <div class="playlist-inner" id="playlistInner">
+          <div class="playlist-heading">
+            <strong id="playlistArtistName">재생목록</strong>
+            <span id="playlistCount">LOADING</span>
+          </div>
+          <div class="song-list" id="songList"><div class="empty-state">외부 JSON 재생목록을 불러오는 중입니다.</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    'use strict';
+
+    /* ============================================================
+       외부 JSON 재생목록 설정
+       - HTML과 playlist.json을 같은 폴더에 올리면 기본값을 그대로 쓰면 됩니다.
+       - 별도 URL에 둘 경우 아래 PLAYLIST_JSON_URL만 변경하세요.
+       - 예: https://raw.githubusercontent.com/계정/저장소/브랜치/playlist.json
+       - 원격 URL은 CORS 요청을 허용해야 합니다. file://로 직접 열면 fetch가
+         차단될 수 있으므로 GitHub Pages 등 HTTP(S) 주소로 실행하는 것을 권장합니다.
+       ============================================================ */
+    const PLAYLIST_JSON_URL = 'https://raw.githubusercontent.com/JisungEda55/music/refs/heads/main/alt/playlist.json';
+
+    const ARTIST_DEFAULTS = {
+      uni:  { label: '유니', artist: '아야츠노 유니' },
+      nana: { label: '나나', artist: '나나' },
+      rico: { label: '리코', artist: '리코' }
+    };
+
+    let PLAYLISTS = Object.fromEntries(
+      Object.entries(ARTIST_DEFAULTS).map(([id, artistInfo]) => [id, { ...artistInfo, songs: [] }])
+    );
+    let playlistLoadError = null;
+
+    const player = document.getElementById('youtubePlayer');
+    const libraryZone = document.getElementById('libraryZone');
+    const artistButtons = Array.from(document.querySelectorAll('.artist-button'));
+    const songList = document.getElementById('songList');
+    const playlistArtistName = document.getElementById('playlistArtistName');
+    const playlistCount = document.getElementById('playlistCount');
+    const currentTitle = document.getElementById('currentTitle');
+    const currentSubtitle = document.getElementById('currentSubtitle');
+    const playlistInner = document.getElementById('playlistInner');
+    const playlistStatus = document.getElementById('playlistStatus');
+
+    let activeArtistId = null;
+    let activeTrackKey = null;
+
+    function parsePlaylistJson(data) {
+      if (!data || typeof data !== 'object' || Array.isArray(data) ||
+          !data.artists || typeof data.artists !== 'object' || Array.isArray(data.artists)) {
+        throw new Error('JSON 최상위에 artists 객체가 필요합니다.');
+      }
+
+      const parsed = Object.fromEntries(
+        Object.entries(ARTIST_DEFAULTS).map(([id, defaults]) => [id, { ...defaults, songs: [] }])
+      );
+
+      for (const id of Object.keys(ARTIST_DEFAULTS)) {
+        const source = data.artists[id];
+        if (source === undefined) continue;
+        if (!source || typeof source !== 'object' || Array.isArray(source)) {
+          throw new Error(`artists.${id}는 객체여야 합니다.`);
+        }
+
+        if (source.label !== undefined) {
+          if (typeof source.label !== 'string' || !source.label.trim()) {
+            throw new Error(`artists.${id}.label은 비어 있지 않은 문자열이어야 합니다.`);
+          }
+          parsed[id].label = source.label.trim();
+        }
+        if (source.artist !== undefined) {
+          if (typeof source.artist !== 'string' || !source.artist.trim()) {
+            throw new Error(`artists.${id}.artist는 비어 있지 않은 문자열이어야 합니다.`);
+          }
+          parsed[id].artist = source.artist.trim();
+        }
+        if (source.songs !== undefined && !Array.isArray(source.songs)) {
+          throw new Error(`artists.${id}.songs는 배열이어야 합니다.`);
+        }
+
+        const songs = source.songs || [];
+        parsed[id].songs = songs.map((song, index) => {
+          const label = `artists.${id}.songs[${index}]`;
+          if (!song || typeof song !== 'object' || Array.isArray(song)) {
+            throw new Error(`${label}는 객체여야 합니다.`);
+          }
+          const title = typeof song.title === 'string' ? song.title.trim() : '';
+          const videoId = typeof song.videoId === 'string' ? song.videoId.trim() : '';
+          const songArtist = song.artist === undefined ? parsed[id].artist : song.artist;
+          const startNumber = Number(song.start);
+
+          if (!title) throw new Error(`${label}.title이 비어 있습니다.`);
+          if (!/^[A-Za-z0-9_-]{6,}$/.test(videoId)) {
+            throw new Error(`${label}.videoId에 올바른 YouTube 영상 ID를 입력하세요.`);
+          }
+          if (song.start === '' || song.start === null || song.start === undefined ||
+              !Number.isFinite(startNumber) || startNumber < 0) {
+            throw new Error(`${label}.start는 0 이상의 숫자(초)여야 합니다.`);
+          }
+          if (typeof songArtist !== 'string' || !songArtist.trim()) {
+            throw new Error(`${label}.artist는 비어 있지 않은 문자열이어야 합니다.`);
+          }
+
+          return {
+            title,
+            artist: songArtist.trim(),
+            videoId,
+            start: Math.floor(startNumber)
+          };
+        });
+      }
+      return parsed;
+    }
+
+    async function loadPlaylistsFromJson() {
+      playlistStatus.textContent = 'PLAYLIST LOADING...';
+      try {
+        const response = await fetch(PLAYLIST_JSON_URL, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status} ${response.statusText}`);
+
+        let data;
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error('JSON 구문을 읽을 수 없습니다. 쉼표와 따옴표를 확인하세요.');
+        }
+
+        const parsed = parsePlaylistJson(data);
+        const trackCount = Object.values(parsed).reduce((sum, list) => sum + list.songs.length, 0);
+        if (trackCount === 0) {
+          throw new Error('JSON에 등록된 곡이 없습니다. artists의 songs 배열을 확인하세요.');
+        }
+
+        PLAYLISTS = parsed;
+        playlistLoadError = null;
+        artistButtons.forEach(button => {
+          const id = button.dataset.artist;
+          button.textContent = PLAYLISTS[id].label;
+          button.disabled = false;
+        });
+        playlistStatus.textContent = `PLAYLIST READY · ${trackCount} TRACKS`;
+
+        const firstArtistId = ['uni', 'nana', 'rico'].find(id => PLAYLISTS[id].songs.length > 0);
+        const firstSong = PLAYLISTS[firstArtistId].songs[0];
+        setCurrentTrack(firstArtistId, 0, false);
+        currentSubtitle.textContent = `재생목록 로드 완료 · ${firstSong.title}`;
+        playlistArtistName.textContent = `${PLAYLISTS[firstArtistId].label}의 노래`;
+        renderSongs(firstArtistId);
+      } catch (error) {
+        playlistLoadError = error instanceof Error ? error.message : String(error);
+        playlistStatus.textContent = 'PLAYLIST LOAD FAILED';
+        currentTitle.textContent = '재생목록을 불러오지 못했습니다';
+        currentSubtitle.textContent = `${playlistLoadError} · URL/CORS 설정을 확인하세요.`;
+        playlistArtistName.textContent = '재생목록 오류';
+        playlistCount.textContent = 'ERROR';
+        artistButtons.forEach(button => { button.disabled = false; });
+        renderSongs('uni');
+        console.error('[Music Deck] playlist.json 로드 실패:', error);
+      }
+    }
+
+    function makeEmbedUrl(song, autoplay) {
+      const params = new URLSearchParams({
+        start: String(Math.max(0, Math.floor(Number(song.start) || 0))),
+        playsinline: '1',
+        rel: '0',
+        autoplay: autoplay ? '1' : '0'
+      });
+      return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(song.videoId)}?${params.toString()}`;
+    }
+
+    function setCurrentTrack(artistId, trackIndex, autoplay) {
+      const playlist = PLAYLISTS[artistId];
+      const song = playlist && playlist.songs[trackIndex];
+      if (!song || !song.videoId) return;
+
+      activeTrackKey = `${artistId}-${trackIndex}`;
+      currentTitle.textContent = `${song.artist || playlist.artist} / ${song.title}`;
+      currentSubtitle.textContent = `선택한 곡 · ${playlist.label} ${String(trackIndex + 1).padStart(2, '0')}`;
+      player.src = makeEmbedUrl(song, autoplay);
+      renderSongs(artistId);
+    }
+
+    function renderSongs(artistId) {
+      const playlist = PLAYLISTS[artistId];
+      songList.replaceChildren();
+
+      if (!playlist || playlist.songs.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        if (playlistLoadError) {
+          empty.textContent = `외부 재생목록을 불러오지 못했습니다. URL과 CORS 설정을 확인한 뒤 페이지를 새로고침하세요. (${playlistLoadError})`;
+        } else {
+          empty.innerHTML = '아직 등록된 곡이 없습니다.<br><code>playlist.json</code>의 해당 아티스트 섹션에 곡을 추가하세요.';
+        }
+        songList.appendChild(empty);
+        playlistCount.textContent = '0 TRACKS';
+        return;
+      }
+
+      playlistCount.textContent = `${playlist.songs.length} TRACK${playlist.songs.length === 1 ? '' : 'S'}`;
+      playlist.songs.forEach((song, index) => {
+        const key = `${artistId}-${index}`;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'song-button' + (activeTrackKey === key ? ' is-active' : '');
+        button.setAttribute('aria-pressed', String(activeTrackKey === key));
+
+        const number = document.createElement('span');
+        number.className = 'song-number';
+        number.textContent = String(index + 1).padStart(2, '0');
+
+        const copy = document.createElement('span');
+        copy.className = 'song-copy';
+        const title = document.createElement('span');
+        title.className = 'song-title';
+        title.textContent = song.title;
+        const artist = document.createElement('span');
+        artist.className = 'song-artist';
+        artist.textContent = song.artist || playlist.artist;
+        copy.append(title, artist);
+
+        const state = document.createElement('span');
+        state.className = 'song-state';
+        state.setAttribute('aria-hidden', 'true');
+        state.innerHTML = activeTrackKey === key
+          ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="3" height="10" rx="1"></rect><rect x="7" y="1" width="3" height="10" rx="1"></rect></svg>'
+          : '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 1.8c0-.5.55-.8.98-.53l6.2 4.02a.85.85 0 0 1 0 1.42l-6.2 4.02A.65.65 0 0 1 3 10.18V1.8Z"></path></svg>';
+
+        button.append(number, copy, state);
+        button.addEventListener('click', () => setCurrentTrack(artistId, index, true));
+        songList.appendChild(button);
+      });
+    }
+
+    function openArtist(artistId) {
+      const alreadyOpen = activeArtistId === artistId && libraryZone.classList.contains('is-open');
+      if (alreadyOpen) {
+        libraryZone.classList.remove('is-open');
+        activeArtistId = null;
+        artistButtons.forEach(button => {
+          button.setAttribute('aria-expanded', 'false');
+        });
+        return;
+      }
+
+      activeArtistId = artistId;
+      libraryZone.classList.add('is-open');
+      artistButtons.forEach(button => {
+        button.setAttribute('aria-expanded', String(button.dataset.artist === artistId));
+      });
+      playlistArtistName.textContent = `${PLAYLISTS[artistId].label}의 노래`;
+      renderSongs(artistId);
+      playlistInner.scrollTop = 0;
+    }
+
+    artistButtons.forEach(button => {
+      button.addEventListener('click', () => openArtist(button.dataset.artist));
+    });
+
+    // 곡 정보는 외부 playlist.json에서 비동기로 불러옵니다.
+    // 브라우저의 자동 재생 정책에 따라 곡을 눌러도 자동 재생이 제한될 수 있습니다.
+    loadPlaylistsFromJson();
+  </script>
+</body>
+</html>
