@@ -48,25 +48,25 @@
         {
           "title": "CHEWING LUV",
           "artist": "아야츠노 유니 (3D)",
-          "videoId": "u5Ud4h9K8gs",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 171
         },
         {
           "title": "Candy",
           "artist": "아야츠노 유니 (3D)",
-          "videoId": "u5Ud4h9K8gs",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 1251
         },
         {
           "title": "푸른 산호초",
           "artist": "아야츠노 유니 (3D)",
-          "videoId": "u5Ud4h9K8gs",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 1813
         },
         {
           "title": "Tell Me (w. 린)",
           "artist": "아야츠노 유니 (3D)",
-          "videoId": "u5Ud4h9K8gs",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 5366
         }
       ]
@@ -76,69 +76,21 @@
       "artist": "하나코 나나",
       "songs": [
         {
-          "title": "Catallena(까탈레나)",
-          "artist": "하나코 나나 (3D)",
-          "videoId": "qv_VVUJOt0M",
-          "start": 0
-        },
-        {
           "title": "Dynamite - BTS",
-          "artist": "하나코 나나 (3D)",
-          "videoId": "y-rdBQSrzSs",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=y-rdBQSrzSs",
           "start": 0
         },
         {
           "title": "キミに100パーセント(너에게 100퍼센트)",
-          "artist": "하나코 나나 (3D)",
-          "videoId": "npwilOOckxY",
-          "start": 0
-        },
-        {
-          "title": "Catallena(까탈레나)",
-          "artist": "하나코 나나 (3D)",
-          "videoId": "qv_VVUJOt0M",
-          "start": 0
-        },
-        {
-          "title": "オドループ(Oddloop)",
-          "artist": "하나코 나나 (3D)",
-          "videoId": "fc8eV7D-ANs",
-          "start": 0
-        },
-        {
-          "title": "Enemy - Imagine Dragons x J.I.D",
-          "artist": "하나코 나나 (3D)",
-          "videoId": "vTxToHIpJKO2hK-x",
-          "start": 0
-        }
-      ]
-    },
-    "nana": {
-      "label": "시부키",
-      "artist": "텐코 시부키",
-      "songs": [
-        {
-          "title": "신의 뜻대로 [神のまにまにㅣれるりり]",
-          "artist": "텐코 시부키 (3D)",
-          "videoId": "iaYt50DcSiMw5S6K",
-          "start": 0
-        },
-        {
-          "title": "Dynamite - BTS",
-          "artist": "텐코 시부키",
-          "videoId": "y-rdBQSrzSs",
-          "start": 0
-        },
-        {
-          "title": "キミに100パーセント(너에게 100퍼센트)",
-          "artist": "텐코 시부키",
-          "videoId": "npwilOOckxY",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=npwilOOckxY",
           "start": 0
         },
         {
           "title": "Tell Me (w. 린)",
-          "artist": "텐코 시부키",
-          "videoId": "u5Ud4h9K8gs",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 0
         }
       ]
@@ -146,6 +98,11 @@
     "rico": {
       "label": "리코",
       "artist": "유즈하 리코",
+      "songs": []
+    },
+    "shibuki": {
+      "label": "시부키",
+      "artist": "텐코 시부키",
       "songs": []
     }
   }
