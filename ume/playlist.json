@@ -974,7 +974,86 @@
     "ect": {
       "label": "기타 (et cetera)",
       "artist": "기타 (et cetera)",
-      "songs": []
+      "songs": [
+        {
+          "title": "비비드라라러브 [별밤]",
+          "artist": "이찬혁",
+          "videoId": "https://www.youtube.com/watch?v=UeUWCT_YDi8",
+          "start": 287
+        },
+        {
+          "title": "멸종위기사랑 [별밤]",
+          "artist": "이찬혁",
+          "videoId": "https://www.youtube.com/watch?v=UeUWCT_YDi8",
+          "start": 873
+        },
+        {
+          "title": "Кино - Группа Крови (혈액형)",
+          "artist": "someone",
+          "videoId": "https://www.youtube.com/watch?v=Dc318pIlAJw",
+          "start": 0
+        },
+        {
+          "title": "NO PAIN / THE FIRST TAKE",
+          "artist": "Silica Gel",
+          "videoId": "https://www.youtube.com/watch?v=DCQRE0VKK2I",
+          "start": 0
+        },
+        {
+          "title": "Кончится лето (여름이 끝나간다)",
+          "artist": "빅토르 최(Viktor tsoi)",
+          "videoId": "https://www.youtube.com/watch?v=k3UNIvR68RM",
+          "start": 17
+        },
+        {
+          "title": "청춘 (DAY) - 우효의 스키캠프",
+          "artist": "우효 (OOHYO)",
+          "videoId": "https://www.youtube.com/watch?v=XXoO_WwwI3E",
+          "start": 0
+        },
+        {
+          "title": "'우효 - 청춘'",
+          "artist": "한로로 Cover",
+          "videoId": "https://www.youtube.com/watch?v=42KTFpr_Snc",
+          "start": 0
+        },
+        {
+          "title": "일과 이분의 일 (원곡: 투투)",
+          "artist": "한로로 Cover",
+          "videoId": "https://www.youtube.com/watch?v=RCZD0mOe0Nw",
+          "start": 0
+        },
+        {
+          "title": "입춘 Live",
+          "artist": "한로로",
+          "videoId": "https://www.youtube.com/watch?v=76_pcAQoYww",
+          "start": 0
+        },
+        {
+          "title": "Прощай Навеки (안녕 영원히)",
+          "artist": "Vadim Kazachenko",
+          "videoId": "https://www.youtube.com/watch?v=ZyvUtY85JU8",
+          "start": 0
+        },
+        {
+          "title": "All I want for Christmas is You",
+          "artist": "Trump",
+          "videoId": "https://www.youtube.com/watch?v=re8rMNESMK8",
+          "start": 0
+        },
+        {
+          "title": "Jingle Bells",
+          "artist": "Donald Trump -",
+          "videoId": "https://www.youtube.com/watch?v=InD3FrCya2k",
+          "start": 0
+        },
+        {
+          "title": "혈액형 [Группа Крови] Original",
+          "artist": "빅토르 최(Viktor Tsoi, Виктор Цой)",
+          "videoId": "https://www.youtube.com/watch?v=u07gUfwncTE",
+          "start": 0
+        }
+      ]
     }
   }
 }
