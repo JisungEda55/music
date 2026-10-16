@@ -47,25 +47,25 @@
       "songs": [
         {
           "title": "CHEWING LUV",
-          "artist": "아야츠노 유니 (3D)",
+          "artist": "아야츠노 유니",
           "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 171
         },
         {
           "title": "Candy",
-          "artist": "아야츠노 유니 (3D)",
+          "artist": "아야츠노 유니",
           "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 1251
         },
         {
           "title": "푸른 산호초",
-          "artist": "아야츠노 유니 (3D)",
+          "artist": "아야츠노 유니",
           "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 1813
         },
         {
           "title": "Tell Me (w. 린)",
-          "artist": "아야츠노 유니 (3D)",
+          "artist": "아야츠노 유니",
           "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 5366
         }
@@ -86,12 +86,6 @@
           "artist": "하나코 나나",
           "videoId": "https://www.youtube.com/watch?v=npwilOOckxY",
           "start": 0
-        },
-        {
-          "title": "Tell Me (w. 린)",
-          "artist": "하나코 나나",
-          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
-          "start": 0
         }
       ]
     },
@@ -104,6 +98,318 @@
       "label": "시부키",
       "artist": "텐코 시부키",
       "songs": []
+    },
+    "rin": {
+      "label": "린",
+      "artist": "아오쿠모 린",
+      "songs": [
+        {
+          "title": "고양이 (선우정아)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=Ti3mVEnY6CM",
+          "start": 695
+        },
+        {
+          "title": "As it Was (해리 스타일스)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=Ti3mVEnY6CM",
+          "start": 887
+        },
+        {
+          "title": "Mela! (녹황색사회)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=4OFQrsCtsF0",
+          "start": 3069
+        },
+        {
+          "title": "팬서비스 (허니웍스)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=4OFQrsCtsF0",
+          "start": 3309
+        },
+        {
+          "title": "잔혹한 천사의 테제",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=ZVuBKtRD6gs",
+          "start": 0
+        }
+      ]
+    },
+    "hebi": {
+      "label": "헤비",
+      "artist": "헤비 Hebi.",
+      "songs": [
+        {
+          "title": "내일의 밤하늘 초계반 (헤비)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=gMjU5XJnc7E",
+          "start": 0
+        },
+        {
+          "title": "지금부터 (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=jFTMSrqVblo",
+          "start": 0
+        },
+        {
+          "title": "늘(EVER) (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=8gDDZNTdibE",
+          "start": 0
+        },
+        {
+          "title": "Sketch (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=cF6AjcJPmLE",
+          "start": 0
+        },
+        {
+          "title": "오버클럭 (OVERCLOCK) (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=arRBjV-PRMk",
+          "start": 0
+        },
+        {
+          "title": "Be I (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=T4M-uvKGjic",
+          "start": 0
+        },
+        {
+          "title": "미리 메리 크리스마스 - UI",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=yOSdMOlP8Y4",
+          "start": 0
+        },
+        {
+          "title": "아이리 칸나(Airi Kanna) - 리와인드(RE:WIND) (가이드 버전)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=NhwYcw4sjBQ",
+          "start": 0
+        },
+        {
+          "title": "팬서비스(ファンサ)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=ApaAchj_aws",
+          "start": 0
+        },
+        {
+          "title": "한숨",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=erMR_AO-YVQ",
+          "start": 0
+        },
+        {
+          "title": "감 그레이(勘ぐれい)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=iep3hr5LUZk",
+          "start": 0
+        },
+        {
+          "title": "아이리 칸나 - 내일의 밤하늘 초계반(アスノヨゾラ哨戒班)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=k_zwDsp3g9U",
+          "start": 0
+        }
+      ]
+    },
+    "GANGZI1": {
+      "label": "강지",
+      "artist": "강지",
+      "songs": [
+        {
+          "title": "방해쟁이! (おじゃま虫)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=26KnYSPNg6U",
+          "start": 0
+        },
+        {
+          "title": "동경 캐스터! (東京キャスター)",
+          "artist": "강지X너불",
+          "videoId": "https://www.youtube.com/watch?v=Opzq1xJn8vY",
+          "start": 0
+        },
+        {
+          "title": "니아! (Near, ニア)",
+          "artist": "강지X너불",
+          "videoId": "https://www.youtube.com/watch?v=pPDdcDSLHaI",
+          "start": 0
+        },
+        {
+          "title": "내가 죽으려고 생각 한것은 (僕が死のうと思ったのは)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=L1KBaVHAdS8",
+          "start": 0
+        },
+        {
+          "title": "리와인드 (RE : WIND)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=yfAmGIzinl4",
+          "start": 0
+        },
+        {
+          "title": "시간으로 [original]",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=MRMkbDpqjvg",
+          "start": 0
+        },
+        {
+          "title": "비행운",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=9FSp73LQoPA",
+          "start": 0
+        },
+        {
+          "title": "시작의 아이",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=oc4RLaYHp64",
+          "start": 0
+        },
+        {
+          "title": "당신의 연인이 되고 싶어",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=mJwX4mkczG4",
+          "start": 0
+        },
+        {
+          "title": "사이렌",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=_WxrJttgWCQ",
+          "start": 0
+        },
+        {
+          "title": "여로",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=P2-Dc64_OTc",
+          "start": 0
+        },
+        {
+          "title": "청록",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=NNisYivwd20",
+          "start": 0
+        },
+        {
+          "title": "호랑수월가",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=FC6K1XrI3Hs",
+          "start": 0
+        },
+        {
+          "title": "낭만고양이",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=flq2mX1REM8",
+          "start": 0
+        },
+        {
+          "title": "봄꿈",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=Adbo1ZRggjY",
+          "start": 0
+        },
+        {
+          "title": "폰서트",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=73U4222kfk0",
+          "start": 0
+        },
+        {
+          "title": "내꺼 하는 법",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=NLIKiVy44Ds",
+          "start": 0
+        },
+        {
+          "title": "애상",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=n-R19Z1hMcs",
+          "start": 0
+        },
+        {
+          "title": "강지&강지 - 봄으로 남아줄래?",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=BBKqsdEYifs",
+          "start": 0
+        },
+        {
+          "title": "오빠야",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=BkqKb58G8Io",
+          "start": 0
+        },
+        {
+          "title": "애타는 마음",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=LeM3gpsJukc",
+          "start": 0
+        },
+        {
+          "title": "내 손을 잡아",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=oBU0D5FlxaQ",
+          "start": 0
+        },
+        {
+          "title": "Rain Drop (Piano Ver)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=Kozz5xkEXpw",
+          "start": 0
+        },
+        {
+          "title": "고민중독",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=gT47FPf0va8",
+          "start": 0
+        },
+        {
+          "title": "멸종위기사랑",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=Z8KUgfD7HPg",
+          "start": 0
+        },
+        {
+          "title": "사랑은 열린 문",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=j3jUIf20Tp8",
+          "start": 0
+        },
+        {
+          "title": "내일 또 보자 (KOR.Ver)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=9SAZKYfxHq0",
+          "start": 0
+        },
+        {
+          "title": "시간으로",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=wi-Y0ofALzY",
+          "start": 0
+        },
+        {
+          "title": "회전하는 하늘 토끼",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=ZEhiHuODyn8",
+          "start": 0
+        },
+        {
+          "title": "니아 (KOR Ver.)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=mFWt-QizACY",
+          "start": 0
+        },
+        {
+          "title": "애상 (Solo)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=hZ18-qK7SuE",
+          "start": 0
+        },
+        {
+          "title": "스토커",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=olxdBRUazvo",
+          "start": 0
+        }
+      ]
     }
   }
 }
