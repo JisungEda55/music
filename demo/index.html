@@ -90,7 +90,7 @@
     .app-shell {
       position: relative;
       display: grid;
-      grid-template-rows: minmax(34px, .42fr) minmax(0, 3fr) minmax(0, .82fr) minmax(0, 3.4fr);
+      grid-template-rows: minmax(34px, 5dvh) minmax(0, 27dvh) minmax(118px, 19dvh) minmax(0, 1fr);
       width: min(100%, 520px);
       height: 100vh;
       height: 100dvh;
@@ -151,12 +151,12 @@
       min-height: 0;
       display: grid;
       place-items: center;
-      padding: 2px 10px 3px;
+      padding: 0 10px 2px;
     }
     .video-frame {
       position: relative;
-      width: min(100%, calc((34dvh - 8px) * 1.7777778));
-      max-height: calc(34dvh - 8px);
+      width: min(100%, calc((25dvh - 6px) * 1.7777778));
+      max-height: calc(25dvh - 6px);
       aspect-ratio: 16 / 9;
       overflow: hidden;
       background: #000;
@@ -181,10 +181,10 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 2px 18px 4px;
+      padding: 4px 18px 8px;
     }
     .eyebrow {
-      margin-bottom: 5px;
+      margin-bottom: 7px;
       color: var(--accent);
       font-size: 10px;
       font-weight: 800;
@@ -447,7 +447,8 @@
 
     @media (max-height: 680px) {
       .topbar { padding: 0 17px; }
-      .player-zone { padding-top: 4px; padding-bottom: 6px; }
+      .player-zone { padding-top: 0; padding-bottom: 2px; }
+      .video-frame { width: min(100%, calc((23dvh - 4px) * 1.7777778)); max-height: calc(23dvh - 4px); }
       .track-info { padding-top: 2px; padding-bottom: 5px; }
       .eyebrow { margin-bottom: 6px; }
       .current-subtitle { margin-top: 4px; }
@@ -939,14 +940,13 @@
       // 영상·곡 정보 영역을 조금씩 양보합니다. 선택 후 접으면 재생목록 높이가 회복됩니다.
       if (!isLandscapeLayout) {
         if (artistListExpanded) {
-          const extraRows = Math.max(0, rowsVisible - 1);
-          const top = 0.55;
-          const player = Math.max(1.35, 3.8 - extraRows * 0.48);
-          const track = Math.max(0.85, 1.4 - extraRows * 0.13);
-          const library = 2.8 + extraRows * 0.61;
-          appShell.style.gridTemplateRows = `${top}fr minmax(0, ${player}fr) minmax(0, ${track}fr) minmax(0, ${library}fr)`;
+          // 모바일에서는 큰 빈 공간을 만들지 않도록 영상 행을 화면 높이 기준으로 제한합니다.
+          // 확보한 높이는 곡 목록에 남겨 목록을 더 많이 표시합니다.
+          const videoHeight = Math.max(22, 27 - Math.min(3, Math.max(0, rowsVisible - 1)) * 1.2);
+          const trackHeight = Math.max(18, 19 - Math.min(3, Math.max(0, rowsVisible - 1)) * 0.4);
+          appShell.style.gridTemplateRows = `minmax(34px, 5dvh) minmax(0, ${videoHeight}dvh) minmax(118px, ${trackHeight}dvh) minmax(0, 1fr)`;
         } else {
-          appShell.style.gridTemplateRows = 'minmax(28px, .55fr) minmax(0, 3.8fr) minmax(0, 1.4fr) minmax(0, 2.8fr)';
+          appShell.style.gridTemplateRows = 'minmax(34px, 5dvh) minmax(0, 27dvh) minmax(118px, 19dvh) minmax(0, 1fr)';
         }
       } else {
         appShell.style.gridTemplateRows = '';
