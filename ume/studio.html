@@ -1,214 +1,415 @@
-<!doctype html>
-<html lang="ko" data-theme="light">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f5f7ff">
-  <meta name="description" content="ume Opera Playlist Studio — JSON 재생목록 편집기">
-  <title>ume Opera · Playlist Studio</title>
-  <style>
-    @font-face{font-family:LineSeed;src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2') format('woff2');font-weight:400;font-display:swap}
-    @font-face{font-family:LineSeed;src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');font-weight:700;font-display:swap}
-    :root{--ink:#252944;--muted:#7d839e;--blue:#377dff;--blue-dark:#2165ed;--blue-light:#eaf1ff;--pink:#ffedf4;--lav:#f0edff;--mint:#e7faf5;--line:#e8eaf4;--panel:#ffffffd9;--shadow:0 14px 45px rgba(75,88,145,.10);font-family:LineSeed,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:var(--ink);background:#f6f7ff}
-    *{box-sizing:border-box}html{min-height:100%;background:#f6f7ff}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 7% 3%,#ffeaf3 0,transparent 29%),radial-gradient(ellipse at 96% 8%,#e4edff 0,transparent 31%),radial-gradient(ellipse at 78% 93%,#e5fbf4 0,transparent 26%),#f7f8ff;color:var(--ink);-webkit-font-smoothing:antialiased}button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #8db6ff;outline-offset:2px}button:disabled{opacity:.48;cursor:not-allowed}
-    .wrap{width:min(1400px,100%);margin:0 auto;padding:26px clamp(14px,3vw,38px) 36px}
-    .hero{position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px;padding:23px 26px;border:1px solid #ffffff;border-radius:28px;background:linear-gradient(116deg,rgba(255,255,255,.92),rgba(248,249,255,.83));box-shadow:var(--shadow);overflow:hidden}
-    .hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:6%;top:-140px;background:#e8eaff;opacity:.8;pointer-events:none}.hero-main{position:relative;z-index:1;display:flex;align-items:center;gap:15px;min-width:0}.logo{width:54px;height:54px;display:grid;place-items:center;flex:0 0 auto;border-radius:19px;background:linear-gradient(145deg,#5b93ff,#8ba8ff);box-shadow:0 9px 20px #6b91f440;color:white;font-size:26px}.eyebrow{margin:0 0 5px;color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.18em}.hero h1{margin:0;font-size:clamp(21px,3.2vw,30px);letter-spacing:-.045em}.hero p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.6}.hero-badge{position:relative;z-index:1;display:flex;align-items:center;gap:7px;flex:0 0 auto;padding:10px 13px;border:1px solid #e5eaff;border-radius:999px;background:#fff;color:#6175aa;font-size:11px;font-weight:700;white-space:nowrap}.sparkle{color:#fc90b8}
-    .source-card{padding:17px;border:1px solid #fff;border-radius:22px;background:var(--panel);box-shadow:var(--shadow);margin-bottom:20px}.source-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.section-title{display:flex;align-items:center;gap:8px;margin:0;font-size:14px;font-weight:700;letter-spacing:-.02em}.section-title .emoji{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:var(--blue-light);font-size:14px}.source-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.source-line{display:flex;gap:9px;align-items:stretch}.field-url{flex:1;min-width:150px}.input,.textarea{display:block;width:100%;min-width:0;border:1px solid #e4e7f2;border-radius:12px;background:#fff;color:var(--ink);padding:11px 13px;font-size:13px;transition:border-color .18s,box-shadow .18s}.input::placeholder,.textarea::placeholder{color:#adb2c6}.input:focus,.textarea:focus{outline:none;border-color:#8fb3ff;box-shadow:0 0 0 3px #eaf1ff}.field-label{display:block;margin:0 0 7px;color:#717995;font-size:11px;font-weight:700}.help{margin:8px 1px 0;color:#9298af;font-size:11px;line-height:1.6}.status-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px}.status{display:flex;align-items:center;gap:7px;min-height:26px;color:var(--muted);font-size:11px;line-height:1.5}.status-dot{width:7px;height:7px;flex:0 0 auto;border-radius:50%;background:#b8bfd3}.status.ok .status-dot{background:#48bd9a;box-shadow:0 0 0 4px #e4f8f1}.status.error .status-dot{background:#f27c9f;box-shadow:0 0 0 4px #fff0f4}.status.loading .status-dot{background:#f3b54b;box-shadow:0 0 0 4px #fff6df}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:39px;padding:9px 13px;border:1px solid transparent;border-radius:12px;background:#fff;color:#66708f;font-size:12px;font-weight:700;white-space:nowrap;transition:transform .16s,background .16s,border-color .16s,box-shadow .16s}.btn:hover{transform:translateY(-1px)}.btn:active{transform:scale(.98)}.btn-primary{color:#fff;background:linear-gradient(125deg,#4688ff,#3174fb);box-shadow:0 6px 15px #377dff2c}.btn-primary:hover{background:linear-gradient(125deg,#367cff,#2168ee)}.btn-soft{border-color:#e5eaff;background:#f6f8ff;color:#5272bd}.btn-plain{border-color:#edf0f8;background:#fff;color:#6d7591}.btn-danger{border-color:#ffe3ea;background:#fff7f9;color:#d65d80}.btn-small{min-height:31px;padding:6px 9px;border-radius:9px;font-size:11px}.btn-file{position:relative;overflow:hidden}.btn-file input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
-    .workspace{display:grid;grid-template-columns:minmax(240px,310px) minmax(0,1fr);align-items:start;gap:20px}.sidebar,.main-card{min-width:0;border:1px solid #fff;border-radius:23px;background:var(--panel);box-shadow:var(--shadow)}.sidebar{position:sticky;top:14px;padding:17px}.side-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}.count-pill{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:23px;padding:0 7px;border-radius:99px;background:#f0f2ff;color:#7883bd;font-size:10px;font-weight:700}.artist-list{display:grid;gap:8px}.artist-card{display:flex;align-items:center;gap:11px;width:100%;padding:11px;border:1px solid #eef0f8;border-radius:15px;background:#fff;text-align:left;transition:border-color .18s,background .18s,transform .18s}.artist-card:hover{transform:translateY(-1px);border-color:#dce6ff}.artist-card.active{border-color:#aac5ff;background:linear-gradient(110deg,#edf3ff,#fbfcff);box-shadow:inset 3px 0 #4886ff}.artist-avatar{display:grid;place-items:center;width:38px;height:38px;flex:0 0 auto;border-radius:13px;background:var(--av-bg,#f0edff);font-size:17px}.artist-card-copy{min-width:0;flex:1}.artist-card-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:700}.artist-card-sub{overflow:hidden;margin-top:3px;color:#979db1;font-size:10px;text-overflow:ellipsis;white-space:nowrap}.artist-card-count{flex:0 0 auto;color:#8992b3;font-size:10px;font-variant-numeric:tabular-nums}.side-add{width:100%;margin-top:11px;border:1px dashed #c9d6ff;border-radius:14px;background:#f8faff;color:#6685cf}
-    .add-artist-panel{display:none;margin-top:12px;padding:13px;border:1px solid #e5eaff;border-radius:16px;background:#f8faff}.add-artist-panel.open{display:block;animation:fadeUp .2s ease}.mini-form{display:grid;gap:10px}.mini-actions{display:flex;gap:7px;margin-top:1px}.mini-actions .btn{flex:1}.tiny-note{margin:1px 0 0;color:#9298af;font-size:10px;line-height:1.5}
-    .main-card{overflow:hidden}.artist-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:21px 22px 17px;border-bottom:1px solid #eff0f7;background:linear-gradient(115deg,#fff,#fbfbff)}.artist-heading{min-width:0}.artist-heading h2{margin:0;overflow-wrap:anywhere;font-size:20px;letter-spacing:-.04em}.artist-heading p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.55}.artist-head-actions{display:flex;gap:7px;flex:0 0 auto;flex-wrap:wrap;justify-content:flex-end}.artist-settings{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:12px;padding:16px 22px;background:#fcfcff;border-bottom:1px solid #eff0f7}.control{min-width:0}.control .input{min-height:40px}.id-readout{display:flex;align-items:center;gap:6px;min-height:40px;padding:10px 12px;border:1px solid #eff0f7;border-radius:12px;background:#f7f8fc;color:#737d9b;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
-    .songs-section{padding:19px 22px 22px}.songs-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.songs-head h3{margin:0;font-size:14px;letter-spacing:-.02em}.songs-head p{margin:4px 0 0;color:#9298af;font-size:10px}.songs-list{display:grid;gap:9px}.song-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px;border:1px solid #edf0f8;border-radius:16px;background:#fff;transition:border-color .18s,box-shadow .18s}.song-card:hover{border-color:#dae4ff;box-shadow:0 5px 15px #6374a10b}.song-index{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:var(--song-bg,#eef3ff);color:#6885ca;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}.song-content{min-width:0}.song-title{margin:0;overflow-wrap:anywhere;font-size:13px;font-weight:700;line-height:1.5}.song-meta{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:5px;color:#8b92aa;font-size:10px;line-height:1.5}.song-meta span{display:inline-flex;align-items:center;gap:4px;min-width:0;overflow-wrap:anywhere}.song-actions{display:flex;gap:5px}.song-url{display:block;max-width:100%;overflow:hidden;color:#7f8fc1;text-overflow:ellipsis;white-space:nowrap}.empty-songs{padding:28px 15px;border:1px dashed #dfe4f5;border-radius:16px;background:#fbfcff;text-align:center}.empty-art{font-size:25px}.empty-songs strong{display:block;margin-top:7px;font-size:13px}.empty-songs p{margin:6px 0 0;color:#9298af;font-size:11px;line-height:1.6}
-    .song-form-wrap{margin:0 22px 22px;padding:17px;border:1px solid #dfe8ff;border-radius:19px;background:linear-gradient(135deg,#f4f7ff,#fffafd)}.form-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.form-head h3{margin:0;font-size:14px}.form-head p{margin:4px 0 0;color:#9298af;font-size:10px}.song-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.song-form .wide{grid-column:1/-1}.form-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end;grid-column:1/-1;margin-top:1px}.video-hint{margin-top:6px;color:#9097ae;font-size:10px;line-height:1.5}.video-hint.valid{color:#2d9b7d}.video-hint.invalid{color:#d65d80}
-    .output-card{margin-top:20px;padding:18px;border:1px solid #fff;border-radius:22px;background:var(--panel);box-shadow:var(--shadow)}.output-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.output-head h2{margin:0;font-size:15px}.output-head p{margin:5px 0 0;color:var(--muted);font-size:11px;line-height:1.5}.output-actions{display:flex;gap:8px;flex-wrap:wrap}.output-actions .btn{min-width:92px}.output-preview{display:none;margin-top:15px}.output-preview.visible{display:block;animation:fadeUp .2s ease}.output-preview textarea{min-height:260px;resize:vertical;line-height:1.55;font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;background:#171b2d;color:#e6ebff;border-color:#171b2d}.output-notice{margin:10px 0 0;color:#8b91aa;font-size:10px;line-height:1.6}.toast{position:fixed;z-index:20;left:50%;bottom:22px;max-width:calc(100% - 28px);padding:12px 17px;border:1px solid #ffffff40;border-radius:999px;background:#242b48;color:#fff;box-shadow:0 12px 35px #26345e30;font-size:12px;opacity:0;pointer-events:none;transform:translate(-50%,12px);transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}.footer-note{padding:15px 5px 0;text-align:center;color:#a0a5b8;font-size:10px;line-height:1.7}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-    @media(max-width:850px){.wrap{padding-top:14px}.workspace{grid-template-columns:1fr;gap:14px}.sidebar{position:static}.artist-list{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}.side-add{margin-top:10px}.source-actions{justify-content:flex-start}}
-    @media(max-width:560px){.wrap{padding:10px 10px 24px}.hero{align-items:flex-start;padding:17px 15px;border-radius:20px}.hero-main{gap:10px}.logo{width:43px;height:43px;border-radius:15px;font-size:21px}.hero p{font-size:11px}.hero-badge{display:none}.source-card{padding:13px;border-radius:18px}.source-top{align-items:flex-start;flex-direction:column}.source-line{flex-direction:column}.source-line .btn{width:100%}.source-actions{width:100%}.source-actions .btn{flex:1}.sidebar{padding:13px;border-radius:18px}.artist-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.artist-card{padding:8px;gap:7px}.artist-avatar{width:32px;height:32px;border-radius:11px;font-size:14px}.artist-card-name{font-size:11px}.artist-card-sub{font-size:9px}.artist-card-count{font-size:9px}.artist-head{padding:16px 14px 13px;flex-direction:column}.artist-head-actions{width:100%;justify-content:flex-start}.artist-settings{padding:13px 14px;grid-template-columns:1fr}.songs-section{padding:16px 12px}.songs-head{align-items:flex-start}.song-card{grid-template-columns:34px minmax(0,1fr);gap:9px;padding:10px}.song-index{width:32px;height:32px;border-radius:11px}.song-actions{grid-column:2;justify-content:flex-start}.song-form-wrap{margin:0 12px 14px;padding:13px}.song-form{grid-template-columns:1fr}.song-form .wide{grid-column:auto}.form-actions{grid-column:auto;flex-wrap:wrap}.form-actions .btn{flex:1}.output-card{padding:14px;border-radius:18px}.output-head{align-items:flex-start;flex-direction:column}.output-actions{width:100%}.output-actions .btn{flex:1}.status-row{align-items:flex-start;flex-direction:column}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-
-    /* Dark theme palette and component overrides */
-    html[data-theme="dark"]{color-scheme:dark;--ink:#edf0ff;--muted:#a5acc7;--blue:#8ab0ff;--blue-dark:#6b98ff;--blue-light:#26334f;--pink:#452a3b;--lav:#342d4d;--mint:#21443e;--line:#363d58;--panel:rgba(27,32,49,.94);--shadow:0 14px 45px rgba(0,0,0,.28);background:#111522}
-    html[data-theme="dark"] body{color:var(--ink);background:radial-gradient(ellipse at 7% 3%,rgba(115,55,84,.22) 0,transparent 29%),radial-gradient(ellipse at 96% 8%,rgba(47,77,135,.26) 0,transparent 31%),radial-gradient(ellipse at 78% 93%,rgba(36,102,87,.18) 0,transparent 26%),#111522}
-    html[data-theme="dark"] .hero{border-color:#30364e;background:linear-gradient(116deg,rgba(30,35,54,.97),rgba(24,29,46,.94))}html[data-theme="dark"] .hero:after{background:#30365b}
-    html[data-theme="dark"] .source-card,html[data-theme="dark"] .sidebar,html[data-theme="dark"] .main-card,html[data-theme="dark"] .output-card{border-color:#30364e;background:var(--panel)}
-    html[data-theme="dark"] .hero-badge{border-color:#38405d;background:#22283d;color:#b4c3ec}
-    html[data-theme="dark"] .input,html[data-theme="dark"] .textarea{border-color:#383f59;background:#191e30;color:#edf0ff}html[data-theme="dark"] .input::placeholder,html[data-theme="dark"] .textarea::placeholder{color:#858da9}html[data-theme="dark"] .input:focus,html[data-theme="dark"] .textarea:focus{border-color:#789eff;box-shadow:0 0 0 3px rgba(101,143,255,.17)}
-    html[data-theme="dark"] .btn-soft{border-color:#374460;background:#222c45;color:#b5c9ff}html[data-theme="dark"] .btn-soft:hover{border-color:#536b9b;background:#293651}html[data-theme="dark"] .btn-plain{border-color:#363d55;background:#252b40;color:#c6cce2}html[data-theme="dark"] .btn-plain:hover{border-color:#505a79;background:#2d344c}html[data-theme="dark"] .btn-danger{border-color:#563443;background:#32212d;color:#ff9ab3}html[data-theme="dark"] .btn-danger:hover{background:#432735}
-    html[data-theme="dark"] .artist-card{border-color:#333a53;background:#1b2133}html[data-theme="dark"] .artist-card:hover{border-color:#53658e}html[data-theme="dark"] .artist-card.active{border-color:#6d8fcf;background:linear-gradient(110deg,#263552,#20283d);box-shadow:inset 3px 0 #7ba5ff}html[data-theme="dark"] .side-add{border-color:#465b85;background:#202942;color:#a9c2ff}html[data-theme="dark"] .add-artist-panel{border-color:#343d5b;background:#1b2236}
-    html[data-theme="dark"] .artist-head{border-color:#30364e;background:linear-gradient(115deg,#20263a,#1a2032)}html[data-theme="dark"] .artist-settings{border-color:#30364e;background:#1a2031}html[data-theme="dark"] .id-readout{border-color:#353d56;background:#20263a;color:#b3bddb}
-    html[data-theme="dark"] .song-card{border-color:#333a53;background:#1b2133}html[data-theme="dark"] .song-card:hover{border-color:#53658b;box-shadow:0 5px 15px rgba(0,0,0,.16)}html[data-theme="dark"] .song-index{background:#263550;color:#a8c0ff}html[data-theme="dark"] .song-url{color:#9fb4f8}html[data-theme="dark"] .count-pill{background:#292f49;color:#b2bce7}html[data-theme="dark"] .empty-songs{border-color:#3a425e;background:#1b2235}html[data-theme="dark"] .song-form-wrap{border-color:#37415f;background:linear-gradient(135deg,#202943,#292334)}
-    html[data-theme="dark"] .field-label,html[data-theme="dark"] .help,html[data-theme="dark"] .tiny-note,html[data-theme="dark"] .artist-card-sub,html[data-theme="dark"] .artist-card-count,html[data-theme="dark"] .artist-heading p,html[data-theme="dark"] .songs-head p,html[data-theme="dark"] .song-meta,html[data-theme="dark"] .form-head p,html[data-theme="dark"] .output-head p,html[data-theme="dark"] .output-notice,html[data-theme="dark"] .footer-note,html[data-theme="dark"] .status{color:#a5acc7}
-    html[data-theme="dark"] .status.ok .status-dot{box-shadow:0 0 0 4px #1c3a35}html[data-theme="dark"] .status.error .status-dot{box-shadow:0 0 0 4px #402734}html[data-theme="dark"] .status.loading .status-dot{box-shadow:0 0 0 4px #403721}
-    html[data-theme="dark"] .output-preview textarea{border-color:#171b2d;background:#111523;color:#e6ebff}
-    .theme-toggle{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;gap:7px;min-height:37px;padding:8px 12px;border-radius:999px;white-space:nowrap}
-    .theme-toggle-icon{font-size:15px;line-height:1}.theme-toggle-label{font-size:11px}
-    @media(max-width:850px){.hero{flex-wrap:wrap}.theme-toggle{margin-left:auto}}
-    @media(max-width:560px){.theme-toggle{min-height:35px;padding:8px 10px}.theme-toggle-label{display:none}.hero{align-items:center}.hero-main{max-width:calc(100% - 52px)}}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header class="hero">
-      <div class="hero-main">
-        <div class="logo" aria-hidden="true">♫</div>
-        <div>
-          <p class="eyebrow">SOFT SOUND, SOFT MOOD</p>
-          <h1>ume Opera <span style="font-weight:400;color:#9aa6d6">Playlist Studio</span></h1>
-          <p>재생목록을 포근하게 정리하고, JSON 파일로 간편하게 만들어요. <span class="sparkle">✦</span></p>
-        </div>
-      </div>
-      <div class="hero-badge"><span class="sparkle">✿</span> PLAYLIST EDITOR</div>
-      <button id="themeToggleBtn" class="btn btn-soft theme-toggle" type="button" aria-pressed="false" aria-label="다크 모드로 전환" title="다크 모드로 전환"><span class="theme-toggle-icon" aria-hidden="true">🌙</span><span class="theme-toggle-label">다크 모드</span></button>
-    </header>
-
-    <section class="source-card" aria-labelledby="sourceTitle">
-      <div class="source-top">
-        <h2 class="section-title" id="sourceTitle"><span class="emoji">☁</span> 재생목록 불러오기</h2>
-        <div class="source-actions">
-          <label class="btn btn-soft btn-file">＋ JSON 파일 선택<input id="fileInput" type="file" accept=".json,application/json"></label>
-          <button class="btn btn-plain" id="newJsonBtn" type="button">새 JSON 만들기</button>
-        </div>
-      </div>
-      <div class="source-line">
-        <div class="field-url"><input class="input" id="sourceUrl" type="url" spellcheck="false" value="https://raw.githubusercontent.com/JisungEda55/music/refs/heads/main/ume/playlist.json" aria-label="JSON URL"></div>
-        <button class="btn btn-primary" id="loadUrlBtn" type="button">URL에서 불러오기 ↗</button>
-      </div>
-      <p class="help">기본 GitHub JSON 주소가 입력되어 있어요. 로컬 JSON 파일을 선택해 불러오거나, 다른 HTTPS JSON 주소를 입력해도 됩니다. URL 로딩이 차단되면 JSON 파일을 직접 선택해 주세요.</p>
-      <div class="status-row">
-        <div class="status" id="loadStatus" role="status" aria-live="polite"><span class="status-dot"></span><span id="loadStatusText">기본 재생목록을 불러오는 중…</span></div>
-        <div class="status" id="dataSummary"><span class="status-dot"></span><span id="dataSummaryText">아직 데이터를 불러오지 않았습니다.</span></div>
-      </div>
-    </section>
-
-    <main class="workspace">
-      <aside class="sidebar" aria-label="아티스트 목록">
-        <div class="side-head"><h2 class="section-title"><span class="emoji" style="background:var(--pink)">♡</span> 아티스트</h2><span class="count-pill" id="artistCount">0</span></div>
-        <div class="artist-list" id="artistList"></div>
-        <button class="btn side-add" id="toggleAddArtistBtn" type="button" aria-expanded="false">＋ 새 아티스트 추가</button>
-        <div class="add-artist-panel" id="addArtistPanel">
-          <form class="mini-form" id="addArtistForm">
-            <div><label class="field-label" for="newArtistId">아티스트 ID</label><input class="input" id="newArtistId" required pattern="[A-Za-z0-9_-]+" placeholder="예: shibuki" autocomplete="off"><p class="tiny-note">영문·숫자·밑줄·하이픈으로 고유하게 입력해 주세요.</p></div>
-            <div><label class="field-label" for="newArtistLabel">버튼 표시 이름</label><input class="input" id="newArtistLabel" required placeholder="예: 시부키"></div>
-            <div><label class="field-label" for="newArtistName">기본 아티스트명</label><input class="input" id="newArtistName" required placeholder="예: 텐코 시부키"></div>
-            <div class="mini-actions"><button class="btn btn-primary" type="submit">아티스트 만들기</button><button class="btn btn-plain" id="cancelAddArtistBtn" type="button">취소</button></div>
-          </form>
-        </div>
-      </aside>
-
-      <section class="main-card" aria-label="선택한 아티스트 편집">
-        <div class="artist-head"><div class="artist-heading"><p class="eyebrow">ARTIST PROFILE</p><h2 id="selectedArtistTitle">아티스트를 선택해 주세요</h2><p id="selectedArtistDescription">왼쪽 목록에서 아티스트를 선택하거나 새로 추가해 주세요.</p></div><div class="artist-head-actions"><button class="btn btn-danger btn-small" id="deleteArtistBtn" type="button" disabled>아티스트 삭제</button></div></div>
-        <div class="artist-settings">
-          <div class="control"><label class="field-label">고유 ID</label><div class="id-readout" id="selectedArtistId">선택된 아티스트 없음</div></div>
-          <div class="control"><label class="field-label" for="artistLabelInput">버튼 표시 이름</label><input class="input" id="artistLabelInput" placeholder="예: 유니" disabled></div>
-          <div class="control" style="grid-column:1/-1"><label class="field-label" for="artistNameInput">기본 아티스트명</label><input class="input" id="artistNameInput" placeholder="예: 아야츠노 유니" disabled></div>
-        </div>
-        <div class="songs-section"><div class="songs-head"><div><h3>♪ 곡 목록</h3><p>곡을 선택해 수정하거나 삭제할 수 있어요.</p></div><span class="count-pill" id="songCount">0 TRACKS</span></div><div class="songs-list" id="songsList"></div></div>
-        <div class="song-form-wrap" id="songFormWrap">
-          <div class="form-head"><div><h3 id="songFormTitle">새 곡 추가</h3><p id="songFormDescription">YouTube 주소와 곡 정보를 입력해 주세요.</p></div><span class="sparkle">✦ ♡</span></div>
-          <form class="song-form" id="songForm">
-            <div class="control"><label class="field-label" for="songTitleInput">곡 제목 *</label><input class="input" id="songTitleInput" required placeholder="예: Dynamite - BTS" disabled></div>
-            <div class="control"><label class="field-label" for="songArtistInput">곡 아티스트</label><input class="input" id="songArtistInput" placeholder="비우면 기본 아티스트명을 사용" disabled></div>
-            <div class="control wide"><label class="field-label" for="songUrlInput">YouTube 영상 URL 또는 ID *</label><input class="input" id="songUrlInput" required placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX" spellcheck="false" disabled><div class="video-hint" id="videoHint">YouTube URL 전체 또는 영상 ID를 입력할 수 있어요.</div></div>
-            <div class="control"><label class="field-label" for="songStartInput">재생 시작 시간 (초)</label><input class="input" id="songStartInput" type="number" min="0" step="1" value="0" inputmode="numeric" disabled><p class="tiny-note">예: 2분 51초는 171초입니다.</p></div>
-            <div class="form-actions"><button class="btn btn-plain" id="cancelEditSongBtn" type="button" hidden>수정 취소</button><button class="btn btn-primary" id="saveSongBtn" type="submit" disabled>＋ 곡 추가</button></div>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <section class="output-card" aria-labelledby="outputTitle"><div class="output-head"><div><h2 id="outputTitle">✧ JSON 만들기</h2><p>편집 내용을 검증한 뒤 복사하거나 <code>playlist.json</code> 파일로 저장하세요.</p></div><div class="output-actions"><button class="btn btn-primary" id="generateBtn" type="button">JSON 만들기 ✨</button><button class="btn btn-soft" id="copyBtn" type="button" disabled>복사</button><button class="btn btn-soft" id="saveBtn" type="button" disabled>playlist.json 저장</button></div></div><div class="output-preview" id="outputPreview"><textarea id="jsonOutput" class="textarea" spellcheck="false" aria-label="생성된 JSON" readonly></textarea><p class="output-notice" id="outputNotice">이 내용이 생성된 JSON입니다. 변경 후에는 다시 JSON 만들기를 눌러 주세요.</p></div></section>
-    <p class="footer-note">ume Opera Playlist Studio · 데이터는 이 브라우저 안에서 편집됩니다. 별도의 서버로 업로드하지 않습니다.<br>✿ 파일을 저장한 뒤 GitHub 저장소의 playlist.json을 직접 덮어쓰면 웹 플레이어에 반영할 수 있어요.</p>
-  </div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script>
-    'use strict';
-
-    const DEFAULT_JSON_URL = 'https://raw.githubusercontent.com/JisungEda55/music/refs/heads/main/ume/playlist.json';
-    const COLORS = [{bg:'#eef3ff',emoji:'♫'},{bg:'#fff0f5',emoji:'♡'},{bg:'#e8faf4',emoji:'♪'},{bg:'#f2edff',emoji:'✿'},{bg:'#fff5df',emoji:'☼'},{bg:'#e9f8ff',emoji:'♬'}];
-    const DEFAULT_GUIDE = {
-      문서명:'ume Opera 재생목록 설정 안내',안내:'이 파일은 ume Opera가 읽는 곡 데이터입니다. artists 아래에 아티스트별 설정과 songs 배열을 입력하세요.',
-      수정_순서:['artists 객체 안에 고유한 아티스트 ID를 추가합니다. 예: uni, nana, shibuki.','각 아티스트의 label, artist, songs를 설정합니다.','곡 객체에 title, artist, videoId, start를 입력합니다.','videoId에는 YouTube 영상 ID 또는 전체 YouTube URL을 입력할 수 있습니다.','start는 재생할 시작 위치를 초 단위 숫자로 입력합니다.','JSON 만들기를 누른 뒤 복사하거나 playlist.json으로 저장합니다.'],
-      주의사항:['JSON 문자열은 큰따옴표를 사용하고, 마지막 항목 뒤에는 쉼표를 붙이지 마세요.','아티스트 ID는 중복될 수 없습니다.','videoId는 YouTube 영상 ID 또는 지원되는 YouTube URL이어야 합니다.','원격 JSON을 불러올 때 CORS가 차단되면 파일을 직접 선택해 주세요.']
-    };
-    const $ = id => document.getElementById(id);
-    const state = {root:null,activeArtistId:null,editingSongIndex:null,generatedText:'',dirty:false,loaded:false};
-    const els = {
-      sourceUrl:$('sourceUrl'),fileInput:$('fileInput'),loadUrlBtn:$('loadUrlBtn'),newJsonBtn:$('newJsonBtn'),loadStatus:$('loadStatus'),loadStatusText:$('loadStatusText'),dataSummary:$('dataSummary'),dataSummaryText:$('dataSummaryText'),
-      artistList:$('artistList'),artistCount:$('artistCount'),toggleAddArtistBtn:$('toggleAddArtistBtn'),addArtistPanel:$('addArtistPanel'),addArtistForm:$('addArtistForm'),newArtistId:$('newArtistId'),newArtistLabel:$('newArtistLabel'),newArtistName:$('newArtistName'),cancelAddArtistBtn:$('cancelAddArtistBtn'),
-      selectedArtistTitle:$('selectedArtistTitle'),selectedArtistDescription:$('selectedArtistDescription'),selectedArtistId:$('selectedArtistId'),artistLabelInput:$('artistLabelInput'),artistNameInput:$('artistNameInput'),deleteArtistBtn:$('deleteArtistBtn'),
-      songsList:$('songsList'),songCount:$('songCount'),songForm:$('songForm'),songFormTitle:$('songFormTitle'),songFormDescription:$('songFormDescription'),songTitleInput:$('songTitleInput'),songArtistInput:$('songArtistInput'),songUrlInput:$('songUrlInput'),songStartInput:$('songStartInput'),videoHint:$('videoHint'),saveSongBtn:$('saveSongBtn'),cancelEditSongBtn:$('cancelEditSongBtn'),
-      generateBtn:$('generateBtn'),copyBtn:$('copyBtn'),saveBtn:$('saveBtn'),outputPreview:$('outputPreview'),jsonOutput:$('jsonOutput'),outputNotice:$('outputNotice'),toast:$('toast')
-    };
-    function setStatus(message,kind=''){els.loadStatus.className='status'+(kind?' '+kind:'');els.loadStatusText.textContent=message;}
-    function setSummary(message,kind=''){els.dataSummary.className='status'+(kind?' '+kind:'');els.dataSummaryText.textContent=message;}
-    let toastTimer=null;function toast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>els.toast.classList.remove('show'),2500);}
-    function deepClone(value){return JSON.parse(JSON.stringify(value));}
-    function markDirty(message='변경 사항이 있습니다. JSON을 다시 만들어 주세요.'){state.dirty=true;state.generatedText='';els.copyBtn.disabled=true;els.saveBtn.disabled=true;els.outputNotice.textContent=message;if(els.outputPreview.classList.contains('visible'))els.outputNotice.textContent='변경 사항이 있어 이전 JSON이 최신 상태가 아닙니다. 다시 JSON 만들기를 눌러 주세요.';}
-    function artistEntries(){const artists=state.root&&state.root.artists;return artists&&typeof artists==='object'&&!Array.isArray(artists)?Object.entries(artists):[];}
-    function currentArtist(){return state.root?.artists?.[state.activeArtistId]||null;}
-    function ensureRoot(){if(!state.root||typeof state.root!=='object'||Array.isArray(state.root))state.root={};if(!state.root.schemaVersion)state.root.schemaVersion=1;if(!state.root._안내||typeof state.root._안내!=='object')state.root._안내=deepClone(DEFAULT_GUIDE);if(!state.root.artists||typeof state.root.artists!=='object'||Array.isArray(state.root.artists))state.root.artists={};}
-    function extractVideoId(input){const value=String(input??'').trim();if(!value)return{id:'',error:'YouTube URL 또는 영상 ID를 입력해 주세요.'};if(/^[A-Za-z0-9_-]{11}$/.test(value))return{id:value,url:`https://www.youtube.com/watch?v=${value}`};let parsed;try{parsed=new URL(value.includes('://')?value:`https://${value}`);}catch{return{id:'',error:'올바른 YouTube URL 또는 11자리 영상 ID가 아닙니다.'};}const host=parsed.hostname.toLowerCase().replace(/^www\./,'').replace(/^m\./,'');const validHost=['youtube.com','youtu.be','youtube-nocookie.com','music.youtube.com'].includes(host);if(!validHost)return{id:'',error:'YouTube 주소를 입력해 주세요. (youtube.com 또는 youtu.be)'};let id='';if(host==='youtu.be')id=parsed.pathname.split('/').filter(Boolean)[0]||'';else if(parsed.pathname==='/watch')id=parsed.searchParams.get('v')||'';else{const parts=parsed.pathname.split('/').filter(Boolean);const markerIndex=parts.findIndex(part=>['embed','shorts','live','v'].includes(part));if(markerIndex>=0)id=parts[markerIndex+1]||'';}if(!/^[A-Za-z0-9_-]{11}$/.test(id))return{id:'',error:'URL에서 유효한 YouTube 영상 ID(11자)를 찾지 못했습니다.'};return{id,url:`https://www.youtube.com/watch?v=${id}`};}
-    function validateRoot(data){if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('JSON 최상위는 객체여야 합니다.');if(!data.artists||typeof data.artists!=='object'||Array.isArray(data.artists))throw new Error('JSON에 artists 객체가 없습니다.');for(const[id,artist]of Object.entries(data.artists)){if(!id.trim())throw new Error('비어 있는 아티스트 ID가 있습니다.');if(!artist||typeof artist!=='object'||Array.isArray(artist))throw new Error(`artists.${id}는 객체여야 합니다.`);if(artist.songs!==undefined&&!Array.isArray(artist.songs))throw new Error(`artists.${id}.songs는 배열이어야 합니다.`);if(!artist.label)artist.label=id;if(!artist.artist)artist.artist=artist.label;if(!artist.songs)artist.songs=[];artist.songs.forEach((song,index)=>{if(!song||typeof song!=='object'||Array.isArray(song))throw new Error(`${id}의 ${index+1}번째 곡 데이터가 객체가 아닙니다.`);if(song.title===undefined)song.title='';if(song.artist===undefined)song.artist=artist.artist;if(song.videoId===undefined)song.videoId='';if(song.start===undefined||song.start===null)song.start=0;});}if(!data.schemaVersion)data.schemaVersion=1;if(!data._안내||typeof data._안내!=='object')data._안내=deepClone(DEFAULT_GUIDE);return data;}
-    function setLoadedData(data,sourceLabel){state.root=validateRoot(data);state.loaded=true;state.dirty=false;state.generatedText='';const keys=Object.keys(state.root.artists);state.activeArtistId=keys[0]||null;state.editingSongIndex=null;renderEverything();setStatus(`${sourceLabel} 불러오기 완료`,'ok');updateSummary();els.copyBtn.disabled=true;els.saveBtn.disabled=true;els.outputPreview.classList.remove('visible');}
-    async function loadFromUrl(){const url=els.sourceUrl.value.trim();if(!url){setStatus('JSON URL을 입력해 주세요.','error');return;}try{const parsedUrl=new URL(url);if(!['http:','https:'].includes(parsedUrl.protocol))throw new Error('HTTP 또는 HTTPS 주소를 입력해 주세요.');}catch(e){setStatus(e.message||'올바른 URL이 아닙니다.','error');return;}els.loadUrlBtn.disabled=true;setStatus('JSON을 가져오는 중이에요…','loading');try{const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status} 응답을 받았습니다.`);let data;try{data=await response.json();}catch{throw new Error('JSON 형식이 올바르지 않습니다.');}setLoadedData(data,'URL에서');toast('재생목록을 불러왔어요 ♡');}catch(error){setStatus(`불러오지 못했습니다: ${error.message||'네트워크 또는 CORS 오류'}`,'error');setSummary('JSON 파일을 직접 선택하거나 새 JSON을 만들어 주세요.','error');}finally{els.loadUrlBtn.disabled=false;}}
-    function newJson(){if(state.root&&state.dirty&&!confirm('저장하지 않은 변경 사항이 있습니다. 새 JSON을 만들까요?'))return;state.root={_안내:deepClone(DEFAULT_GUIDE),schemaVersion:1,artists:{}};state.activeArtistId=null;state.editingSongIndex=null;state.loaded=true;state.dirty=true;state.generatedText='';els.sourceUrl.value=DEFAULT_JSON_URL;renderEverything();setStatus('새 JSON 작업 공간이 준비됐어요.','ok');updateSummary();els.outputPreview.classList.remove('visible');toast('새 재생목록을 시작합니다 ✨');}
-    function updateSummary(){const entries=artistEntries();const songCount=entries.reduce((sum,[,artist])=>sum+(Array.isArray(artist.songs)?artist.songs.length:0),0);setSummary(`${entries.length}명 · ${songCount}곡${state.dirty?' · 수정 중':''}`,state.dirty?'':'ok');els.artistCount.textContent=String(entries.length);}
-    function renderArtistList(){els.artistList.replaceChildren();const entries=artistEntries();if(!entries.length){const empty=document.createElement('div');empty.className='empty-songs';empty.innerHTML='<div class="empty-art">☁️</div><strong>아직 아티스트가 없어요</strong><p>아래 버튼으로 첫 아티스트를 추가해 주세요.</p>';els.artistList.appendChild(empty);}entries.forEach(([id,artist],index)=>{const card=document.createElement('button');card.type='button';card.className='artist-card'+(id===state.activeArtistId?' active':'');card.setAttribute('aria-pressed',String(id===state.activeArtistId));const color=COLORS[index%COLORS.length];const avatar=document.createElement('span');avatar.className='artist-avatar';avatar.style.setProperty('--av-bg',color.bg);avatar.textContent=color.emoji;const copy=document.createElement('span');copy.className='artist-card-copy';const label=document.createElement('span');label.className='artist-card-name';label.textContent=artist.label||id;const sub=document.createElement('span');sub.className='artist-card-sub';sub.textContent=artist.artist||artist.label||id;copy.append(label,sub);const count=document.createElement('span');count.className='artist-card-count';count.textContent=`${(artist.songs||[]).length}곡`;card.append(avatar,copy,count);card.addEventListener('click',()=>selectArtist(id));els.artistList.appendChild(card);});els.artistCount.textContent=String(entries.length);}
-    function renderArtistDetails(){const id=state.activeArtistId;const artist=currentArtist();const active=!!artist;els.selectedArtistTitle.textContent=active?(artist.label||id):'아티스트를 선택해 주세요';els.selectedArtistDescription.textContent=active?`${artist.artist||artist.label||id} · 곡 정보와 아티스트 설정을 편집할 수 있어요.`:'왼쪽에서 아티스트를 선택하거나 새로 추가해 주세요.';els.selectedArtistId.textContent=active?id:'선택된 아티스트 없음';els.artistLabelInput.disabled=!active;els.artistNameInput.disabled=!active;els.deleteArtistBtn.disabled=!active;els.artistLabelInput.value=active?(artist.label||id):'';els.artistNameInput.value=active?(artist.artist||artist.label||id):'';[els.songTitleInput,els.songArtistInput,els.songUrlInput,els.songStartInput,els.saveSongBtn].forEach(el=>el.disabled=!active);renderSongs();}
-    function renderSongs(){const artist=currentArtist();const songs=artist&&Array.isArray(artist.songs)?artist.songs:[];els.songsList.replaceChildren();els.songCount.textContent=`${songs.length}곡`;if(!artist){const empty=document.createElement('div');empty.className='empty-songs';empty.innerHTML='<div class="empty-art">🌷</div><strong>아티스트를 먼저 선택해 주세요</strong><p>아티스트가 있어야 곡을 등록할 수 있어요.</p>';els.songsList.appendChild(empty);return;}if(!songs.length){const empty=document.createElement('div');empty.className='empty-songs';empty.innerHTML='<div class="empty-art">🎧</div><strong>아직 등록된 곡이 없어요</strong><p>아래 폼에 제목과 YouTube URL을 입력해<br>첫 곡을 추가해 보세요.</p>';els.songsList.appendChild(empty);return;}songs.forEach((song,index)=>{const card=document.createElement('article');card.className='song-card';const num=document.createElement('div');num.className='song-index';num.style.setProperty('--song-bg',COLORS[index%COLORS.length].bg);num.textContent=String(index+1).padStart(2,'0');const content=document.createElement('div');content.className='song-content';const title=document.createElement('h4');title.className='song-title';title.textContent=song.title||'(제목 없음)';const meta=document.createElement('div');meta.className='song-meta';const songArtistLabel=document.createElement('span');songArtistLabel.textContent=`♫ ${song.artist||artist.artist||''}`;const start=document.createElement('span');start.textContent=`◷ ${formatTime(song.start)}`;const vid=document.createElement('span');vid.className='song-url';vid.textContent=getDisplayUrl(song.videoId);vid.title=getDisplayUrl(song.videoId);meta.append(songArtistLabel,start,vid);content.append(title,meta);const actions=document.createElement('div');actions.className='song-actions';const edit=document.createElement('button');edit.type='button';edit.className='btn btn-plain btn-small';edit.textContent='수정';edit.setAttribute('aria-label',`${song.title||'곡'} 수정`);edit.addEventListener('click',()=>startEditSong(index));const del=document.createElement('button');del.type='button';del.className='btn btn-danger btn-small';del.textContent='삭제';del.setAttribute('aria-label',`${song.title||'곡'} 삭제`);del.addEventListener('click',()=>deleteSong(index));actions.append(edit,del);card.append(num,content,actions);els.songsList.appendChild(card);});}
-    function formatTime(value){const seconds=Number(value);if(!Number.isFinite(seconds)||seconds<0)return'0초부터';const s=Math.floor(seconds),minutes=Math.floor(s/60),remain=s%60;return minutes?`${minutes}분 ${String(remain).padStart(2,'0')}초부터`:`${s}초부터`;}
-    function getDisplayUrl(value){const found=extractVideoId(value);return found.id?`https://www.youtube.com/watch?v=${found.id}`:String(value||'YouTube URL 미입력');}
-    function renderEverything(){renderArtistList();renderArtistDetails();updateSummary();resetSongForm();}
-    function selectArtist(id){if(!state.root?.artists?.[id])return;state.activeArtistId=id;state.editingSongIndex=null;renderArtistList();renderArtistDetails();resetSongForm();}
-    function resetSongForm(){state.editingSongIndex=null;els.songForm.reset();els.songStartInput.value='0';const active=!!currentArtist();[els.songTitleInput,els.songArtistInput,els.songUrlInput,els.songStartInput,els.saveSongBtn].forEach(el=>el.disabled=!active);els.songFormTitle.textContent='새 곡 추가';els.songFormDescription.textContent=active?`${currentArtist().label||state.activeArtistId} 재생목록에 새로운 곡을 추가해요.`:'먼저 아티스트를 선택해 주세요.';els.saveSongBtn.textContent='＋ 곡 추가';els.cancelEditSongBtn.hidden=true;els.videoHint.className='video-hint';els.videoHint.textContent='YouTube URL 전체 또는 영상 ID를 입력할 수 있어요.';}
-    function startEditSong(index){const artist=currentArtist();const song=artist?.songs?.[index];if(!song)return;state.editingSongIndex=index;els.songFormTitle.textContent='곡 정보 수정';els.songFormDescription.textContent=`${song.title||'선택한 곡'}의 정보를 바꿉니다.`;els.songTitleInput.value=song.title||'';els.songArtistInput.value=song.artist||'';const extracted=extractVideoId(song.videoId||'');els.songUrlInput.value=extracted.id?extracted.url:(song.videoId||'');els.songStartInput.value=String(Number.isFinite(Number(song.start))?Math.max(0,Math.floor(Number(song.start))):0);els.saveSongBtn.textContent='변경 사항 저장';els.cancelEditSongBtn.hidden=false;updateVideoHint();$('songFormWrap').scrollIntoView({behavior:'smooth',block:'nearest'});els.songTitleInput.focus({preventScroll:true});}
-    function addArtist(event){event.preventDefault();const id=els.newArtistId.value.trim(),label=els.newArtistLabel.value.trim(),artistName=els.newArtistName.value.trim();if(!/^[A-Za-z0-9_-]+$/.test(id)){toast('아티스트 ID는 영문·숫자·밑줄·하이픈만 사용할 수 있어요.');return;}if(Object.prototype.hasOwnProperty.call(state.root.artists,id)){toast('이미 사용 중인 아티스트 ID예요.');els.newArtistId.focus();return;}if(!label||!artistName){toast('표시 이름과 기본 아티스트명을 입력해 주세요.');return;}state.root.artists[id]={label,artist:artistName,songs:[]};state.activeArtistId=id;state.editingSongIndex=null;els.addArtistForm.reset();els.addArtistPanel.classList.remove('open');els.toggleAddArtistBtn.setAttribute('aria-expanded','false');markDirty();renderEverything();toast(`${label} 아티스트를 추가했어요 ♡`);els.songTitleInput.focus({preventScroll:true});}
-    function saveSong(event){event.preventDefault();const artist=currentArtist();if(!artist){toast('먼저 아티스트를 선택하거나 추가해 주세요.');return;}const title=els.songTitleInput.value.trim(),enteredUrl=els.songUrlInput.value.trim(),songArtist=els.songArtistInput.value.trim()||artist.artist||artist.label||state.activeArtistId,startText=els.songStartInput.value.trim(),start=Number(startText);if(!title){toast('곡 제목을 입력해 주세요.');els.songTitleInput.focus();return;}const parsed=extractVideoId(enteredUrl);if(!parsed.id){toast(parsed.error||'YouTube URL을 확인해 주세요.');els.songUrlInput.focus();return;}if(startText===''||!Number.isFinite(start)||start<0){toast('재생 시작 시간은 0 이상의 초 단위 숫자여야 해요.');els.songStartInput.focus();return;}const songData={title,artist:songArtist,videoId:parsed.url,start:Math.floor(start)};if(state.editingSongIndex!==null){const old=artist.songs[state.editingSongIndex]||{};artist.songs[state.editingSongIndex]={...old,...songData};toast('곡 정보를 수정했어요 ✨');}else{artist.songs.push(songData);toast('새 곡을 추가했어요 ♬');}markDirty();renderArtistList();renderSongs();updateSummary();resetSongForm();}
-    function deleteSong(index){const artist=currentArtist();if(!artist||!artist.songs[index])return;const title=artist.songs[index].title||'선택한 곡';if(!confirm(`「${title}」 곡을 삭제할까요?`))return;artist.songs.splice(index,1);if(state.editingSongIndex===index)resetSongForm();else if(state.editingSongIndex!==null&&state.editingSongIndex>index)state.editingSongIndex--;markDirty();renderArtistList();renderSongs();updateSummary();toast('곡을 삭제했어요.');}
-    function deleteArtist(){const id=state.activeArtistId,artist=currentArtist();if(!artist)return;const count=artist.songs?.length||0;if(!confirm(`「${artist.label||id}」 아티스트와 등록된 ${count}곡을 모두 삭제할까요?`))return;delete state.root.artists[id];state.activeArtistId=Object.keys(state.root.artists)[0]||null;state.editingSongIndex=null;markDirty();renderEverything();toast('아티스트를 삭제했어요.');}
-    function updateVideoHint(){const result=extractVideoId(els.songUrlInput.value);if(!els.songUrlInput.value.trim()){els.videoHint.className='video-hint';els.videoHint.textContent='YouTube URL 전체 또는 영상 ID를 입력할 수 있어요.';}else if(result.id){els.videoHint.className='video-hint valid';els.videoHint.textContent=`✓ 영상 ID 인식: ${result.id} · JSON에는 표준 YouTube URL로 저장됩니다.`;}else{els.videoHint.className='video-hint invalid';els.videoHint.textContent=result.error;}}
-    function createJson(){try{if(!state.root)throw new Error('불러온 JSON이 없습니다. URL 또는 파일을 불러오거나 새 JSON을 만들어 주세요.');const output=deepClone(state.root);ensureOutputGuide(output);if(!output.artists||typeof output.artists!=='object'||Array.isArray(output.artists))throw new Error('artists 객체를 확인해 주세요.');const ids=Object.keys(output.artists);if(!ids.length)throw new Error('아티스트가 없습니다. 아티스트를 한 명 이상 추가해 주세요.');let totalSongs=0;for(const[id,artist]of Object.entries(output.artists)){if(!artist.label?.trim())throw new Error(`${id}: 버튼 표시 이름을 입력해 주세요.`);if(!artist.artist?.trim())throw new Error(`${id}: 기본 아티스트명을 입력해 주세요.`);if(!Array.isArray(artist.songs))throw new Error(`${id}: songs는 배열이어야 합니다.`);for(let i=0;i<artist.songs.length;i++){const song=artist.songs[i];if(!song.title||!String(song.title).trim())throw new Error(`${artist.label} ${i+1}번째 곡: 제목이 비어 있습니다.`);const parsed=extractVideoId(song.videoId);if(!parsed.id)throw new Error(`${artist.label} - ${song.title}: ${parsed.error}`);song.videoId=parsed.url;if(song.artist===undefined||!String(song.artist).trim())song.artist=artist.artist;const start=Number(song.start);if(!Number.isFinite(start)||start<0)throw new Error(`${artist.label} - ${song.title}: start는 0 이상의 숫자여야 합니다.`);song.start=Math.floor(start);totalSongs++;}}output.schemaVersion=output.schemaVersion||1;state.generatedText=JSON.stringify(output,null,2);state.dirty=false;els.jsonOutput.value=state.generatedText;els.outputPreview.classList.add('visible');els.copyBtn.disabled=false;els.saveBtn.disabled=false;els.outputNotice.textContent=`검증 완료 · 아티스트 ${ids.length}명, 곡 ${totalSongs}개 · playlist.json으로 저장할 준비가 됐어요.`;updateSummary();toast('JSON을 만들었어요! 복사하거나 저장해 주세요 ✨');els.outputPreview.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(error){toast(error.message||'JSON 생성 중 오류가 발생했습니다.');setStatus(error.message||'JSON 생성 오류','error');}}
-    function ensureOutputGuide(output){if(!output._안내||typeof output._안내!=='object')output._안내=deepClone(DEFAULT_GUIDE);}
-    async function copyJson(){if(!state.generatedText||state.dirty){toast('먼저 JSON 만들기를 눌러 주세요.');return;}try{await navigator.clipboard.writeText(state.generatedText);toast('전체 JSON 스크립트를 복사했어요 ♡');}catch{els.jsonOutput.focus();els.jsonOutput.select();const success=document.execCommand('copy');if(success)toast('전체 JSON 스크립트를 복사했어요 ♡');else toast('자동 복사에 실패했어요. 미리보기 내용을 직접 복사해 주세요.');}}
-    function saveJson(){if(!state.generatedText||state.dirty){toast('먼저 JSON 만들기를 눌러 주세요.');return;}const blob=new Blob([state.generatedText+'\n'],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='playlist.json';a.style.display='none';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('playlist.json 파일 저장을 시작했어요 ♬');}
-
-    // Dark mode: persist manual choice; otherwise follow system preference.
-    const THEME_STORAGE_KEY='umeOperaTheme';
-    const themeButton=$('themeToggleBtn');
-    const themeIcon=themeButton.querySelector('.theme-toggle-icon');
-    const themeLabel=themeButton.querySelector('.theme-toggle-label');
-    function getSavedTheme(){try{const saved=localStorage.getItem(THEME_STORAGE_KEY);return saved==='dark'||saved==='light'?saved:null;}catch{return null;}}
-    function applyTheme(theme,save=false){const dark=theme==='dark';document.documentElement.dataset.theme=dark?'dark':'light';themeIcon.textContent=dark?'☀️':'🌙';themeLabel.textContent=dark?'라이트 모드':'다크 모드';themeButton.setAttribute('aria-pressed',String(dark));themeButton.setAttribute('aria-label',dark?'라이트 모드로 전환':'다크 모드로 전환');themeButton.title=dark?'라이트 모드로 전환':'다크 모드로 전환';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?'#111522':'#f5f7ff';if(save){try{localStorage.setItem(THEME_STORAGE_KEY,dark?'dark':'light');}catch{/* 저장이 차단되어도 현재 페이지의 테마는 변경됩니다. */}}}
-    const systemTheme=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
-    applyTheme(getSavedTheme()||(systemTheme&&systemTheme.matches?'dark':'light'));
-    themeButton.addEventListener('click',()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark',true));
-    if(systemTheme){const syncSystemTheme=event=>{if(!getSavedTheme())applyTheme(event.matches?'dark':'light');};if(typeof systemTheme.addEventListener==='function')systemTheme.addEventListener('change',syncSystemTheme);else if(typeof systemTheme.addListener==='function')systemTheme.addListener(syncSystemTheme);}
-
-    // UI events
-    els.loadUrlBtn.addEventListener('click',loadFromUrl);
-    els.sourceUrl.addEventListener('keydown',event=>{if(event.key==='Enter')loadFromUrl();});
-    els.fileInput.addEventListener('change',async event=>{const file=event.target.files?.[0];if(!file)return;try{const text=await file.text();let data;try{data=JSON.parse(text);}catch{throw new Error('선택한 파일은 올바른 JSON 형식이 아닙니다.');}setLoadedData(data,`파일 ${file.name}`);toast(`${file.name} 파일을 불러왔어요 ♡`);}catch(error){setStatus(error.message||'파일을 읽지 못했습니다.','error');}finally{els.fileInput.value='';}});
-    els.newJsonBtn.addEventListener('click',newJson);
-    els.toggleAddArtistBtn.addEventListener('click',()=>{const isOpen=els.addArtistPanel.classList.toggle('open');els.toggleAddArtistBtn.setAttribute('aria-expanded',String(isOpen));if(isOpen)els.newArtistId.focus();});
-    els.cancelAddArtistBtn.addEventListener('click',()=>{els.addArtistPanel.classList.remove('open');els.toggleAddArtistBtn.setAttribute('aria-expanded','false');});
-    els.addArtistForm.addEventListener('submit',addArtist);
-    els.artistLabelInput.addEventListener('input',()=>{const artist=currentArtist();if(!artist)return;artist.label=els.artistLabelInput.value;els.selectedArtistTitle.textContent=artist.label||state.activeArtistId;markDirty();});
-    els.artistLabelInput.addEventListener('change',()=>{renderArtistList();renderArtistDetailsPreservingFocus('label');});
-    els.artistNameInput.addEventListener('input',()=>{const artist=currentArtist();if(!artist)return;artist.artist=els.artistNameInput.value;els.selectedArtistDescription.textContent=`${artist.artist||artist.label||state.activeArtistId} · 곡 정보와 아티스트 설정을 편집할 수 있어요.`;markDirty();});
-    els.artistNameInput.addEventListener('change',()=>{renderArtistList();renderArtistDetailsPreservingFocus('artist');});
-    function renderArtistDetailsPreservingFocus(which){const el=which==='label'?els.artistLabelInput:els.artistNameInput;const start=el.selectionStart,end=el.selectionEnd;renderArtistList();el.focus({preventScroll:true});try{el.setSelectionRange(start,end);}catch{}}
-    els.deleteArtistBtn.addEventListener('click',deleteArtist);
-    els.songForm.addEventListener('submit',saveSong);
-    els.cancelEditSongBtn.addEventListener('click',resetSongForm);
-    els.songUrlInput.addEventListener('input',updateVideoHint);
-    els.generateBtn.addEventListener('click',createJson);
-    els.copyBtn.addEventListener('click',copyJson);
-    els.saveBtn.addEventListener('click',saveJson);
-
-    // Start by loading the default GitHub playlist URL.
-    loadFromUrl();
-  </script>
-</body>
-</html>
+{
+  "_안내": {
+    "문서명": "모바일 음악 플레이어 재생목록 설정 안내",
+    "안내": "이 파일은 모바일 음악 플레이어가 읽어 오는 곡 데이터 파일입니다. 곡을 추가·삭제하거나 제목, 아티스트, 재생 시작 위치를 바꿀 때 HTML 파일이 아니라 이 JSON 파일을 수정하세요. 이 안내 항목은 설명용이며 플레이어는 artists 항목만 재생목록 데이터로 사용합니다.",
+    "수정_순서": [
+      "1. 아래 artists 항목에서 곡을 추가할 아티스트를 찾습니다. 현재 사용할 수 있는 아티스트 ID는 uni, nana, rico입니다.",
+      "2. 해당 아티스트의 songs 배열 안에 곡 객체를 하나 추가합니다. 여러 곡을 등록할 때는 각 곡 객체 사이에 쉼표(,)를 넣습니다.",
+      "3. title에는 화면에 표시할 곡 제목을, artist에는 해당 곡에 표시할 아티스트명을 입력합니다.",
+      "4. videoId에는 YouTube 영상 ID만 입력합니다. 전체 URL을 넣지 마세요.",
+      "5. start에는 해당 영상에서 곡이 시작되는 지점을 초 단위 숫자로 입력합니다. 영상 처음부터 재생하려면 0을 입력합니다.",
+      "6. 저장한 뒤 웹사이트에 playlist.json을 업로드하거나 기존 파일을 덮어쓰고 플레이어 페이지를 새로고침합니다. 캐시나 브라우저 환경에 따라 변경 사항이 즉시 보이지 않으면 강력 새로고침을 시도하세요."
+    ],
+    "항목_설명": {
+      "schemaVersion": "데이터 규격 버전입니다. 현재는 1을 유지하세요.",
+      "artists": "아티스트 ID별 설정과 곡 목록을 넣는 객체입니다.",
+      "아티스트_ID": "uni, nana, rico 중 하나를 사용합니다. HTML 코드가 이 세 ID를 기준으로 버튼을 연결하므로 새 ID를 추가하는 경우 HTML도 함께 수정해야 합니다.",
+      "label": "화면에 보이는 아티스트 선택 버튼의 이름입니다. 예: 유니, 나나, 리코",
+      "artist": "해당 아티스트 목록의 기본 아티스트명입니다. 개별 곡에 artist를 쓰지 않으면 이 값이 곡 아티스트명으로 사용됩니다.",
+      "songs": "곡들을 순서대로 나열하는 배열입니다. 배열에 적은 순서대로 재생목록에 표시됩니다.",
+      "title": "곡 제목입니다. 괄호, 공백, 한글, 영문 등을 포함할 수 있습니다.",
+      "곡별_artist": "특정 곡에 표시할 아티스트명입니다. 협업곡 등에서 목록의 기본 아티스트명과 다르게 표시하려면 입력하세요.",
+      "videoId": "YouTube 영상의 고유 ID입니다. 예를 들어 https://www.youtube.com/watch?v=u5Ud4h9K8gs 에서 u5Ud4h9K8gs 부분만 입력합니다. /embed/ 방식의 주소라면 /embed/ 바로 뒤부터 물음표(?) 앞까지가 보통 영상 ID입니다.",
+      "start": "영상 재생을 시작할 위치를 초 단위로 나타내는 0 이상의 정수입니다. 예: 2분 51초는 171, 20분 51초는 1251입니다."
+    },
+    "곡_추가_예시": {
+      "title": "새 곡 제목",
+      "artist": "곡을 부른 아티스트명",
+      "videoId": "YouTube영상ID",
+      "start": 0
+    },
+    "재생_시작_시간_계산": "초 = (분 × 60) + 초. 예를 들어 3분 25초는 (3 × 60) + 25 = 205이므로 start에 205를 입력합니다.",
+    "주의사항": [
+      "JSON 표준에는 주석을 쓸 수 없습니다. 설명을 위해 // 주석을 추가하지 마세요. 이 파일은 _안내 항목에 설명을 보관합니다.",
+      "문자열은 큰따옴표로 감쌉니다. 작은따옴표는 JSON 문자열 구분자로 사용할 수 없습니다.",
+      "마지막 항목 뒤에는 쉼표를 붙이지 마세요. 후행 쉼표가 있으면 JSON을 읽지 못할 수 있습니다.",
+      "start는 숫자로 입력하고 따옴표로 감싸지 마세요. 예: 171은 올바른 숫자이고, 문자열인 171은 권장하지 않습니다.",
+      "videoId에는 영상 URL 전체가 아닌 ID만 입력합니다.",
+      "유튜브 영상의 소유권·공개 설정·연령 제한·임베드 허용 여부 등에 따라 재생이 제한될 수 있습니다.",
+      "HTML과 JSON이 서로 다른 도메인에 있다면 JSON 서버가 CORS 요청을 허용해야 합니다. 같은 사이트에 배포하거나 HTTPS URL을 사용하는 방식을 권장합니다."
+    ]
+  },
+  "schemaVersion": 1,
+  "artists": {
+    "uni": {
+      "label": "유니",
+      "artist": "아야츠노 유니",
+      "songs": [
+        {
+          "title": "CHEWING LUV",
+          "artist": "아야츠노 유니",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
+          "start": 171
+        },
+        {
+          "title": "Candy",
+          "artist": "아야츠노 유니",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
+          "start": 1251
+        },
+        {
+          "title": "푸른 산호초",
+          "artist": "아야츠노 유니",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
+          "start": 1813
+        },
+        {
+          "title": "Tell Me (w. 린)",
+          "artist": "아야츠노 유니",
+          "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
+          "start": 5366
+        }
+      ]
+    },
+    "nana": {
+      "label": "나나",
+      "artist": "하나코 나나",
+      "songs": [
+        {
+          "title": "Dynamite - BTS",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=y-rdBQSrzSs",
+          "start": 0
+        },
+        {
+          "title": "キミに100パーセント(너에게 100퍼센트)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=npwilOOckxY",
+          "start": 0
+        }
+      ]
+    },
+    "rico": {
+      "label": "리코",
+      "artist": "유즈하 리코",
+      "songs": []
+    },
+    "shibuki": {
+      "label": "시부키",
+      "artist": "텐코 시부키",
+      "songs": []
+    },
+    "rin": {
+      "label": "린",
+      "artist": "아오쿠모 린",
+      "songs": [
+        {
+          "title": "고양이 (선우정아)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=Ti3mVEnY6CM",
+          "start": 695
+        },
+        {
+          "title": "As it Was (해리 스타일스)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=Ti3mVEnY6CM",
+          "start": 887
+        },
+        {
+          "title": "Mela! (녹황색사회)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=4OFQrsCtsF0",
+          "start": 3069
+        },
+        {
+          "title": "팬서비스 (허니웍스)",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=4OFQrsCtsF0",
+          "start": 3309
+        },
+        {
+          "title": "잔혹한 천사의 테제",
+          "artist": "아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=ZVuBKtRD6gs",
+          "start": 0
+        }
+      ]
+    },
+    "hebi": {
+      "label": "헤비",
+      "artist": "헤비 Hebi.",
+      "songs": [
+        {
+          "title": "내일의 밤하늘 초계반 (헤비)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=gMjU5XJnc7E",
+          "start": 0
+        },
+        {
+          "title": "지금부터 (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=jFTMSrqVblo",
+          "start": 0
+        },
+        {
+          "title": "늘(EVER) (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=8gDDZNTdibE",
+          "start": 0
+        },
+        {
+          "title": "Sketch (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=cF6AjcJPmLE",
+          "start": 0
+        },
+        {
+          "title": "오버클럭 (OVERCLOCK) (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=arRBjV-PRMk",
+          "start": 0
+        },
+        {
+          "title": "Be I (Stage)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=T4M-uvKGjic",
+          "start": 0
+        },
+        {
+          "title": "미리 메리 크리스마스 - UI",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=yOSdMOlP8Y4",
+          "start": 0
+        },
+        {
+          "title": "아이리 칸나(Airi Kanna) - 리와인드(RE:WIND) (가이드 버전)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=NhwYcw4sjBQ",
+          "start": 0
+        },
+        {
+          "title": "팬서비스(ファンサ)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=ApaAchj_aws",
+          "start": 0
+        },
+        {
+          "title": "한숨",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=erMR_AO-YVQ",
+          "start": 0
+        },
+        {
+          "title": "감 그레이(勘ぐれい)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=iep3hr5LUZk",
+          "start": 0
+        },
+        {
+          "title": "아이리 칸나 - 내일의 밤하늘 초계반(アスノヨゾラ哨戒班)",
+          "artist": "헤비 Hebi.",
+          "videoId": "https://www.youtube.com/watch?v=k_zwDsp3g9U",
+          "start": 0
+        }
+      ]
+    },
+    "GANGZI1": {
+      "label": "강지",
+      "artist": "강지",
+      "songs": [
+        {
+          "title": "방해쟁이! (おじゃま虫)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=26KnYSPNg6U",
+          "start": 0
+        },
+        {
+          "title": "동경 캐스터! (東京キャスター)",
+          "artist": "강지X너불",
+          "videoId": "https://www.youtube.com/watch?v=Opzq1xJn8vY",
+          "start": 0
+        },
+        {
+          "title": "니아! (Near, ニア)",
+          "artist": "강지X너불",
+          "videoId": "https://www.youtube.com/watch?v=pPDdcDSLHaI",
+          "start": 0
+        },
+        {
+          "title": "내가 죽으려고 생각 한것은 (僕が死のうと思ったのは)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=L1KBaVHAdS8",
+          "start": 0
+        },
+        {
+          "title": "리와인드 (RE : WIND)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=yfAmGIzinl4",
+          "start": 0
+        },
+        {
+          "title": "시간으로 [original]",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=MRMkbDpqjvg",
+          "start": 0
+        },
+        {
+          "title": "비행운",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=9FSp73LQoPA",
+          "start": 0
+        },
+        {
+          "title": "시작의 아이",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=oc4RLaYHp64",
+          "start": 0
+        },
+        {
+          "title": "당신의 연인이 되고 싶어",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=mJwX4mkczG4",
+          "start": 0
+        },
+        {
+          "title": "사이렌",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=_WxrJttgWCQ",
+          "start": 0
+        },
+        {
+          "title": "여로",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=P2-Dc64_OTc",
+          "start": 0
+        },
+        {
+          "title": "청록",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=NNisYivwd20",
+          "start": 0
+        },
+        {
+          "title": "호랑수월가",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=FC6K1XrI3Hs",
+          "start": 0
+        },
+        {
+          "title": "낭만고양이",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=flq2mX1REM8",
+          "start": 0
+        },
+        {
+          "title": "봄꿈",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=Adbo1ZRggjY",
+          "start": 0
+        },
+        {
+          "title": "폰서트",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=73U4222kfk0",
+          "start": 0
+        },
+        {
+          "title": "내꺼 하는 법",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=NLIKiVy44Ds",
+          "start": 0
+        },
+        {
+          "title": "애상",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=n-R19Z1hMcs",
+          "start": 0
+        },
+        {
+          "title": "강지&강지 - 봄으로 남아줄래?",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=BBKqsdEYifs",
+          "start": 0
+        },
+        {
+          "title": "오빠야",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=BkqKb58G8Io",
+          "start": 0
+        },
+        {
+          "title": "애타는 마음",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=LeM3gpsJukc",
+          "start": 0
+        },
+        {
+          "title": "내 손을 잡아",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=oBU0D5FlxaQ",
+          "start": 0
+        },
+        {
+          "title": "Rain Drop (Piano Ver)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=Kozz5xkEXpw",
+          "start": 0
+        },
+        {
+          "title": "고민중독",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=gT47FPf0va8",
+          "start": 0
+        },
+        {
+          "title": "멸종위기사랑",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=Z8KUgfD7HPg",
+          "start": 0
+        },
+        {
+          "title": "사랑은 열린 문",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=j3jUIf20Tp8",
+          "start": 0
+        },
+        {
+          "title": "내일 또 보자 (KOR.Ver)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=9SAZKYfxHq0",
+          "start": 0
+        },
+        {
+          "title": "시간으로",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=wi-Y0ofALzY",
+          "start": 0
+        },
+        {
+          "title": "회전하는 하늘 토끼",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=ZEhiHuODyn8",
+          "start": 0
+        },
+        {
+          "title": "니아 (KOR Ver.)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=mFWt-QizACY",
+          "start": 0
+        },
+        {
+          "title": "애상 (Solo)",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=hZ18-qK7SuE",
+          "start": 0
+        },
+        {
+          "title": "스토커",
+          "artist": "강지",
+          "videoId": "https://www.youtube.com/watch?v=olxdBRUazvo",
+          "start": 0
+        }
+      ]
+    }
+  }
+}
