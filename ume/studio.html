@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -26,6 +26,25 @@
     @media(max-width:850px){.wrap{padding-top:14px}.workspace{grid-template-columns:1fr;gap:14px}.sidebar{position:static}.artist-list{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}.side-add{margin-top:10px}.source-actions{justify-content:flex-start}}
     @media(max-width:560px){.wrap{padding:10px 10px 24px}.hero{align-items:flex-start;padding:17px 15px;border-radius:20px}.hero-main{gap:10px}.logo{width:43px;height:43px;border-radius:15px;font-size:21px}.hero p{font-size:11px}.hero-badge{display:none}.source-card{padding:13px;border-radius:18px}.source-top{align-items:flex-start;flex-direction:column}.source-line{flex-direction:column}.source-line .btn{width:100%}.source-actions{width:100%}.source-actions .btn{flex:1}.sidebar{padding:13px;border-radius:18px}.artist-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.artist-card{padding:8px;gap:7px}.artist-avatar{width:32px;height:32px;border-radius:11px;font-size:14px}.artist-card-name{font-size:11px}.artist-card-sub{font-size:9px}.artist-card-count{font-size:9px}.artist-head{padding:16px 14px 13px;flex-direction:column}.artist-head-actions{width:100%;justify-content:flex-start}.artist-settings{padding:13px 14px;grid-template-columns:1fr}.songs-section{padding:16px 12px}.songs-head{align-items:flex-start}.song-card{grid-template-columns:34px minmax(0,1fr);gap:9px;padding:10px}.song-index{width:32px;height:32px;border-radius:11px}.song-actions{grid-column:2;justify-content:flex-start}.song-form-wrap{margin:0 12px 14px;padding:13px}.song-form{grid-template-columns:1fr}.song-form .wide{grid-column:auto}.form-actions{grid-column:auto;flex-wrap:wrap}.form-actions .btn{flex:1}.output-card{padding:14px;border-radius:18px}.output-head{align-items:flex-start;flex-direction:column}.output-actions{width:100%}.output-actions .btn{flex:1}.status-row{align-items:flex-start;flex-direction:column}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+    /* Dark theme palette and component overrides */
+    html[data-theme="dark"]{color-scheme:dark;--ink:#edf0ff;--muted:#a5acc7;--blue:#8ab0ff;--blue-dark:#6b98ff;--blue-light:#26334f;--pink:#452a3b;--lav:#342d4d;--mint:#21443e;--line:#363d58;--panel:rgba(27,32,49,.94);--shadow:0 14px 45px rgba(0,0,0,.28);background:#111522}
+    html[data-theme="dark"] body{color:var(--ink);background:radial-gradient(ellipse at 7% 3%,rgba(115,55,84,.22) 0,transparent 29%),radial-gradient(ellipse at 96% 8%,rgba(47,77,135,.26) 0,transparent 31%),radial-gradient(ellipse at 78% 93%,rgba(36,102,87,.18) 0,transparent 26%),#111522}
+    html[data-theme="dark"] .hero{border-color:#30364e;background:linear-gradient(116deg,rgba(30,35,54,.97),rgba(24,29,46,.94))}html[data-theme="dark"] .hero:after{background:#30365b}
+    html[data-theme="dark"] .source-card,html[data-theme="dark"] .sidebar,html[data-theme="dark"] .main-card,html[data-theme="dark"] .output-card{border-color:#30364e;background:var(--panel)}
+    html[data-theme="dark"] .hero-badge{border-color:#38405d;background:#22283d;color:#b4c3ec}
+    html[data-theme="dark"] .input,html[data-theme="dark"] .textarea{border-color:#383f59;background:#191e30;color:#edf0ff}html[data-theme="dark"] .input::placeholder,html[data-theme="dark"] .textarea::placeholder{color:#858da9}html[data-theme="dark"] .input:focus,html[data-theme="dark"] .textarea:focus{border-color:#789eff;box-shadow:0 0 0 3px rgba(101,143,255,.17)}
+    html[data-theme="dark"] .btn-soft{border-color:#374460;background:#222c45;color:#b5c9ff}html[data-theme="dark"] .btn-soft:hover{border-color:#536b9b;background:#293651}html[data-theme="dark"] .btn-plain{border-color:#363d55;background:#252b40;color:#c6cce2}html[data-theme="dark"] .btn-plain:hover{border-color:#505a79;background:#2d344c}html[data-theme="dark"] .btn-danger{border-color:#563443;background:#32212d;color:#ff9ab3}html[data-theme="dark"] .btn-danger:hover{background:#432735}
+    html[data-theme="dark"] .artist-card{border-color:#333a53;background:#1b2133}html[data-theme="dark"] .artist-card:hover{border-color:#53658e}html[data-theme="dark"] .artist-card.active{border-color:#6d8fcf;background:linear-gradient(110deg,#263552,#20283d);box-shadow:inset 3px 0 #7ba5ff}html[data-theme="dark"] .side-add{border-color:#465b85;background:#202942;color:#a9c2ff}html[data-theme="dark"] .add-artist-panel{border-color:#343d5b;background:#1b2236}
+    html[data-theme="dark"] .artist-head{border-color:#30364e;background:linear-gradient(115deg,#20263a,#1a2032)}html[data-theme="dark"] .artist-settings{border-color:#30364e;background:#1a2031}html[data-theme="dark"] .id-readout{border-color:#353d56;background:#20263a;color:#b3bddb}
+    html[data-theme="dark"] .song-card{border-color:#333a53;background:#1b2133}html[data-theme="dark"] .song-card:hover{border-color:#53658b;box-shadow:0 5px 15px rgba(0,0,0,.16)}html[data-theme="dark"] .song-index{background:#263550;color:#a8c0ff}html[data-theme="dark"] .song-url{color:#9fb4f8}html[data-theme="dark"] .count-pill{background:#292f49;color:#b2bce7}html[data-theme="dark"] .empty-songs{border-color:#3a425e;background:#1b2235}html[data-theme="dark"] .song-form-wrap{border-color:#37415f;background:linear-gradient(135deg,#202943,#292334)}
+    html[data-theme="dark"] .field-label,html[data-theme="dark"] .help,html[data-theme="dark"] .tiny-note,html[data-theme="dark"] .artist-card-sub,html[data-theme="dark"] .artist-card-count,html[data-theme="dark"] .artist-heading p,html[data-theme="dark"] .songs-head p,html[data-theme="dark"] .song-meta,html[data-theme="dark"] .form-head p,html[data-theme="dark"] .output-head p,html[data-theme="dark"] .output-notice,html[data-theme="dark"] .footer-note,html[data-theme="dark"] .status{color:#a5acc7}
+    html[data-theme="dark"] .status.ok .status-dot{box-shadow:0 0 0 4px #1c3a35}html[data-theme="dark"] .status.error .status-dot{box-shadow:0 0 0 4px #402734}html[data-theme="dark"] .status.loading .status-dot{box-shadow:0 0 0 4px #403721}
+    html[data-theme="dark"] .output-preview textarea{border-color:#171b2d;background:#111523;color:#e6ebff}
+    .theme-toggle{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;gap:7px;min-height:37px;padding:8px 12px;border-radius:999px;white-space:nowrap}
+    .theme-toggle-icon{font-size:15px;line-height:1}.theme-toggle-label{font-size:11px}
+    @media(max-width:850px){.hero{flex-wrap:wrap}.theme-toggle{margin-left:auto}}
+    @media(max-width:560px){.theme-toggle{min-height:35px;padding:8px 10px}.theme-toggle-label{display:none}.hero{align-items:center}.hero-main{max-width:calc(100% - 52px)}}
   </style>
 </head>
 <body>
@@ -40,6 +59,7 @@
         </div>
       </div>
       <div class="hero-badge"><span class="sparkle">✿</span> PLAYLIST EDITOR</div>
+      <button id="themeToggleBtn" class="btn btn-soft theme-toggle" type="button" aria-pressed="false" aria-label="다크 모드로 전환" title="다크 모드로 전환"><span class="theme-toggle-icon" aria-hidden="true">🌙</span><span class="theme-toggle-label">다크 모드</span></button>
     </header>
 
     <section class="source-card" aria-labelledby="sourceTitle">
@@ -63,12 +83,9 @@
 
     <main class="workspace">
       <aside class="sidebar" aria-label="아티스트 목록">
-        <div class="side-head">
-          <h2 class="section-title"><span class="emoji" style="background:var(--pink)">♡</span> 아티스트</h2>
-          <span class="count-pill" id="artistCount">0</span>
-        </div>
+        <div class="side-head"><h2 class="section-title"><span class="emoji" style="background:var(--pink)">♡</span> 아티스트</h2><span class="count-pill" id="artistCount">0</span></div>
         <div class="artist-list" id="artistList"></div>
-        <button class="btn side-add" id="toggleAddArtistBtn" type="button">＋ 새 아티스트 추가</button>
+        <button class="btn side-add" id="toggleAddArtistBtn" type="button" aria-expanded="false">＋ 새 아티스트 추가</button>
         <div class="add-artist-panel" id="addArtistPanel">
           <form class="mini-form" id="addArtistForm">
             <div><label class="field-label" for="newArtistId">아티스트 ID</label><input class="input" id="newArtistId" required pattern="[A-Za-z0-9_-]+" placeholder="예: shibuki" autocomplete="off"><p class="tiny-note">영문·숫자·밑줄·하이픈으로 고유하게 입력해 주세요.</p></div>
@@ -80,19 +97,13 @@
       </aside>
 
       <section class="main-card" aria-label="선택한 아티스트 편집">
-        <div class="artist-head">
-          <div class="artist-heading"><p class="eyebrow">ARTIST PROFILE</p><h2 id="selectedArtistTitle">아티스트를 선택해 주세요</h2><p id="selectedArtistDescription">왼쪽 목록에서 아티스트를 선택하거나 새로 추가해 주세요.</p></div>
-          <div class="artist-head-actions"><button class="btn btn-danger btn-small" id="deleteArtistBtn" type="button" disabled>아티스트 삭제</button></div>
-        </div>
+        <div class="artist-head"><div class="artist-heading"><p class="eyebrow">ARTIST PROFILE</p><h2 id="selectedArtistTitle">아티스트를 선택해 주세요</h2><p id="selectedArtistDescription">왼쪽 목록에서 아티스트를 선택하거나 새로 추가해 주세요.</p></div><div class="artist-head-actions"><button class="btn btn-danger btn-small" id="deleteArtistBtn" type="button" disabled>아티스트 삭제</button></div></div>
         <div class="artist-settings">
           <div class="control"><label class="field-label">고유 ID</label><div class="id-readout" id="selectedArtistId">선택된 아티스트 없음</div></div>
           <div class="control"><label class="field-label" for="artistLabelInput">버튼 표시 이름</label><input class="input" id="artistLabelInput" placeholder="예: 유니" disabled></div>
           <div class="control" style="grid-column:1/-1"><label class="field-label" for="artistNameInput">기본 아티스트명</label><input class="input" id="artistNameInput" placeholder="예: 아야츠노 유니" disabled></div>
         </div>
-        <div class="songs-section">
-          <div class="songs-head"><div><h3>♪ 곡 목록</h3><p>곡을 선택해 수정하거나 삭제할 수 있어요.</p></div><span class="count-pill" id="songCount">0 TRACKS</span></div>
-          <div class="songs-list" id="songsList"></div>
-        </div>
+        <div class="songs-section"><div class="songs-head"><div><h3>♪ 곡 목록</h3><p>곡을 선택해 수정하거나 삭제할 수 있어요.</p></div><span class="count-pill" id="songCount">0 TRACKS</span></div><div class="songs-list" id="songsList"></div></div>
         <div class="song-form-wrap" id="songFormWrap">
           <div class="form-head"><div><h3 id="songFormTitle">새 곡 추가</h3><p id="songFormDescription">YouTube 주소와 곡 정보를 입력해 주세요.</p></div><span class="sparkle">✦ ♡</span></div>
           <form class="song-form" id="songForm">
@@ -106,13 +117,7 @@
       </section>
     </main>
 
-    <section class="output-card" aria-labelledby="outputTitle">
-      <div class="output-head">
-        <div><h2 id="outputTitle">✧ JSON 만들기</h2><p>편집 내용을 검증한 뒤 복사하거나 <code>playlist.json</code> 파일로 저장하세요.</p></div>
-        <div class="output-actions"><button class="btn btn-primary" id="generateBtn" type="button">JSON 만들기 ✨</button><button class="btn btn-soft" id="copyBtn" type="button" disabled>복사</button><button class="btn btn-soft" id="saveBtn" type="button" disabled>playlist.json 저장</button></div>
-      </div>
-      <div class="output-preview" id="outputPreview"><textarea id="jsonOutput" class="textarea" spellcheck="false" aria-label="생성된 JSON" readonly></textarea><p class="output-notice" id="outputNotice">이 내용이 생성된 JSON입니다. 변경 후에는 다시 JSON 만들기를 눌러 주세요.</p></div>
-    </section>
+    <section class="output-card" aria-labelledby="outputTitle"><div class="output-head"><div><h2 id="outputTitle">✧ JSON 만들기</h2><p>편집 내용을 검증한 뒤 복사하거나 <code>playlist.json</code> 파일로 저장하세요.</p></div><div class="output-actions"><button class="btn btn-primary" id="generateBtn" type="button">JSON 만들기 ✨</button><button class="btn btn-soft" id="copyBtn" type="button" disabled>복사</button><button class="btn btn-soft" id="saveBtn" type="button" disabled>playlist.json 저장</button></div></div><div class="output-preview" id="outputPreview"><textarea id="jsonOutput" class="textarea" spellcheck="false" aria-label="생성된 JSON" readonly></textarea><p class="output-notice" id="outputNotice">이 내용이 생성된 JSON입니다. 변경 후에는 다시 JSON 만들기를 눌러 주세요.</p></div></section>
     <p class="footer-note">ume Opera Playlist Studio · 데이터는 이 브라우저 안에서 편집됩니다. 별도의 서버로 업로드하지 않습니다.<br>✿ 파일을 저장한 뒤 GitHub 저장소의 playlist.json을 직접 덮어쓰면 웹 플레이어에 반영할 수 있어요.</p>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -121,525 +126,88 @@
     'use strict';
 
     const DEFAULT_JSON_URL = 'https://raw.githubusercontent.com/JisungEda55/music/refs/heads/main/ume/playlist.json';
-    const COLORS = [
-      {bg:'#eef3ff',emoji:'♫'}, {bg:'#fff0f5',emoji:'♡'}, {bg:'#e8faf4',emoji:'♪'},
-      {bg:'#f2edff',emoji:'✿'}, {bg:'#fff5df',emoji:'☼'}, {bg:'#e9f8ff',emoji:'♬'}
-    ];
+    const COLORS = [{bg:'#eef3ff',emoji:'♫'},{bg:'#fff0f5',emoji:'♡'},{bg:'#e8faf4',emoji:'♪'},{bg:'#f2edff',emoji:'✿'},{bg:'#fff5df',emoji:'☼'},{bg:'#e9f8ff',emoji:'♬'}];
     const DEFAULT_GUIDE = {
-      문서명: 'ume Opera 재생목록 설정 안내',
-      안내: '이 파일은 ume Opera가 읽는 곡 데이터입니다. artists 아래에 아티스트별 설정과 songs 배열을 입력하세요.',
-      수정_순서: [
-        'artists 객체 안에 고유한 아티스트 ID를 추가합니다. 예: uni, nana, shibuki.',
-        '각 아티스트의 label, artist, songs를 설정합니다.',
-        '곡 객체에 title, artist, videoId, start를 입력합니다.',
-        'videoId에는 YouTube 영상 ID 또는 전체 YouTube URL을 입력할 수 있습니다.',
-        'start는 재생할 시작 위치를 초 단위 숫자로 입력합니다.',
-        'JSON 만들기를 누른 뒤 복사하거나 playlist.json으로 저장합니다.'
-      ],
-      주의사항: [
-        'JSON 문자열은 큰따옴표를 사용하고, 마지막 항목 뒤에는 쉼표를 붙이지 마세요.',
-        '아티스트 ID는 중복될 수 없습니다.',
-        'videoId는 YouTube 영상 ID 또는 지원되는 YouTube URL이어야 합니다.',
-        '원격 JSON을 불러올 때 CORS가 차단되면 파일을 직접 선택해 주세요.'
-      ]
+      문서명:'ume Opera 재생목록 설정 안내',안내:'이 파일은 ume Opera가 읽는 곡 데이터입니다. artists 아래에 아티스트별 설정과 songs 배열을 입력하세요.',
+      수정_순서:['artists 객체 안에 고유한 아티스트 ID를 추가합니다. 예: uni, nana, shibuki.','각 아티스트의 label, artist, songs를 설정합니다.','곡 객체에 title, artist, videoId, start를 입력합니다.','videoId에는 YouTube 영상 ID 또는 전체 YouTube URL을 입력할 수 있습니다.','start는 재생할 시작 위치를 초 단위 숫자로 입력합니다.','JSON 만들기를 누른 뒤 복사하거나 playlist.json으로 저장합니다.'],
+      주의사항:['JSON 문자열은 큰따옴표를 사용하고, 마지막 항목 뒤에는 쉼표를 붙이지 마세요.','아티스트 ID는 중복될 수 없습니다.','videoId는 YouTube 영상 ID 또는 지원되는 YouTube URL이어야 합니다.','원격 JSON을 불러올 때 CORS가 차단되면 파일을 직접 선택해 주세요.']
     };
-
     const $ = id => document.getElementById(id);
-    const state = {
-      root: null,
-      activeArtistId: null,
-      editingSongIndex: null,
-      generatedText: '',
-      dirty: false,
-      loaded: false
-    };
-
+    const state = {root:null,activeArtistId:null,editingSongIndex:null,generatedText:'',dirty:false,loaded:false};
     const els = {
-      sourceUrl: $('sourceUrl'), fileInput: $('fileInput'), loadUrlBtn: $('loadUrlBtn'), newJsonBtn: $('newJsonBtn'),
-      loadStatus: $('loadStatus'), loadStatusText: $('loadStatusText'), dataSummary: $('dataSummary'), dataSummaryText: $('dataSummaryText'),
-      artistList: $('artistList'), artistCount: $('artistCount'), toggleAddArtistBtn: $('toggleAddArtistBtn'), addArtistPanel: $('addArtistPanel'),
-      addArtistForm: $('addArtistForm'), newArtistId: $('newArtistId'), newArtistLabel: $('newArtistLabel'), newArtistName: $('newArtistName'), cancelAddArtistBtn: $('cancelAddArtistBtn'),
-      selectedArtistTitle: $('selectedArtistTitle'), selectedArtistDescription: $('selectedArtistDescription'), selectedArtistId: $('selectedArtistId'),
-      artistLabelInput: $('artistLabelInput'), artistNameInput: $('artistNameInput'), deleteArtistBtn: $('deleteArtistBtn'),
-      songsList: $('songsList'), songCount: $('songCount'), songForm: $('songForm'), songFormTitle: $('songFormTitle'), songFormDescription: $('songFormDescription'),
-      songTitleInput: $('songTitleInput'), songArtistInput: $('songArtistInput'), songUrlInput: $('songUrlInput'), songStartInput: $('songStartInput'),
-      videoHint: $('videoHint'), saveSongBtn: $('saveSongBtn'), cancelEditSongBtn: $('cancelEditSongBtn'),
-      generateBtn: $('generateBtn'), copyBtn: $('copyBtn'), saveBtn: $('saveBtn'), outputPreview: $('outputPreview'), jsonOutput: $('jsonOutput'), outputNotice: $('outputNotice'), toast: $('toast')
+      sourceUrl:$('sourceUrl'),fileInput:$('fileInput'),loadUrlBtn:$('loadUrlBtn'),newJsonBtn:$('newJsonBtn'),loadStatus:$('loadStatus'),loadStatusText:$('loadStatusText'),dataSummary:$('dataSummary'),dataSummaryText:$('dataSummaryText'),
+      artistList:$('artistList'),artistCount:$('artistCount'),toggleAddArtistBtn:$('toggleAddArtistBtn'),addArtistPanel:$('addArtistPanel'),addArtistForm:$('addArtistForm'),newArtistId:$('newArtistId'),newArtistLabel:$('newArtistLabel'),newArtistName:$('newArtistName'),cancelAddArtistBtn:$('cancelAddArtistBtn'),
+      selectedArtistTitle:$('selectedArtistTitle'),selectedArtistDescription:$('selectedArtistDescription'),selectedArtistId:$('selectedArtistId'),artistLabelInput:$('artistLabelInput'),artistNameInput:$('artistNameInput'),deleteArtistBtn:$('deleteArtistBtn'),
+      songsList:$('songsList'),songCount:$('songCount'),songForm:$('songForm'),songFormTitle:$('songFormTitle'),songFormDescription:$('songFormDescription'),songTitleInput:$('songTitleInput'),songArtistInput:$('songArtistInput'),songUrlInput:$('songUrlInput'),songStartInput:$('songStartInput'),videoHint:$('videoHint'),saveSongBtn:$('saveSongBtn'),cancelEditSongBtn:$('cancelEditSongBtn'),
+      generateBtn:$('generateBtn'),copyBtn:$('copyBtn'),saveBtn:$('saveBtn'),outputPreview:$('outputPreview'),jsonOutput:$('jsonOutput'),outputNotice:$('outputNotice'),toast:$('toast')
     };
+    function setStatus(message,kind=''){els.loadStatus.className='status'+(kind?' '+kind:'');els.loadStatusText.textContent=message;}
+    function setSummary(message,kind=''){els.dataSummary.className='status'+(kind?' '+kind:'');els.dataSummaryText.textContent=message;}
+    let toastTimer=null;function toast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>els.toast.classList.remove('show'),2500);}
+    function deepClone(value){return JSON.parse(JSON.stringify(value));}
+    function markDirty(message='변경 사항이 있습니다. JSON을 다시 만들어 주세요.'){state.dirty=true;state.generatedText='';els.copyBtn.disabled=true;els.saveBtn.disabled=true;els.outputNotice.textContent=message;if(els.outputPreview.classList.contains('visible'))els.outputNotice.textContent='변경 사항이 있어 이전 JSON이 최신 상태가 아닙니다. 다시 JSON 만들기를 눌러 주세요.';}
+    function artistEntries(){const artists=state.root&&state.root.artists;return artists&&typeof artists==='object'&&!Array.isArray(artists)?Object.entries(artists):[];}
+    function currentArtist(){return state.root?.artists?.[state.activeArtistId]||null;}
+    function ensureRoot(){if(!state.root||typeof state.root!=='object'||Array.isArray(state.root))state.root={};if(!state.root.schemaVersion)state.root.schemaVersion=1;if(!state.root._안내||typeof state.root._안내!=='object')state.root._안내=deepClone(DEFAULT_GUIDE);if(!state.root.artists||typeof state.root.artists!=='object'||Array.isArray(state.root.artists))state.root.artists={};}
+    function extractVideoId(input){const value=String(input??'').trim();if(!value)return{id:'',error:'YouTube URL 또는 영상 ID를 입력해 주세요.'};if(/^[A-Za-z0-9_-]{11}$/.test(value))return{id:value,url:`https://www.youtube.com/watch?v=${value}`};let parsed;try{parsed=new URL(value.includes('://')?value:`https://${value}`);}catch{return{id:'',error:'올바른 YouTube URL 또는 11자리 영상 ID가 아닙니다.'};}const host=parsed.hostname.toLowerCase().replace(/^www\./,'').replace(/^m\./,'');const validHost=['youtube.com','youtu.be','youtube-nocookie.com','music.youtube.com'].includes(host);if(!validHost)return{id:'',error:'YouTube 주소를 입력해 주세요. (youtube.com 또는 youtu.be)'};let id='';if(host==='youtu.be')id=parsed.pathname.split('/').filter(Boolean)[0]||'';else if(parsed.pathname==='/watch')id=parsed.searchParams.get('v')||'';else{const parts=parsed.pathname.split('/').filter(Boolean);const markerIndex=parts.findIndex(part=>['embed','shorts','live','v'].includes(part));if(markerIndex>=0)id=parts[markerIndex+1]||'';}if(!/^[A-Za-z0-9_-]{11}$/.test(id))return{id:'',error:'URL에서 유효한 YouTube 영상 ID(11자)를 찾지 못했습니다.'};return{id,url:`https://www.youtube.com/watch?v=${id}`};}
+    function validateRoot(data){if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('JSON 최상위는 객체여야 합니다.');if(!data.artists||typeof data.artists!=='object'||Array.isArray(data.artists))throw new Error('JSON에 artists 객체가 없습니다.');for(const[id,artist]of Object.entries(data.artists)){if(!id.trim())throw new Error('비어 있는 아티스트 ID가 있습니다.');if(!artist||typeof artist!=='object'||Array.isArray(artist))throw new Error(`artists.${id}는 객체여야 합니다.`);if(artist.songs!==undefined&&!Array.isArray(artist.songs))throw new Error(`artists.${id}.songs는 배열이어야 합니다.`);if(!artist.label)artist.label=id;if(!artist.artist)artist.artist=artist.label;if(!artist.songs)artist.songs=[];artist.songs.forEach((song,index)=>{if(!song||typeof song!=='object'||Array.isArray(song))throw new Error(`${id}의 ${index+1}번째 곡 데이터가 객체가 아닙니다.`);if(song.title===undefined)song.title='';if(song.artist===undefined)song.artist=artist.artist;if(song.videoId===undefined)song.videoId='';if(song.start===undefined||song.start===null)song.start=0;});}if(!data.schemaVersion)data.schemaVersion=1;if(!data._안내||typeof data._안내!=='object')data._안내=deepClone(DEFAULT_GUIDE);return data;}
+    function setLoadedData(data,sourceLabel){state.root=validateRoot(data);state.loaded=true;state.dirty=false;state.generatedText='';const keys=Object.keys(state.root.artists);state.activeArtistId=keys[0]||null;state.editingSongIndex=null;renderEverything();setStatus(`${sourceLabel} 불러오기 완료`,'ok');updateSummary();els.copyBtn.disabled=true;els.saveBtn.disabled=true;els.outputPreview.classList.remove('visible');}
+    async function loadFromUrl(){const url=els.sourceUrl.value.trim();if(!url){setStatus('JSON URL을 입력해 주세요.','error');return;}try{const parsedUrl=new URL(url);if(!['http:','https:'].includes(parsedUrl.protocol))throw new Error('HTTP 또는 HTTPS 주소를 입력해 주세요.');}catch(e){setStatus(e.message||'올바른 URL이 아닙니다.','error');return;}els.loadUrlBtn.disabled=true;setStatus('JSON을 가져오는 중이에요…','loading');try{const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status} 응답을 받았습니다.`);let data;try{data=await response.json();}catch{throw new Error('JSON 형식이 올바르지 않습니다.');}setLoadedData(data,'URL에서');toast('재생목록을 불러왔어요 ♡');}catch(error){setStatus(`불러오지 못했습니다: ${error.message||'네트워크 또는 CORS 오류'}`,'error');setSummary('JSON 파일을 직접 선택하거나 새 JSON을 만들어 주세요.','error');}finally{els.loadUrlBtn.disabled=false;}}
+    function newJson(){if(state.root&&state.dirty&&!confirm('저장하지 않은 변경 사항이 있습니다. 새 JSON을 만들까요?'))return;state.root={_안내:deepClone(DEFAULT_GUIDE),schemaVersion:1,artists:{}};state.activeArtistId=null;state.editingSongIndex=null;state.loaded=true;state.dirty=true;state.generatedText='';els.sourceUrl.value=DEFAULT_JSON_URL;renderEverything();setStatus('새 JSON 작업 공간이 준비됐어요.','ok');updateSummary();els.outputPreview.classList.remove('visible');toast('새 재생목록을 시작합니다 ✨');}
+    function updateSummary(){const entries=artistEntries();const songCount=entries.reduce((sum,[,artist])=>sum+(Array.isArray(artist.songs)?artist.songs.length:0),0);setSummary(`${entries.length}명 · ${songCount}곡${state.dirty?' · 수정 중':''}`,state.dirty?'':'ok');els.artistCount.textContent=String(entries.length);}
+    function renderArtistList(){els.artistList.replaceChildren();const entries=artistEntries();if(!entries.length){const empty=document.createElement('div');empty.className='empty-songs';empty.innerHTML='<div class="empty-art">☁️</div><strong>아직 아티스트가 없어요</strong><p>아래 버튼으로 첫 아티스트를 추가해 주세요.</p>';els.artistList.appendChild(empty);}entries.forEach(([id,artist],index)=>{const card=document.createElement('button');card.type='button';card.className='artist-card'+(id===state.activeArtistId?' active':'');card.setAttribute('aria-pressed',String(id===state.activeArtistId));const color=COLORS[index%COLORS.length];const avatar=document.createElement('span');avatar.className='artist-avatar';avatar.style.setProperty('--av-bg',color.bg);avatar.textContent=color.emoji;const copy=document.createElement('span');copy.className='artist-card-copy';const label=document.createElement('span');label.className='artist-card-name';label.textContent=artist.label||id;const sub=document.createElement('span');sub.className='artist-card-sub';sub.textContent=artist.artist||artist.label||id;copy.append(label,sub);const count=document.createElement('span');count.className='artist-card-count';count.textContent=`${(artist.songs||[]).length}곡`;card.append(avatar,copy,count);card.addEventListener('click',()=>selectArtist(id));els.artistList.appendChild(card);});els.artistCount.textContent=String(entries.length);}
+    function renderArtistDetails(){const id=state.activeArtistId;const artist=currentArtist();const active=!!artist;els.selectedArtistTitle.textContent=active?(artist.label||id):'아티스트를 선택해 주세요';els.selectedArtistDescription.textContent=active?`${artist.artist||artist.label||id} · 곡 정보와 아티스트 설정을 편집할 수 있어요.`:'왼쪽에서 아티스트를 선택하거나 새로 추가해 주세요.';els.selectedArtistId.textContent=active?id:'선택된 아티스트 없음';els.artistLabelInput.disabled=!active;els.artistNameInput.disabled=!active;els.deleteArtistBtn.disabled=!active;els.artistLabelInput.value=active?(artist.label||id):'';els.artistNameInput.value=active?(artist.artist||artist.label||id):'';[els.songTitleInput,els.songArtistInput,els.songUrlInput,els.songStartInput,els.saveSongBtn].forEach(el=>el.disabled=!active);renderSongs();}
+    function renderSongs(){const artist=currentArtist();const songs=artist&&Array.isArray(artist.songs)?artist.songs:[];els.songsList.replaceChildren();els.songCount.textContent=`${songs.length}곡`;if(!artist){const empty=document.createElement('div');empty.className='empty-songs';empty.innerHTML='<div class="empty-art">🌷</div><strong>아티스트를 먼저 선택해 주세요</strong><p>아티스트가 있어야 곡을 등록할 수 있어요.</p>';els.songsList.appendChild(empty);return;}if(!songs.length){const empty=document.createElement('div');empty.className='empty-songs';empty.innerHTML='<div class="empty-art">🎧</div><strong>아직 등록된 곡이 없어요</strong><p>아래 폼에 제목과 YouTube URL을 입력해<br>첫 곡을 추가해 보세요.</p>';els.songsList.appendChild(empty);return;}songs.forEach((song,index)=>{const card=document.createElement('article');card.className='song-card';const num=document.createElement('div');num.className='song-index';num.style.setProperty('--song-bg',COLORS[index%COLORS.length].bg);num.textContent=String(index+1).padStart(2,'0');const content=document.createElement('div');content.className='song-content';const title=document.createElement('h4');title.className='song-title';title.textContent=song.title||'(제목 없음)';const meta=document.createElement('div');meta.className='song-meta';const songArtistLabel=document.createElement('span');songArtistLabel.textContent=`♫ ${song.artist||artist.artist||''}`;const start=document.createElement('span');start.textContent=`◷ ${formatTime(song.start)}`;const vid=document.createElement('span');vid.className='song-url';vid.textContent=getDisplayUrl(song.videoId);vid.title=getDisplayUrl(song.videoId);meta.append(songArtistLabel,start,vid);content.append(title,meta);const actions=document.createElement('div');actions.className='song-actions';const edit=document.createElement('button');edit.type='button';edit.className='btn btn-plain btn-small';edit.textContent='수정';edit.setAttribute('aria-label',`${song.title||'곡'} 수정`);edit.addEventListener('click',()=>startEditSong(index));const del=document.createElement('button');del.type='button';del.className='btn btn-danger btn-small';del.textContent='삭제';del.setAttribute('aria-label',`${song.title||'곡'} 삭제`);del.addEventListener('click',()=>deleteSong(index));actions.append(edit,del);card.append(num,content,actions);els.songsList.appendChild(card);});}
+    function formatTime(value){const seconds=Number(value);if(!Number.isFinite(seconds)||seconds<0)return'0초부터';const s=Math.floor(seconds),minutes=Math.floor(s/60),remain=s%60;return minutes?`${minutes}분 ${String(remain).padStart(2,'0')}초부터`:`${s}초부터`;}
+    function getDisplayUrl(value){const found=extractVideoId(value);return found.id?`https://www.youtube.com/watch?v=${found.id}`:String(value||'YouTube URL 미입력');}
+    function renderEverything(){renderArtistList();renderArtistDetails();updateSummary();resetSongForm();}
+    function selectArtist(id){if(!state.root?.artists?.[id])return;state.activeArtistId=id;state.editingSongIndex=null;renderArtistList();renderArtistDetails();resetSongForm();}
+    function resetSongForm(){state.editingSongIndex=null;els.songForm.reset();els.songStartInput.value='0';const active=!!currentArtist();[els.songTitleInput,els.songArtistInput,els.songUrlInput,els.songStartInput,els.saveSongBtn].forEach(el=>el.disabled=!active);els.songFormTitle.textContent='새 곡 추가';els.songFormDescription.textContent=active?`${currentArtist().label||state.activeArtistId} 재생목록에 새로운 곡을 추가해요.`:'먼저 아티스트를 선택해 주세요.';els.saveSongBtn.textContent='＋ 곡 추가';els.cancelEditSongBtn.hidden=true;els.videoHint.className='video-hint';els.videoHint.textContent='YouTube URL 전체 또는 영상 ID를 입력할 수 있어요.';}
+    function startEditSong(index){const artist=currentArtist();const song=artist?.songs?.[index];if(!song)return;state.editingSongIndex=index;els.songFormTitle.textContent='곡 정보 수정';els.songFormDescription.textContent=`${song.title||'선택한 곡'}의 정보를 바꿉니다.`;els.songTitleInput.value=song.title||'';els.songArtistInput.value=song.artist||'';const extracted=extractVideoId(song.videoId||'');els.songUrlInput.value=extracted.id?extracted.url:(song.videoId||'');els.songStartInput.value=String(Number.isFinite(Number(song.start))?Math.max(0,Math.floor(Number(song.start))):0);els.saveSongBtn.textContent='변경 사항 저장';els.cancelEditSongBtn.hidden=false;updateVideoHint();$('songFormWrap').scrollIntoView({behavior:'smooth',block:'nearest'});els.songTitleInput.focus({preventScroll:true});}
+    function addArtist(event){event.preventDefault();const id=els.newArtistId.value.trim(),label=els.newArtistLabel.value.trim(),artistName=els.newArtistName.value.trim();if(!/^[A-Za-z0-9_-]+$/.test(id)){toast('아티스트 ID는 영문·숫자·밑줄·하이픈만 사용할 수 있어요.');return;}if(Object.prototype.hasOwnProperty.call(state.root.artists,id)){toast('이미 사용 중인 아티스트 ID예요.');els.newArtistId.focus();return;}if(!label||!artistName){toast('표시 이름과 기본 아티스트명을 입력해 주세요.');return;}state.root.artists[id]={label,artist:artistName,songs:[]};state.activeArtistId=id;state.editingSongIndex=null;els.addArtistForm.reset();els.addArtistPanel.classList.remove('open');els.toggleAddArtistBtn.setAttribute('aria-expanded','false');markDirty();renderEverything();toast(`${label} 아티스트를 추가했어요 ♡`);els.songTitleInput.focus({preventScroll:true});}
+    function saveSong(event){event.preventDefault();const artist=currentArtist();if(!artist){toast('먼저 아티스트를 선택하거나 추가해 주세요.');return;}const title=els.songTitleInput.value.trim(),enteredUrl=els.songUrlInput.value.trim(),songArtist=els.songArtistInput.value.trim()||artist.artist||artist.label||state.activeArtistId,startText=els.songStartInput.value.trim(),start=Number(startText);if(!title){toast('곡 제목을 입력해 주세요.');els.songTitleInput.focus();return;}const parsed=extractVideoId(enteredUrl);if(!parsed.id){toast(parsed.error||'YouTube URL을 확인해 주세요.');els.songUrlInput.focus();return;}if(startText===''||!Number.isFinite(start)||start<0){toast('재생 시작 시간은 0 이상의 초 단위 숫자여야 해요.');els.songStartInput.focus();return;}const songData={title,artist:songArtist,videoId:parsed.url,start:Math.floor(start)};if(state.editingSongIndex!==null){const old=artist.songs[state.editingSongIndex]||{};artist.songs[state.editingSongIndex]={...old,...songData};toast('곡 정보를 수정했어요 ✨');}else{artist.songs.push(songData);toast('새 곡을 추가했어요 ♬');}markDirty();renderArtistList();renderSongs();updateSummary();resetSongForm();}
+    function deleteSong(index){const artist=currentArtist();if(!artist||!artist.songs[index])return;const title=artist.songs[index].title||'선택한 곡';if(!confirm(`「${title}」 곡을 삭제할까요?`))return;artist.songs.splice(index,1);if(state.editingSongIndex===index)resetSongForm();else if(state.editingSongIndex!==null&&state.editingSongIndex>index)state.editingSongIndex--;markDirty();renderArtistList();renderSongs();updateSummary();toast('곡을 삭제했어요.');}
+    function deleteArtist(){const id=state.activeArtistId,artist=currentArtist();if(!artist)return;const count=artist.songs?.length||0;if(!confirm(`「${artist.label||id}」 아티스트와 등록된 ${count}곡을 모두 삭제할까요?`))return;delete state.root.artists[id];state.activeArtistId=Object.keys(state.root.artists)[0]||null;state.editingSongIndex=null;markDirty();renderEverything();toast('아티스트를 삭제했어요.');}
+    function updateVideoHint(){const result=extractVideoId(els.songUrlInput.value);if(!els.songUrlInput.value.trim()){els.videoHint.className='video-hint';els.videoHint.textContent='YouTube URL 전체 또는 영상 ID를 입력할 수 있어요.';}else if(result.id){els.videoHint.className='video-hint valid';els.videoHint.textContent=`✓ 영상 ID 인식: ${result.id} · JSON에는 표준 YouTube URL로 저장됩니다.`;}else{els.videoHint.className='video-hint invalid';els.videoHint.textContent=result.error;}}
+    function createJson(){try{if(!state.root)throw new Error('불러온 JSON이 없습니다. URL 또는 파일을 불러오거나 새 JSON을 만들어 주세요.');const output=deepClone(state.root);ensureOutputGuide(output);if(!output.artists||typeof output.artists!=='object'||Array.isArray(output.artists))throw new Error('artists 객체를 확인해 주세요.');const ids=Object.keys(output.artists);if(!ids.length)throw new Error('아티스트가 없습니다. 아티스트를 한 명 이상 추가해 주세요.');let totalSongs=0;for(const[id,artist]of Object.entries(output.artists)){if(!artist.label?.trim())throw new Error(`${id}: 버튼 표시 이름을 입력해 주세요.`);if(!artist.artist?.trim())throw new Error(`${id}: 기본 아티스트명을 입력해 주세요.`);if(!Array.isArray(artist.songs))throw new Error(`${id}: songs는 배열이어야 합니다.`);for(let i=0;i<artist.songs.length;i++){const song=artist.songs[i];if(!song.title||!String(song.title).trim())throw new Error(`${artist.label} ${i+1}번째 곡: 제목이 비어 있습니다.`);const parsed=extractVideoId(song.videoId);if(!parsed.id)throw new Error(`${artist.label} - ${song.title}: ${parsed.error}`);song.videoId=parsed.url;if(song.artist===undefined||!String(song.artist).trim())song.artist=artist.artist;const start=Number(song.start);if(!Number.isFinite(start)||start<0)throw new Error(`${artist.label} - ${song.title}: start는 0 이상의 숫자여야 합니다.`);song.start=Math.floor(start);totalSongs++;}}output.schemaVersion=output.schemaVersion||1;state.generatedText=JSON.stringify(output,null,2);state.dirty=false;els.jsonOutput.value=state.generatedText;els.outputPreview.classList.add('visible');els.copyBtn.disabled=false;els.saveBtn.disabled=false;els.outputNotice.textContent=`검증 완료 · 아티스트 ${ids.length}명, 곡 ${totalSongs}개 · playlist.json으로 저장할 준비가 됐어요.`;updateSummary();toast('JSON을 만들었어요! 복사하거나 저장해 주세요 ✨');els.outputPreview.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(error){toast(error.message||'JSON 생성 중 오류가 발생했습니다.');setStatus(error.message||'JSON 생성 오류','error');}}
+    function ensureOutputGuide(output){if(!output._안내||typeof output._안내!=='object')output._안내=deepClone(DEFAULT_GUIDE);}
+    async function copyJson(){if(!state.generatedText||state.dirty){toast('먼저 JSON 만들기를 눌러 주세요.');return;}try{await navigator.clipboard.writeText(state.generatedText);toast('전체 JSON 스크립트를 복사했어요 ♡');}catch{els.jsonOutput.focus();els.jsonOutput.select();const success=document.execCommand('copy');if(success)toast('전체 JSON 스크립트를 복사했어요 ♡');else toast('자동 복사에 실패했어요. 미리보기 내용을 직접 복사해 주세요.');}}
+    function saveJson(){if(!state.generatedText||state.dirty){toast('먼저 JSON 만들기를 눌러 주세요.');return;}const blob=new Blob([state.generatedText+'\n'],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='playlist.json';a.style.display='none';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('playlist.json 파일 저장을 시작했어요 ♬');}
 
-    function setStatus(message, kind='') {
-      els.loadStatus.className = 'status' + (kind ? ' ' + kind : '');
-      els.loadStatusText.textContent = message;
-    }
-    function setSummary(message, kind='') {
-      els.dataSummary.className = 'status' + (kind ? ' ' + kind : '');
-      els.dataSummaryText.textContent = message;
-    }
-    let toastTimer = null;
-    function toast(message) {
-      els.toast.textContent = message;
-      els.toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2500);
-    }
-    function deepClone(value) { return JSON.parse(JSON.stringify(value)); }
-    function markDirty(message='변경 사항이 있습니다. JSON을 다시 만들어 주세요.') {
-      state.dirty = true;
-      state.generatedText = '';
-      els.copyBtn.disabled = true;
-      els.saveBtn.disabled = true;
-      els.outputNotice.textContent = message;
-      if (els.outputPreview.classList.contains('visible')) {
-        els.outputNotice.textContent = '변경 사항이 있어 이전 JSON이 최신 상태가 아닙니다. 다시 JSON 만들기를 눌러 주세요.';
-      }
-    }
-    function artistEntries() {
-      const artists = state.root && state.root.artists;
-      return artists && typeof artists === 'object' && !Array.isArray(artists) ? Object.entries(artists) : [];
-    }
-    function currentArtist() { return state.root?.artists?.[state.activeArtistId] || null; }
-    function ensureRoot() {
-      if (!state.root || typeof state.root !== 'object' || Array.isArray(state.root)) state.root = {};
-      if (!state.root.schemaVersion) state.root.schemaVersion = 1;
-      if (!state.root._안내 || typeof state.root._안내 !== 'object') state.root._안내 = deepClone(DEFAULT_GUIDE);
-      if (!state.root.artists || typeof state.root.artists !== 'object' || Array.isArray(state.root.artists)) state.root.artists = {};
-    }
-
-    function extractVideoId(input) {
-      const value = String(input ?? '').trim();
-      if (!value) return { id: '', error: 'YouTube URL 또는 영상 ID를 입력해 주세요.' };
-      if (/^[A-Za-z0-9_-]{11}$/.test(value)) return { id: value, url: `https://www.youtube.com/watch?v=${value}` };
-      let parsed;
-      try { parsed = new URL(value.includes('://') ? value : `https://${value}`); }
-      catch { return { id: '', error: '올바른 YouTube URL 또는 11자리 영상 ID가 아닙니다.' }; }
-      const host = parsed.hostname.toLowerCase().replace(/^www\./, '').replace(/^m\./, '');
-      const validHost = ['youtube.com','youtu.be','youtube-nocookie.com','music.youtube.com'].includes(host);
-      if (!validHost) return { id: '', error: 'YouTube 주소를 입력해 주세요. (youtube.com 또는 youtu.be)' };
-      let id = '';
-      if (host === 'youtu.be') id = parsed.pathname.split('/').filter(Boolean)[0] || '';
-      else if (parsed.pathname === '/watch') id = parsed.searchParams.get('v') || '';
-      else {
-        const parts = parsed.pathname.split('/').filter(Boolean);
-        const markerIndex = parts.findIndex(part => ['embed','shorts','live','v'].includes(part));
-        if (markerIndex >= 0) id = parts[markerIndex + 1] || '';
-      }
-      if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return { id: '', error: 'URL에서 유효한 YouTube 영상 ID(11자)를 찾지 못했습니다.' };
-      return { id, url: `https://www.youtube.com/watch?v=${id}` };
-    }
-
-    function validateRoot(data) {
-      if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('JSON 최상위는 객체여야 합니다.');
-      if (!data.artists || typeof data.artists !== 'object' || Array.isArray(data.artists)) throw new Error('JSON에 artists 객체가 없습니다.');
-      for (const [id, artist] of Object.entries(data.artists)) {
-        if (!id.trim()) throw new Error('비어 있는 아티스트 ID가 있습니다.');
-        if (!artist || typeof artist !== 'object' || Array.isArray(artist)) throw new Error(`artists.${id}는 객체여야 합니다.`);
-        if (artist.songs !== undefined && !Array.isArray(artist.songs)) throw new Error(`artists.${id}.songs는 배열이어야 합니다.`);
-        if (!artist.label) artist.label = id;
-        if (!artist.artist) artist.artist = artist.label;
-        if (!artist.songs) artist.songs = [];
-        artist.songs.forEach((song, index) => {
-          if (!song || typeof song !== 'object' || Array.isArray(song)) throw new Error(`${id}의 ${index+1}번째 곡 데이터가 객체가 아닙니다.`);
-          if (song.title === undefined) song.title = '';
-          if (song.artist === undefined) song.artist = artist.artist;
-          if (song.videoId === undefined) song.videoId = '';
-          if (song.start === undefined || song.start === null) song.start = 0;
-        });
-      }
-      if (!data.schemaVersion) data.schemaVersion = 1;
-      if (!data._안내 || typeof data._안내 !== 'object') data._안내 = deepClone(DEFAULT_GUIDE);
-      return data;
-    }
-
-    function setLoadedData(data, sourceLabel) {
-      state.root = validateRoot(data);
-      state.loaded = true;
-      state.dirty = false;
-      state.generatedText = '';
-      const keys = Object.keys(state.root.artists);
-      state.activeArtistId = keys[0] || null;
-      state.editingSongIndex = null;
-      renderEverything();
-      setStatus(`${sourceLabel} 불러오기 완료`, 'ok');
-      updateSummary();
-      els.copyBtn.disabled = true;
-      els.saveBtn.disabled = true;
-      els.outputPreview.classList.remove('visible');
-    }
-
-    async function loadFromUrl() {
-      const url = els.sourceUrl.value.trim();
-      if (!url) { setStatus('JSON URL을 입력해 주세요.', 'error'); return; }
-      try {
-        const parsedUrl = new URL(url);
-        if (!['http:','https:'].includes(parsedUrl.protocol)) throw new Error('HTTP 또는 HTTPS 주소를 입력해 주세요.');
-      } catch (e) { setStatus(e.message || '올바른 URL이 아닙니다.', 'error'); return; }
-      els.loadUrlBtn.disabled = true;
-      setStatus('JSON을 가져오는 중이에요…', 'loading');
-      try {
-        const response = await fetch(url, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`HTTP ${response.status} 응답을 받았습니다.`);
-        let data;
-        try { data = await response.json(); }
-        catch { throw new Error('JSON 형식이 올바르지 않습니다.'); }
-        setLoadedData(data, 'URL에서');
-        toast('재생목록을 불러왔어요 ♡');
-      } catch (error) {
-        setStatus(`불러오지 못했습니다: ${error.message || '네트워크 또는 CORS 오류'}`, 'error');
-        setSummary('JSON 파일을 직접 선택하거나 새 JSON을 만들어 주세요.', 'error');
-      } finally { els.loadUrlBtn.disabled = false; }
-    }
-
-    function newJson() {
-      if (state.root && state.dirty && !confirm('저장하지 않은 변경 사항이 있습니다. 새 JSON을 만들까요?')) return;
-      state.root = { _안내: deepClone(DEFAULT_GUIDE), schemaVersion: 1, artists: {} };
-      state.activeArtistId = null;
-      state.editingSongIndex = null;
-      state.loaded = true;
-      state.dirty = true;
-      state.generatedText = '';
-      els.sourceUrl.value = DEFAULT_JSON_URL;
-      renderEverything();
-      setStatus('새 JSON 작업 공간이 준비됐어요.', 'ok');
-      updateSummary();
-      els.outputPreview.classList.remove('visible');
-      toast('새 재생목록을 시작합니다 ✨');
-    }
-
-    function updateSummary() {
-      const entries = artistEntries();
-      const songCount = entries.reduce((sum, [,artist]) => sum + (Array.isArray(artist.songs) ? artist.songs.length : 0), 0);
-      setSummary(`${entries.length}명 · ${songCount}곡${state.dirty ? ' · 수정 중' : ''}`, state.dirty ? '' : 'ok');
-      els.artistCount.textContent = String(entries.length);
-    }
-
-    function renderArtistList() {
-      els.artistList.replaceChildren();
-      const entries = artistEntries();
-      if (!entries.length) {
-        const empty = document.createElement('div');
-        empty.className = 'empty-songs';
-        empty.innerHTML = '<div class="empty-art">☁️</div><strong>아직 아티스트가 없어요</strong><p>아래 버튼으로 첫 아티스트를 추가해 주세요.</p>';
-        els.artistList.appendChild(empty);
-      }
-      entries.forEach(([id, artist], index) => {
-        const card = document.createElement('button');
-        card.type = 'button'; card.className = 'artist-card' + (id === state.activeArtistId ? ' active' : '');
-        card.setAttribute('aria-pressed', String(id === state.activeArtistId));
-        const color = COLORS[index % COLORS.length];
-        const avatar = document.createElement('span'); avatar.className = 'artist-avatar'; avatar.style.setProperty('--av-bg', color.bg); avatar.textContent = color.emoji;
-        const copy = document.createElement('span'); copy.className = 'artist-card-copy';
-        const label = document.createElement('span'); label.className = 'artist-card-name'; label.textContent = artist.label || id;
-        const sub = document.createElement('span'); sub.className = 'artist-card-sub'; sub.textContent = artist.artist || artist.label || id;
-        copy.append(label, sub);
-        const count = document.createElement('span'); count.className = 'artist-card-count'; count.textContent = `${(artist.songs || []).length}곡`;
-        card.append(avatar, copy, count);
-        card.addEventListener('click', () => selectArtist(id));
-        els.artistList.appendChild(card);
-      });
-      els.artistCount.textContent = String(entries.length);
-    }
-
-    function renderArtistDetails() {
-      const id = state.activeArtistId;
-      const artist = currentArtist();
-      const active = !!artist;
-      els.selectedArtistTitle.textContent = active ? (artist.label || id) : '아티스트를 선택해 주세요';
-      els.selectedArtistDescription.textContent = active ? `${artist.artist || artist.label || id} · 곡 정보와 아티스트 설정을 편집할 수 있어요.` : '왼쪽에서 아티스트를 선택하거나 새로 추가해 주세요.';
-      els.selectedArtistId.textContent = active ? id : '선택된 아티스트 없음';
-      els.artistLabelInput.disabled = !active;
-      els.artistNameInput.disabled = !active;
-      els.deleteArtistBtn.disabled = !active;
-      els.artistLabelInput.value = active ? (artist.label || id) : '';
-      els.artistNameInput.value = active ? (artist.artist || artist.label || id) : '';
-      [els.songTitleInput, els.songArtistInput, els.songUrlInput, els.songStartInput, els.saveSongBtn].forEach(el => el.disabled = !active);
-      renderSongs();
-    }
-
-    function renderSongs() {
-      const artist = currentArtist();
-      const songs = artist && Array.isArray(artist.songs) ? artist.songs : [];
-      els.songsList.replaceChildren();
-      els.songCount.textContent = `${songs.length}곡`;
-      if (!artist) {
-        const empty = document.createElement('div'); empty.className = 'empty-songs';
-        empty.innerHTML = '<div class="empty-art">🌷</div><strong>아티스트를 먼저 선택해 주세요</strong><p>아티스트가 있어야 곡을 등록할 수 있어요.</p>';
-        els.songsList.appendChild(empty); return;
-      }
-      if (!songs.length) {
-        const empty = document.createElement('div'); empty.className = 'empty-songs';
-        empty.innerHTML = '<div class="empty-art">🎧</div><strong>아직 등록된 곡이 없어요</strong><p>아래 폼에 제목과 YouTube URL을 입력해<br>첫 곡을 추가해 보세요.</p>';
-        els.songsList.appendChild(empty); return;
-      }
-      songs.forEach((song, index) => {
-        const card = document.createElement('article'); card.className = 'song-card';
-        const num = document.createElement('div'); num.className = 'song-index'; num.style.setProperty('--song-bg', COLORS[index % COLORS.length].bg); num.textContent = String(index + 1).padStart(2,'0');
-        const content = document.createElement('div'); content.className = 'song-content';
-        const title = document.createElement('h4'); title.className = 'song-title'; title.textContent = song.title || '(제목 없음)';
-        const meta = document.createElement('div'); meta.className = 'song-meta';
-        const songArtistLabel = document.createElement('span'); songArtistLabel.textContent = `♫ ${song.artist || artist.artist || ''}`;
-        const start = document.createElement('span'); start.textContent = `◷ ${formatTime(song.start)}`;
-        const vid = document.createElement('span'); vid.className = 'song-url'; vid.textContent = getDisplayUrl(song.videoId); vid.title = getDisplayUrl(song.videoId);
-        meta.append(songArtistLabel, start, vid); content.append(title, meta);
-        const actions = document.createElement('div'); actions.className = 'song-actions';
-        const edit = document.createElement('button'); edit.type = 'button'; edit.className = 'btn btn-plain btn-small'; edit.textContent = '수정'; edit.setAttribute('aria-label', `${song.title || '곡'} 수정`);
-        edit.addEventListener('click', () => startEditSong(index));
-        const del = document.createElement('button'); del.type = 'button'; del.className = 'btn btn-danger btn-small'; del.textContent = '삭제'; del.setAttribute('aria-label', `${song.title || '곡'} 삭제`);
-        del.addEventListener('click', () => deleteSong(index));
-        actions.append(edit, del); card.append(num, content, actions); els.songsList.appendChild(card);
-      });
-    }
-
-    function formatTime(value) {
-      const seconds = Number(value);
-      if (!Number.isFinite(seconds) || seconds < 0) return '0초부터';
-      const s = Math.floor(seconds), minutes = Math.floor(s / 60), remain = s % 60;
-      return minutes ? `${minutes}분 ${String(remain).padStart(2,'0')}초부터` : `${s}초부터`;
-    }
-    function getDisplayUrl(value) {
-      const found = extractVideoId(value);
-      return found.id ? `https://www.youtube.com/watch?v=${found.id}` : String(value || 'YouTube URL 미입력');
-    }
-    function renderEverything() {
-      renderArtistList();
-      renderArtistDetails();
-      updateSummary();
-      resetSongForm();
-    }
-
-    function selectArtist(id) {
-      if (!state.root?.artists?.[id]) return;
-      state.activeArtistId = id;
-      state.editingSongIndex = null;
-      renderArtistList(); renderArtistDetails(); resetSongForm();
-    }
-
-    function resetSongForm() {
-      state.editingSongIndex = null;
-      els.songForm.reset();
-      els.songStartInput.value = '0';
-      const active = !!currentArtist();
-      [els.songTitleInput, els.songArtistInput, els.songUrlInput, els.songStartInput, els.saveSongBtn].forEach(el => el.disabled = !active);
-      els.songFormTitle.textContent = '새 곡 추가';
-      els.songFormDescription.textContent = active ? `${currentArtist().label || state.activeArtistId} 재생목록에 새로운 곡을 추가해요.` : '먼저 아티스트를 선택해 주세요.';
-      els.saveSongBtn.textContent = '＋ 곡 추가';
-      els.cancelEditSongBtn.hidden = true;
-      els.videoHint.className = 'video-hint';
-      els.videoHint.textContent = 'YouTube URL 전체 또는 영상 ID를 입력할 수 있어요.';
-    }
-
-    function startEditSong(index) {
-      const artist = currentArtist();
-      const song = artist?.songs?.[index];
-      if (!song) return;
-      state.editingSongIndex = index;
-      els.songFormTitle.textContent = '곡 정보 수정';
-      els.songFormDescription.textContent = `${song.title || '선택한 곡'}의 정보를 바꿉니다.`;
-      els.songTitleInput.value = song.title || '';
-      els.songArtistInput.value = song.artist || '';
-      const extracted = extractVideoId(song.videoId || '');
-      els.songUrlInput.value = extracted.id ? extracted.url : (song.videoId || '');
-      els.songStartInput.value = String(Number.isFinite(Number(song.start)) ? Math.max(0, Math.floor(Number(song.start))) : 0);
-      els.saveSongBtn.textContent = '변경 사항 저장';
-      els.cancelEditSongBtn.hidden = false;
-      updateVideoHint();
-      $('songFormWrap').scrollIntoView({behavior:'smooth',block:'nearest'});
-      els.songTitleInput.focus({preventScroll:true});
-    }
-
-    function addArtist(event) {
-      event.preventDefault();
-      const id = els.newArtistId.value.trim();
-      const label = els.newArtistLabel.value.trim();
-      const artistName = els.newArtistName.value.trim();
-      if (!/^[A-Za-z0-9_-]+$/.test(id)) { toast('아티스트 ID는 영문·숫자·밑줄·하이픈만 사용할 수 있어요.'); return; }
-      if (Object.prototype.hasOwnProperty.call(state.root.artists, id)) { toast('이미 사용 중인 아티스트 ID예요.'); els.newArtistId.focus(); return; }
-      if (!label || !artistName) { toast('표시 이름과 기본 아티스트명을 입력해 주세요.'); return; }
-      state.root.artists[id] = { label, artist: artistName, songs: [] };
-      state.activeArtistId = id;
-      state.editingSongIndex = null;
-      els.addArtistForm.reset(); els.addArtistPanel.classList.remove('open'); els.toggleAddArtistBtn.setAttribute('aria-expanded','false');
-      markDirty(); renderEverything();
-      toast(`${label} 아티스트를 추가했어요 ♡`);
-      els.songTitleInput.focus({preventScroll:true});
-    }
-
-    function saveSong(event) {
-      event.preventDefault();
-      const artist = currentArtist();
-      if (!artist) { toast('먼저 아티스트를 선택하거나 추가해 주세요.'); return; }
-      const title = els.songTitleInput.value.trim();
-      const enteredUrl = els.songUrlInput.value.trim();
-      const songArtist = els.songArtistInput.value.trim() || artist.artist || artist.label || state.activeArtistId;
-      const startText = els.songStartInput.value.trim();
-      const start = Number(startText);
-      if (!title) { toast('곡 제목을 입력해 주세요.'); els.songTitleInput.focus(); return; }
-      const parsed = extractVideoId(enteredUrl);
-      if (!parsed.id) { toast(parsed.error || 'YouTube URL을 확인해 주세요.'); els.songUrlInput.focus(); return; }
-      if (startText === '' || !Number.isFinite(start) || start < 0) { toast('재생 시작 시간은 0 이상의 초 단위 숫자여야 해요.'); els.songStartInput.focus(); return; }
-      const songData = { title, artist: songArtist, videoId: parsed.url, start: Math.floor(start) };
-      if (state.editingSongIndex !== null) {
-        const old = artist.songs[state.editingSongIndex] || {};
-        artist.songs[state.editingSongIndex] = { ...old, ...songData };
-        toast('곡 정보를 수정했어요 ✨');
-      } else {
-        artist.songs.push(songData);
-        toast('새 곡을 추가했어요 ♬');
-      }
-      markDirty(); renderArtistList(); renderSongs(); updateSummary(); resetSongForm();
-    }
-
-    function deleteSong(index) {
-      const artist = currentArtist();
-      if (!artist || !artist.songs[index]) return;
-      const title = artist.songs[index].title || '선택한 곡';
-      if (!confirm(`「${title}」 곡을 삭제할까요?`)) return;
-      artist.songs.splice(index, 1);
-      if (state.editingSongIndex === index) resetSongForm();
-      else if (state.editingSongIndex !== null && state.editingSongIndex > index) state.editingSongIndex--;
-      markDirty(); renderArtistList(); renderSongs(); updateSummary();
-      toast('곡을 삭제했어요.');
-    }
-
-    function deleteArtist() {
-      const id = state.activeArtistId;
-      const artist = currentArtist();
-      if (!artist) return;
-      const count = artist.songs?.length || 0;
-      if (!confirm(`「${artist.label || id}」 아티스트와 등록된 ${count}곡을 모두 삭제할까요?`)) return;
-      delete state.root.artists[id];
-      state.activeArtistId = Object.keys(state.root.artists)[0] || null;
-      state.editingSongIndex = null;
-      markDirty(); renderEverything();
-      toast('아티스트를 삭제했어요.');
-    }
-
-    function updateVideoHint() {
-      const result = extractVideoId(els.songUrlInput.value);
-      if (!els.songUrlInput.value.trim()) {
-        els.videoHint.className = 'video-hint';
-        els.videoHint.textContent = 'YouTube URL 전체 또는 영상 ID를 입력할 수 있어요.';
-      } else if (result.id) {
-        els.videoHint.className = 'video-hint valid';
-        els.videoHint.textContent = `✓ 영상 ID 인식: ${result.id} · JSON에는 표준 YouTube URL로 저장됩니다.`;
-      } else {
-        els.videoHint.className = 'video-hint invalid';
-        els.videoHint.textContent = result.error;
-      }
-    }
-
-    function createJson() {
-      try {
-        if (!state.root) throw new Error('불러온 JSON이 없습니다. URL 또는 파일을 불러오거나 새 JSON을 만들어 주세요.');
-        const output = deepClone(state.root);
-        ensureOutputGuide(output);
-        if (!output.artists || typeof output.artists !== 'object' || Array.isArray(output.artists)) throw new Error('artists 객체를 확인해 주세요.');
-        const ids = Object.keys(output.artists);
-        if (!ids.length) throw new Error('아티스트가 없습니다. 아티스트를 한 명 이상 추가해 주세요.');
-        let totalSongs = 0;
-        for (const [id, artist] of Object.entries(output.artists)) {
-          if (!artist.label?.trim()) throw new Error(`${id}: 버튼 표시 이름을 입력해 주세요.`);
-          if (!artist.artist?.trim()) throw new Error(`${id}: 기본 아티스트명을 입력해 주세요.`);
-          if (!Array.isArray(artist.songs)) throw new Error(`${id}: songs는 배열이어야 합니다.`);
-          for (let i = 0; i < artist.songs.length; i++) {
-            const song = artist.songs[i];
-            if (!song.title || !String(song.title).trim()) throw new Error(`${artist.label} ${i+1}번째 곡: 제목이 비어 있습니다.`);
-            const parsed = extractVideoId(song.videoId);
-            if (!parsed.id) throw new Error(`${artist.label} - ${song.title}: ${parsed.error}`);
-            song.videoId = parsed.url;
-            if (song.artist === undefined || !String(song.artist).trim()) song.artist = artist.artist;
-            const start = Number(song.start);
-            if (!Number.isFinite(start) || start < 0) throw new Error(`${artist.label} - ${song.title}: start는 0 이상의 숫자여야 합니다.`);
-            song.start = Math.floor(start);
-            totalSongs++;
-          }
-        }
-        output.schemaVersion = output.schemaVersion || 1;
-        state.generatedText = JSON.stringify(output, null, 2);
-        state.dirty = false;
-        els.jsonOutput.value = state.generatedText;
-        els.outputPreview.classList.add('visible');
-        els.copyBtn.disabled = false;
-        els.saveBtn.disabled = false;
-        els.outputNotice.textContent = `검증 완료 · 아티스트 ${ids.length}명, 곡 ${totalSongs}개 · playlist.json으로 저장할 준비가 됐어요.`;
-        updateSummary();
-        toast('JSON을 만들었어요! 복사하거나 저장해 주세요 ✨');
-        els.outputPreview.scrollIntoView({behavior:'smooth',block:'nearest'});
-      } catch (error) {
-        toast(error.message || 'JSON 생성 중 오류가 발생했습니다.');
-        setStatus(error.message || 'JSON 생성 오류', 'error');
-      }
-    }
-    function ensureOutputGuide(output) {
-      if (!output._안내 || typeof output._안내 !== 'object') output._안내 = deepClone(DEFAULT_GUIDE);
-    }
-
-    async function copyJson() {
-      if (!state.generatedText || state.dirty) { toast('먼저 JSON 만들기를 눌러 주세요.'); return; }
-      try {
-        await navigator.clipboard.writeText(state.generatedText);
-        toast('전체 JSON 스크립트를 복사했어요 ♡');
-      } catch {
-        els.jsonOutput.focus(); els.jsonOutput.select();
-        const success = document.execCommand('copy');
-        if (success) toast('전체 JSON 스크립트를 복사했어요 ♡');
-        else toast('자동 복사에 실패했어요. 미리보기 내용을 직접 복사해 주세요.');
-      }
-    }
-
-    function saveJson() {
-      if (!state.generatedText || state.dirty) { toast('먼저 JSON 만들기를 눌러 주세요.'); return; }
-      const blob = new Blob([state.generatedText + '\n'], {type:'application/json;charset=utf-8'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'playlist.json'; a.style.display = 'none';
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-      toast('playlist.json 파일 저장을 시작했어요 ♬');
-    }
+    // Dark mode: persist manual choice; otherwise follow system preference.
+    const THEME_STORAGE_KEY='umeOperaTheme';
+    const themeButton=$('themeToggleBtn');
+    const themeIcon=themeButton.querySelector('.theme-toggle-icon');
+    const themeLabel=themeButton.querySelector('.theme-toggle-label');
+    function getSavedTheme(){try{const saved=localStorage.getItem(THEME_STORAGE_KEY);return saved==='dark'||saved==='light'?saved:null;}catch{return null;}}
+    function applyTheme(theme,save=false){const dark=theme==='dark';document.documentElement.dataset.theme=dark?'dark':'light';themeIcon.textContent=dark?'☀️':'🌙';themeLabel.textContent=dark?'라이트 모드':'다크 모드';themeButton.setAttribute('aria-pressed',String(dark));themeButton.setAttribute('aria-label',dark?'라이트 모드로 전환':'다크 모드로 전환');themeButton.title=dark?'라이트 모드로 전환':'다크 모드로 전환';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?'#111522':'#f5f7ff';if(save){try{localStorage.setItem(THEME_STORAGE_KEY,dark?'dark':'light');}catch{/* 저장이 차단되어도 현재 페이지의 테마는 변경됩니다. */}}}
+    const systemTheme=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+    applyTheme(getSavedTheme()||(systemTheme&&systemTheme.matches?'dark':'light'));
+    themeButton.addEventListener('click',()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark',true));
+    if(systemTheme){const syncSystemTheme=event=>{if(!getSavedTheme())applyTheme(event.matches?'dark':'light');};if(typeof systemTheme.addEventListener==='function')systemTheme.addEventListener('change',syncSystemTheme);else if(typeof systemTheme.addListener==='function')systemTheme.addListener(syncSystemTheme);}
 
     // UI events
-    els.loadUrlBtn.addEventListener('click', loadFromUrl);
-    els.sourceUrl.addEventListener('keydown', event => { if (event.key === 'Enter') loadFromUrl(); });
-    els.fileInput.addEventListener('change', async event => {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      try {
-        const text = await file.text();
-        let data;
-        try { data = JSON.parse(text); } catch { throw new Error('선택한 파일은 올바른 JSON 형식이 아닙니다.'); }
-        setLoadedData(data, `파일 ${file.name}`);
-        toast(`${file.name} 파일을 불러왔어요 ♡`);
-      } catch (error) { setStatus(error.message || '파일을 읽지 못했습니다.', 'error'); }
-      finally { els.fileInput.value = ''; }
-    });
-    els.newJsonBtn.addEventListener('click', newJson);
-    els.toggleAddArtistBtn.addEventListener('click', () => {
-      const isOpen = els.addArtistPanel.classList.toggle('open');
-      els.toggleAddArtistBtn.setAttribute('aria-expanded', String(isOpen));
-      if (isOpen) els.newArtistId.focus();
-    });
-    els.cancelAddArtistBtn.addEventListener('click', () => { els.addArtistPanel.classList.remove('open'); els.toggleAddArtistBtn.setAttribute('aria-expanded','false'); });
-    els.addArtistForm.addEventListener('submit', addArtist);
-    els.artistLabelInput.addEventListener('input', () => { const artist = currentArtist(); if (!artist) return; artist.label = els.artistLabelInput.value; els.selectedArtistTitle.textContent = artist.label || state.activeArtistId; markDirty(); });
-    els.artistLabelInput.addEventListener('change', () => { renderArtistList(); renderArtistDetailsPreservingFocus('label'); });
-    els.artistNameInput.addEventListener('input', () => { const artist = currentArtist(); if (!artist) return; artist.artist = els.artistNameInput.value; els.selectedArtistDescription.textContent = `${artist.artist || artist.label || state.activeArtistId} · 곡 정보와 아티스트 설정을 편집할 수 있어요.`; markDirty(); });
-    els.artistNameInput.addEventListener('change', () => { renderArtistList(); renderArtistDetailsPreservingFocus('artist'); });
-    function renderArtistDetailsPreservingFocus(which) {
-      const el = which === 'label' ? els.artistLabelInput : els.artistNameInput;
-      const start = el.selectionStart, end = el.selectionEnd;
-      renderArtistList();
-      el.focus({preventScroll:true});
-      try { el.setSelectionRange(start,end); } catch {}
-    }
-    els.deleteArtistBtn.addEventListener('click', deleteArtist);
-    els.songForm.addEventListener('submit', saveSong);
-    els.cancelEditSongBtn.addEventListener('click', resetSongForm);
-    els.songUrlInput.addEventListener('input', updateVideoHint);
-    els.generateBtn.addEventListener('click', createJson);
-    els.copyBtn.addEventListener('click', copyJson);
-    els.saveBtn.addEventListener('click', saveJson);
+    els.loadUrlBtn.addEventListener('click',loadFromUrl);
+    els.sourceUrl.addEventListener('keydown',event=>{if(event.key==='Enter')loadFromUrl();});
+    els.fileInput.addEventListener('change',async event=>{const file=event.target.files?.[0];if(!file)return;try{const text=await file.text();let data;try{data=JSON.parse(text);}catch{throw new Error('선택한 파일은 올바른 JSON 형식이 아닙니다.');}setLoadedData(data,`파일 ${file.name}`);toast(`${file.name} 파일을 불러왔어요 ♡`);}catch(error){setStatus(error.message||'파일을 읽지 못했습니다.','error');}finally{els.fileInput.value='';}});
+    els.newJsonBtn.addEventListener('click',newJson);
+    els.toggleAddArtistBtn.addEventListener('click',()=>{const isOpen=els.addArtistPanel.classList.toggle('open');els.toggleAddArtistBtn.setAttribute('aria-expanded',String(isOpen));if(isOpen)els.newArtistId.focus();});
+    els.cancelAddArtistBtn.addEventListener('click',()=>{els.addArtistPanel.classList.remove('open');els.toggleAddArtistBtn.setAttribute('aria-expanded','false');});
+    els.addArtistForm.addEventListener('submit',addArtist);
+    els.artistLabelInput.addEventListener('input',()=>{const artist=currentArtist();if(!artist)return;artist.label=els.artistLabelInput.value;els.selectedArtistTitle.textContent=artist.label||state.activeArtistId;markDirty();});
+    els.artistLabelInput.addEventListener('change',()=>{renderArtistList();renderArtistDetailsPreservingFocus('label');});
+    els.artistNameInput.addEventListener('input',()=>{const artist=currentArtist();if(!artist)return;artist.artist=els.artistNameInput.value;els.selectedArtistDescription.textContent=`${artist.artist||artist.label||state.activeArtistId} · 곡 정보와 아티스트 설정을 편집할 수 있어요.`;markDirty();});
+    els.artistNameInput.addEventListener('change',()=>{renderArtistList();renderArtistDetailsPreservingFocus('artist');});
+    function renderArtistDetailsPreservingFocus(which){const el=which==='label'?els.artistLabelInput:els.artistNameInput;const start=el.selectionStart,end=el.selectionEnd;renderArtistList();el.focus({preventScroll:true});try{el.setSelectionRange(start,end);}catch{}}
+    els.deleteArtistBtn.addEventListener('click',deleteArtist);
+    els.songForm.addEventListener('submit',saveSong);
+    els.cancelEditSongBtn.addEventListener('click',resetSongForm);
+    els.songUrlInput.addEventListener('input',updateVideoHint);
+    els.generateBtn.addEventListener('click',createJson);
+    els.copyBtn.addEventListener('click',copyJson);
+    els.saveBtn.addEventListener('click',saveJson);
 
-    // 시작할 때 기본 GitHub URL에서 재생목록을 불러옵니다.
+    // Start by loading the default GitHub playlist URL.
     loadFromUrl();
   </script>
 </body>
