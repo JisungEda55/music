@@ -68,6 +68,18 @@
           "artist": "아야츠노 유니",
           "videoId": "https://www.youtube.com/watch?v=u5Ud4h9K8gs",
           "start": 5366
+        },
+        {
+          "title": "도라에몽 ost (일본판)",
+          "artist": "아야츠노 유니",
+          "videoId": "https://www.youtube.com/watch?v=RYi53AtooXE",
+          "start": 0
+        },
+        {
+          "title": "연애서큘레이션 (恋愛サーキュレーション)",
+          "artist": "아야츠노 유니",
+          "videoId": "https://www.youtube.com/watch?v=_iNHQuaKuig",
+          "start": 0
         }
       ]
     },
@@ -86,18 +98,440 @@
           "artist": "하나코 나나",
           "videoId": "https://www.youtube.com/watch?v=npwilOOckxY",
           "start": 0
+        },
+        {
+          "title": "オドループ(Oddloop) - フレデリック(FREDERIC)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=c_xvBZNKa9g",
+          "start": 0
+        },
+        {
+          "title": "Enemy - Imagine Dragons x J.I.D",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=5iYsqcKaQuw",
+          "start": 0
+        },
+        {
+          "title": "Dance The Night Away - TWICE(트와이스)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=F7kdEX0VRss",
+          "start": 0
+        },
+        {
+          "title": "Catallena(까탈레나) - Orange Caramel(오렌지캬라멜)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=qv_VVUJOt0M",
+          "start": 0
+        },
+        {
+          "title": "テレパシ(텔레파시) - DECO*27",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=fc8eV7D-ANs",
+          "start": 0
+        },
+        {
+          "title": "no pain (실리카겔)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=zzmB7z8Ke1c",
+          "start": 0
+        },
+        {
+          "title": "TOMBOY (혁오)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=sym51JlT3x0",
+          "start": 0
+        },
+        {
+          "title": "Teeth - 5SoS",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=R5hXBBS1KYw",
+          "start": 0
+        },
+        {
+          "title": "홍연 (Drama Ver.)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=XVyCoqw4KHk",
+          "start": 0
+        },
+        {
+          "title": "붕붕",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=VhvFbPYLf1g",
+          "start": 0
+        },
+        {
+          "title": "가라사대",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=-Nybqz0CIL4",
+          "start": 0
+        },
+        {
+          "title": "Bling-Bang-Bang-Born (브링방방봉)",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=vGRlXltLCN8",
+          "start": 0
+        },
+        {
+          "title": "Pretender",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=FTYMdYpXr28",
+          "start": 0
+        },
+        {
+          "title": "사랑을 전하고 싶다든가",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=_MICWgHJ6dc",
+          "start": 0
+        },
+        {
+          "title": "사랑하긴 했었나요",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=57hdKs8Ai_k",
+          "start": 0
+        },
+        {
+          "title": "Dance Monkey",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=mEoBS-YjIjg",
+          "start": 0
+        },
+        {
+          "title": "마루노우치 새디스틱",
+          "artist": "하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=Milkr-MLBbA",
+          "start": 0
         }
       ]
     },
     "rico": {
       "label": "리코",
       "artist": "유즈하 리코",
-      "songs": []
+      "songs": [
+        {
+          "title": "입춘",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=od97A7J6tGc",
+          "start": 0
+        },
+        {
+          "title": "히로인 육성계획 ヒロイン育成計画",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=SeDPbIKzmmI",
+          "start": 0
+        },
+        {
+          "title": "네모네모(NEMONEMO)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=xn1sosP6kKw",
+          "start": 0
+        },
+        {
+          "title": "오르트구름",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=UrJGefC6uCs",
+          "start": 0
+        },
+        {
+          "title": "네가 아니면 안될 것 같아 君じゃなきゃダメみたい",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=xhBUCzzfcw8",
+          "start": 0
+        },
+        {
+          "title": "멸종위기사랑",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=v1QWzhRvVS8",
+          "start": 0
+        },
+        {
+          "title": "Pretender",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=pA50xbQafQo",
+          "start": 0
+        },
+        {
+          "title": "Mela!",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=ziadcX4OfE8",
+          "start": 0
+        },
+        {
+          "title": "개화",
+          "artist": "유즈하 리코 x 아라하시 타비",
+          "videoId": "https://www.youtube.com/watch?v=WC0nCeRhpss",
+          "start": 0
+        },
+        {
+          "title": "이렇게 좋아해 본 적이 없어요",
+          "artist": "유즈하 리코 x 네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=oqVXkSoylBg",
+          "start": 0
+        },
+        {
+          "title": "나는 트로트가 싫어요",
+          "artist": "유즈하 리코 x 아라하시 타비",
+          "videoId": "https://www.youtube.com/watch?v=zOguVzSkDf8",
+          "start": 0
+        },
+        {
+          "title": "사랑은 열린 문 (겨울왕국 OST)",
+          "artist": "유즈하 리코 x 텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=C7_TQuqeQGM",
+          "start": 0
+        },
+        {
+          "title": "피차일반",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=98-usK6M9xE",
+          "start": 0
+        },
+        {
+          "title": "사건의 지평선",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=14T5w4zK6Q0",
+          "start": 0
+        },
+        {
+          "title": "200%",
+          "artist": "유즈하 리코 x 하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=DWhjbanXqx4",
+          "start": 0
+        },
+        {
+          "title": "푸르름이 사는 곳(青のすみか) (Short)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=s7u7GJh-cuQ",
+          "start": 0
+        },
+        {
+          "title": "0+0",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=dDVDKZbMCXM",
+          "start": 0
+        },
+        {
+          "title": "귀엽기만 하면 안되나요?",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=FPDXR7utjzk",
+          "start": 0
+        },
+        {
+          "title": "우연히 봄",
+          "artist": "유즈하 리코 x 하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=_8_WX8MwdUQ",
+          "start": 0
+        },
+        {
+          "title": "Pretender",
+          "artist": "유즈하 리코 x 하나코 나나",
+          "videoId": "https://www.youtube.com/watch?v=2LVQWx7ESlY",
+          "start": 0
+        },
+        {
+          "title": "너에게 100퍼센트(キミに100パーセント)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=Mx39Ot0_mSY",
+          "start": 0
+        },
+        {
+          "title": "내일의 밤하늘 초계반(アスノヨゾラ哨戒班)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=gfyVIiG-OY8",
+          "start": 0
+        },
+        {
+          "title": "사랑하게 될거야",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=IfK2oPwElWg",
+          "start": 0
+        },
+        {
+          "title": "꿈을 이루어줘, 도라에몽 (도라에몽 OST)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=IzzmWYssNXU",
+          "start": 0
+        },
+        {
+          "title": "히로인(ヒロイン)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=bKnU1XMLgQA",
+          "start": 0
+        },
+        {
+          "title": "밤을 달리다(夜に駆ける)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=Sq6Wc1pSwhI",
+          "start": 0
+        },
+        {
+          "title": "사랑은 은하수 다방에서",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=crlY_ldDXJ4",
+          "start": 0
+        },
+        {
+          "title": "냉탕에 상어",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=cTOldJVFEl0",
+          "start": 0
+        },
+        {
+          "title": "까탈레나",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=o5hCiBuhFnk",
+          "start": 0
+        },
+        {
+          "title": "악당주의보 live",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=xK3ETM-t4Vg",
+          "start": 0
+        },
+        {
+          "title": "니아(ニア)",
+          "artist": "유즈하 리코 x 아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=uLETRkkWfnU",
+          "start": 0
+        },
+        {
+          "title": "나만, 봄",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=5QC6Nd_AozI",
+          "start": 0
+        },
+        {
+          "title": "수고했어, 오늘도",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=9QG3W2dC2Z0",
+          "start": 0
+        },
+        {
+          "title": "스토커",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=AMfwRBZxsAw",
+          "start": 0
+        },
+        {
+          "title": "도쿄 섄디 랑데부",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=m6YpyjcqhXo",
+          "start": 0
+        },
+        {
+          "title": "나의 사춘기에게",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=M_CMOYpiqgs",
+          "start": 0
+        },
+        {
+          "title": "정류장",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=Q-jGL8koPdI",
+          "start": 0
+        },
+        {
+          "title": "푸른 산호초(青い珊瑚礁)",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=zBnMtQizyaM",
+          "start": 0
+        },
+        {
+          "title": "사랑의 배터리",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=q-Rx-79sog4",
+          "start": 0
+        },
+        {
+          "title": "오빠야",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=IR31ejPovww",
+          "start": 0
+        },
+        {
+          "title": "고민중독",
+          "artist": "유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=zyePe5XF5TQ",
+          "start": 0
+        },
+        {
+          "title": "Roly-Poly",
+          "artist": "유즈하 리코 x 아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=1sBbNU2gZMw",
+          "start": 0
+        }
+      ]
     },
     "shibuki": {
       "label": "시부키",
       "artist": "텐코 시부키",
-      "songs": []
+      "songs": [
+        {
+          "title": "신의 뜻대로 [ 神のまにまにㅣれるりり]",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=So0ba8NuUq0",
+          "start": 0
+        },
+        {
+          "title": "거북이",
+          "artist": "텐코 시부키 X 유즈하 리코",
+          "videoId": "https://www.youtube.com/watch?v=znAPzpGphaU",
+          "start": 0
+        },
+        {
+          "title": "숨바꼭질 [ かくれんぼㅣAliA ]",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=MiDetUXu1hw",
+          "start": 0
+        },
+        {
+          "title": "여우비",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=L_QZzYfB9Ro",
+          "start": 0
+        },
+        {
+          "title": "사랑하게 될 거야",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=HovB5Qi8XhE",
+          "start": 0
+        },
+        {
+          "title": "마리골드",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=TLWYISZYni8",
+          "start": 0
+        },
+        {
+          "title": "Let's it go",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=I7Cm1kWsHiY",
+          "start": 0
+        },
+        {
+          "title": "에피소드",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=iGl29FCe2no",
+          "start": 0
+        },
+        {
+          "title": "2002",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=MPtcRLbdBD8",
+          "start": 0
+        },
+        {
+          "title": "HAPPY",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=ACBbnaT2UiU",
+          "start": 0
+        },
+        {
+          "title": "SUPADOPA",
+          "artist": "텐코 시부키",
+          "videoId": "https://www.youtube.com/watch?v=brRvOAY_viE",
+          "start": 0
+        }
+      ]
     },
     "rin": {
       "label": "린",
@@ -131,6 +565,12 @@
           "title": "잔혹한 천사의 테제",
           "artist": "아오쿠모 린",
           "videoId": "https://www.youtube.com/watch?v=ZVuBKtRD6gs",
+          "start": 0
+        },
+        {
+          "title": "귀엽기만 하면 안 되나요? (かわいいだけじゃだめですか？)",
+          "artist": "아야츠노 유니 X 시라유키 히나 X 아오쿠모 린",
+          "videoId": "https://www.youtube.com/watch?v=aACJnJRuCLs",
           "start": 0
         }
       ]
@@ -410,6 +850,131 @@
           "start": 0
         }
       ]
+    },
+    "masiro": {
+      "label": "마시로",
+      "artist": "네네코 마시로",
+      "songs": [
+        {
+          "title": "폰서트",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 0
+        },
+        {
+          "title": "개똥벌래",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 654
+        },
+        {
+          "title": "사랑은 은하수 다방에서",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 821
+        },
+        {
+          "title": "Vaundy 무희",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 944
+        },
+        {
+          "title": "고백 - 뜨거운감자",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 1217
+        },
+        {
+          "title": "우주를 줄게",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 1449
+        },
+        {
+          "title": "고백 - 델리스파이어스",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 1760
+        },
+        {
+          "title": "수고했어, 오늘도",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=ELo9pVHrvc0",
+          "start": 2489
+        },
+        {
+          "title": "퀘스천 (Question)",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=Y3McmrSFy1E",
+          "start": 0
+        },
+        {
+          "title": "음 오 아 예 (Um Oh Ah Yea)",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=1AWYnjFrSRI",
+          "start": 0
+        },
+        {
+          "title": "우주를 줄게",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=CggQzg5W2Nc",
+          "start": 0
+        },
+        {
+          "title": "심술",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=NaTJg9PqEg0",
+          "start": 0
+        },
+        {
+          "title": "붉은장미",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=CmMwCOITSho",
+          "start": 0
+        },
+        {
+          "title": "로리신 레퀴엠",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=BHlhl0CcclM",
+          "start": 0
+        },
+        {
+          "title": "혜성",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=r30UMdm9J-Q",
+          "start": 0
+        },
+        {
+          "title": "칵테일 사랑",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=xRB3-RmJjK0",
+          "start": 0
+        },
+        {
+          "title": "연애서큘레이션",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=wKJpJ08Z4NA",
+          "start": 0
+        },
+        {
+          "title": "네가 아니면 안될 것 같아",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=vrRRk7hxXcg",
+          "start": 0
+        },
+        {
+          "title": "연예인",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=w7PgvIbT25o",
+          "start": 0
+        }
+      ]
+    },
+    "ect": {
+      "label": "기타 (et cetera)",
+      "artist": "기타 (et cetera)",
+      "songs": []
     }
   }
 }
