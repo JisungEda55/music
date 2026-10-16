@@ -7,6 +7,7 @@
   <meta name="color-scheme" content="dark">
   <meta name="description" content="ume opera">
   <link id="siteFavicon" rel="icon" href="https://i.ibb.co/rfzm8PY1/ume.webp">
+  <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/rfzm8PY1/ume.webp">
   <link id="canonicalLink" rel="canonical" href="https://jisungeda55.github.io/music/ume/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="ume Opera">
@@ -89,7 +90,7 @@
     .app-shell {
       position: relative;
       display: grid;
-      grid-template-rows: minmax(28px, .55fr) minmax(0, 3.8fr) minmax(0, 1.4fr) minmax(0, 2.8fr);
+      grid-template-rows: minmax(34px, .42fr) minmax(0, 3fr) minmax(0, .82fr) minmax(0, 3.4fr);
       width: min(100%, 520px);
       height: 100vh;
       height: 100dvh;
@@ -150,12 +151,12 @@
       min-height: 0;
       display: grid;
       place-items: center;
-      padding: 10px 15px 14px;
+      padding: 2px 10px 3px;
     }
     .video-frame {
       position: relative;
-      width: min(100%, calc((40dvh - 24px) * 1.7777778));
-      max-height: calc(40dvh - 24px);
+      width: min(100%, calc((34dvh - 8px) * 1.7777778));
+      max-height: calc(34dvh - 8px);
       aspect-ratio: 16 / 9;
       overflow: hidden;
       background: #000;
@@ -180,10 +181,10 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 6px 24px 12px;
+      padding: 2px 18px 4px;
     }
     .eyebrow {
-      margin-bottom: 11px;
+      margin-bottom: 5px;
       color: var(--accent);
       font-size: 10px;
       font-weight: 800;
@@ -200,7 +201,7 @@
       overflow-wrap: anywhere;
     }
     .current-subtitle {
-      margin-top: 8px;
+      margin-top: 4px;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.4;
@@ -213,7 +214,7 @@
       grid-template-rows: auto 30px minmax(0, 0fr);
       min-width: 0;
       min-height: 0;
-      padding: 0 15px calc(8px + var(--safe-bottom));
+      padding: 0 12px calc(4px + var(--safe-bottom));
       transition: grid-template-rows .34s cubic-bezier(.2,.75,.25,1);
     }
     .library-zone.is-open { grid-template-rows: auto 30px minmax(0, 1fr); }
@@ -421,6 +422,27 @@
     .empty-state code {
       color: #e6b2a8;
       font-size: 11px;
+    }
+
+    /* iPhone 등 세로형 모바일: 영상 주변과 제목 영역의 과도한 여백을 줄여 곡 목록을 확보 */
+    @media (max-width: 600px) and (orientation: portrait) {
+      .topbar { padding: 0 16px; }
+      .brand { gap: 8px; font-size: 10px; }
+      .brand-mark { width: 27px; height: 27px; flex-basis: 27px; }
+      .topbar-label { font-size: 9px; letter-spacing: .08em; }
+      .player-zone { padding: 0 8px; }
+      .video-frame { width: min(100%, calc((32dvh - 6px) * 1.7777778)); max-height: calc(32dvh - 6px); border-radius: 13px; }
+      .track-info { padding: 0 12px 2px; }
+      .eyebrow { margin-bottom: 3px; font-size: 9px; }
+      .current-title { font-size: clamp(18px, 5vw, 23px); line-height: 1.2; }
+      .current-subtitle { margin-top: 3px; font-size: 11px; }
+      .library-zone { padding-right: 10px; padding-left: 10px; }
+      .artist-tabs { gap: 4px; }
+      .artist-row { gap: 4px; }
+      .artist-button { min-height: 34px; padding-top: 5px; padding-bottom: 5px; }
+      .artist-tools { height: 26px; }
+      .artist-toggle { min-height: 25px; padding: 2px 10px; }
+      .song-button { min-height: 42px; padding-top: 7px; padding-bottom: 7px; }
     }
 
     @media (max-height: 680px) {
@@ -662,7 +684,11 @@
       }
 
       const favicon = document.getElementById('siteFavicon');
-      if (FAVICON_URL.trim()) favicon.href = FAVICON_URL.trim();
+      const appleTouchIcon = document.getElementById('appleTouchIcon');
+      if (FAVICON_URL.trim()) {
+        favicon.href = FAVICON_URL.trim();
+        if (appleTouchIcon) appleTouchIcon.href = FAVICON_URL.trim();
+      }
       // FAVICON_URL이 비어 있으면 HTML <head>에 설정된 기본 파비콘을 유지합니다.
 
       const config = OPENGRAPH_CONFIG;
