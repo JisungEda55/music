@@ -7,6 +7,7 @@
   <meta name="color-scheme" content="dark">
   <meta name="description" content="ume opera">
   <link id="siteFavicon" rel="icon" href="https://i.ibb.co/rfzm8PY1/ume.webp">
+  <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/ZzBFXYyX/IMG-4120.png">
   <link id="canonicalLink" rel="canonical" href="https://jisungeda55.github.io/music/ume/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="ume Opera">
@@ -89,7 +90,7 @@
     .app-shell {
       position: relative;
       display: grid;
-      grid-template-rows: repeat(10, minmax(0, 1fr));
+      grid-template-rows: minmax(34px, 5dvh) minmax(0, 27dvh) minmax(118px, 19dvh) minmax(0, 1fr);
       width: min(100%, 520px);
       height: 100vh;
       height: 100dvh;
@@ -145,17 +146,17 @@
 
     /* 2~5/10: YouTube 영상 영역 */
     .player-zone {
-      grid-row: 2 / 6;
+      grid-row: 2 / 3;
       min-width: 0;
       min-height: 0;
       display: grid;
       place-items: center;
-      padding: 10px 15px 14px;
+      padding: 0 10px 2px;
     }
     .video-frame {
       position: relative;
-      width: min(100%, calc((40dvh - 24px) * 1.7777778));
-      max-height: calc(40dvh - 24px);
+      width: min(100%, calc((25dvh - 6px) * 1.7777778));
+      max-height: calc(25dvh - 6px);
       aspect-ratio: 16 / 9;
       overflow: hidden;
       background: #000;
@@ -172,7 +173,7 @@
     }
     /* 6~7/10: 아티스트 / 제목 */
     .track-info {
-      grid-row: 6 / 8;
+      grid-row: 3 / 4;
       min-width: 0;
       min-height: 0;
       display: flex;
@@ -180,10 +181,10 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 6px 24px 12px;
+      padding: 4px 18px 8px;
     }
     .eyebrow {
-      margin-bottom: 11px;
+      margin-bottom: 7px;
       color: var(--accent);
       font-size: 10px;
       font-weight: 800;
@@ -200,46 +201,84 @@
       overflow-wrap: anywhere;
     }
     .current-subtitle {
-      margin-top: 8px;
+      margin-top: 4px;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.4;
     }
 
-    /* 8~10/10: 아티스트 버튼 + 부드러운 재생목록 */
+    /* 아티스트 행은 JSON의 항목 수에 따라 동적으로 늘어납니다. */
     .library-zone {
-      grid-row: 8 / 11;
+      grid-row: 4 / 5;
       display: grid;
-      grid-template-rows: 52px minmax(0, 0fr);
+      grid-template-rows: auto 30px minmax(0, 0fr);
       min-width: 0;
       min-height: 0;
-      padding: 0 15px calc(8px + var(--safe-bottom));
+      padding: 0 12px calc(4px + var(--safe-bottom));
       transition: grid-template-rows .34s cubic-bezier(.2,.75,.25,1);
     }
-    .library-zone.is-open { grid-template-rows: 52px minmax(0, 1fr); }
+    .library-zone.is-open { grid-template-rows: auto 30px minmax(0, 1fr); }
     .artist-tabs {
-      display: flex;
-      gap: 8px;
-      align-items: center;
+      display: grid;
+      align-content: start;
+      gap: 6px;
       min-width: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
-      overscroll-behavior-x: contain;
+      min-height: 0;
+      overflow: hidden;
+      transition: max-height .32s cubic-bezier(.2,.75,.25,1), opacity .2s ease;
     }
-    .artist-tabs::-webkit-scrollbar { display: none; }
+    .artist-row {
+      display: grid;
+      grid-template-columns: repeat(var(--row-count, 5), minmax(0, 1fr));
+      gap: 6px;
+      min-width: 0;
+      min-height: 0;
+      max-height: 44px;
+      overflow: hidden;
+      opacity: 1;
+      transition: max-height .32s cubic-bezier(.2,.75,.25,1), opacity .2s ease;
+    }
+    .artist-tabs.is-collapsed .artist-row:not(.is-selected-row) {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
     .artist-tabs-placeholder {
-      flex: 1 0 100%;
       color: var(--muted);
       font-size: 11px;
       text-align: center;
+      padding: 10px 0;
     }
+    .artist-tools {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+    }
+    .artist-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 27px;
+      padding: 3px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #b8bac6;
+      background: rgba(255,255,255,.035);
+      font-size: 10px;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .artist-toggle:disabled { opacity: .35; cursor: default; }
+    .artist-toggle svg { transition: transform .25s ease; }
+    .artist-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
     .artist-button {
       position: relative;
-      flex: 1 0 0;
-      min-width: 64px;
-      min-height: 40px;
-      padding: 0 12px;
+      width: 100%;
+      min-width: 0;
+      min-height: 38px;
+      padding: 0 6px;
       white-space: nowrap;
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -385,15 +424,38 @@
       font-size: 11px;
     }
 
+    /* iPhone 등 세로형 모바일: 영상 주변과 제목 영역의 과도한 여백을 줄여 곡 목록을 확보 */
+    @media (max-width: 600px) and (orientation: portrait) {
+      .topbar { padding: 0 16px; }
+      .brand { gap: 8px; font-size: 10px; }
+      .brand-mark { width: 27px; height: 27px; flex-basis: 27px; }
+      .topbar-label { font-size: 9px; letter-spacing: .08em; }
+      .player-zone { padding: 0 8px; }
+      .video-frame { width: min(100%, calc((32dvh - 6px) * 1.7777778)); max-height: calc(32dvh - 6px); border-radius: 13px; }
+      .track-info { padding: 0 12px 2px; }
+      .eyebrow { margin-bottom: 3px; font-size: 9px; }
+      .current-title { font-size: clamp(18px, 5vw, 23px); line-height: 1.2; }
+      .current-subtitle { margin-top: 3px; font-size: 11px; }
+      .library-zone { padding-right: 10px; padding-left: 10px; }
+      .artist-tabs { gap: 4px; }
+      .artist-row { gap: 4px; }
+      .artist-button { min-height: 34px; padding-top: 5px; padding-bottom: 5px; }
+      .artist-tools { height: 26px; }
+      .artist-toggle { min-height: 25px; padding: 2px 10px; }
+      .song-button { min-height: 42px; padding-top: 7px; padding-bottom: 7px; }
+    }
+
     @media (max-height: 680px) {
       .topbar { padding: 0 17px; }
-      .player-zone { padding-top: 4px; padding-bottom: 6px; }
+      .player-zone { padding-top: 0; padding-bottom: 2px; }
+      .video-frame { width: min(100%, calc((23dvh - 4px) * 1.7777778)); max-height: calc(23dvh - 4px); }
       .track-info { padding-top: 2px; padding-bottom: 5px; }
       .eyebrow { margin-bottom: 6px; }
       .current-subtitle { margin-top: 4px; }
-      .library-zone { grid-template-rows: 46px minmax(0, 0fr); padding-right: 10px; padding-left: 10px; }
-      .library-zone.is-open { grid-template-rows: 46px minmax(0, 1fr); }
-      .artist-button { min-height: 36px; }
+      .library-zone { padding-right: 10px; padding-left: 10px; }
+      .artist-button { min-height: 32px; }
+      .artist-row { gap: 4px; }
+      .artist-tabs { gap: 4px; }
       .song-button { min-height: 40px; }
     }
     /* ============================================================
@@ -409,7 +471,6 @@
         width: 100%;
         max-width: none;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        /* 곡 정보 행을 약간 줄여 영상 영역에 세로 공간을 더 배분합니다. */
         grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .82fr);
       }
 
@@ -484,21 +545,21 @@
       .library-zone {
         grid-column: 4 / 6;
         grid-row: 1 / 4;
-        grid-template-rows: clamp(44px, 7.5vh, 64px) minmax(0, 0fr);
+        grid-template-rows: minmax(0, auto) 30px minmax(0, 0fr);
         padding: calc(6px + var(--safe-top)) 6px calc(6px + var(--safe-bottom));
         border-left: 1px solid var(--line);
         background: rgba(12, 13, 19, .62);
       }
-      .library-zone.is-open {
-        grid-template-rows: clamp(44px, 7.5vh, 64px) minmax(0, 1fr);
-      }
-      .artist-tabs { gap: 6px; }
+      .library-zone.is-open { grid-template-rows: minmax(0, auto) 30px minmax(0, 1fr); }
+      .artist-tabs { gap: 5px; }
+      .artist-row { gap: 5px; }
       .artist-button {
-        min-height: 36px;
-        padding: 0 6px;
-        border-radius: 10px;
-        font-size: clamp(11px, 1.25vw, 14px);
+        min-height: 32px;
+        padding: 0 4px;
+        border-radius: 9px;
+        font-size: clamp(10px, 1.1vw, 13px);
       }
+      .artist-toggle { min-height: 25px; }
       /* 우측 하단 브랜드가 마지막 곡을 가리지 않도록 스크롤 끝 여백을 확보합니다. */
       .playlist-inner { padding-top: 10px; padding-bottom: 48px; }
       .playlist-heading { padding-bottom: 9px; }
@@ -552,6 +613,12 @@
       <nav class="artist-tabs" id="artistTabs" aria-label="아티스트 선택">
         <span class="artist-tabs-placeholder">재생목록 불러오는 중…</span>
       </nav>
+      <div class="artist-tools">
+        <button class="artist-toggle" id="artistToggle" type="button" aria-expanded="true" aria-controls="artistTabs" disabled>
+          <span id="artistToggleLabel">아티스트 전체 보기</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 4.5 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
       <div class="playlist-panel" id="playlistPanel">
         <div class="playlist-inner" id="playlistInner">
           <div class="playlist-heading">
@@ -619,7 +686,11 @@
       }
 
       const favicon = document.getElementById('siteFavicon');
-      if (FAVICON_URL.trim()) favicon.href = FAVICON_URL.trim();
+      const appleTouchIcon = document.getElementById('appleTouchIcon');
+      if (FAVICON_URL.trim()) {
+        favicon.href = FAVICON_URL.trim();
+        if (appleTouchIcon) appleTouchIcon.href = FAVICON_URL.trim();
+      }
       // FAVICON_URL이 비어 있으면 HTML <head>에 설정된 기본 파비콘을 유지합니다.
 
       const config = OPENGRAPH_CONFIG;
@@ -670,6 +741,9 @@
     const player = document.getElementById('youtubePlayer');
     const libraryZone = document.getElementById('libraryZone');
     const artistTabs = document.getElementById('artistTabs');
+    const artistToggle = document.getElementById('artistToggle');
+    const artistToggleLabel = document.getElementById('artistToggleLabel');
+    const appShell = document.querySelector('.app-shell');
     const songList = document.getElementById('songList');
     const playlistArtistName = document.getElementById('playlistArtistName');
     const playlistCount = document.getElementById('playlistCount');
@@ -680,6 +754,8 @@
 
     let activeArtistId = null;
     let activeTrackKey = null;
+    let artistListExpanded = true;
+    let artistRows = [];
 
     // videoId에는 11자리 ID 또는 일반적인 YouTube 링크를 입력할 수 있습니다.
     // 지원 예시:
@@ -818,22 +894,98 @@
       return { playlists: parsed, warnings };
     }
 
+    // 아티스트는 JSON 순서를 유지하되 5개 단위로 행을 만듭니다.
+    // 마지막 행이 1개면 앞 행에 합쳐 6개로, 2개면 앞의 두 행에 하나씩 분배합니다.
+    // 7개처럼 두 행에 분배할 수 없는 작은 경우에는 균등 분배해 짧은 꼬리 행을 피합니다.
+    function calculateArtistRowSizes(count) {
+      if (count <= 0) return [];
+      if (count <= 6) return [count];
+      const sizes = [];
+      let remaining = count;
+      while (remaining > 0) {
+        sizes.push(Math.min(5, remaining));
+        remaining -= Math.min(5, remaining);
+      }
+      const last = sizes[sizes.length - 1];
+      if (last === 1 && sizes.length >= 2) {
+        sizes[sizes.length - 2] += 1;
+        sizes.pop();
+      } else if (last === 2 && sizes.length >= 3) {
+        sizes[sizes.length - 2] += 1;
+        sizes[sizes.length - 3] += 1;
+        sizes.pop();
+      } else if (last === 2 && sizes.length === 2) {
+        // 7개면 4+3, 12개는 위 분기에서 6+6이 됩니다.
+        sizes[0] = Math.ceil(count / 2);
+        sizes[1] = Math.floor(count / 2);
+      }
+      return sizes;
+    }
+
+    function updateArtistLayout() {
+      const isLandscapeLayout = window.matchMedia('(orientation: landscape) and (min-width: 680px)').matches;
+      artistTabs.classList.toggle('is-collapsed', !artistListExpanded);
+      artistRows.forEach(row => {
+        row.classList.toggle('is-selected-row', row.dataset.artistIds.split('|').includes(activeArtistId || ''));
+      });
+      const count = ARTIST_ORDER.length;
+      const rowsVisible = artistListExpanded ? artistRows.length : 1;
+      artistToggle.disabled = count <= 5;
+      artistToggle.setAttribute('aria-expanded', String(artistListExpanded));
+      artistToggleLabel.textContent = artistListExpanded
+        ? '아티스트 접기'
+        : `아티스트 전체 보기 · ${count}명`;
+      artistToggle.style.visibility = count <= 5 ? 'hidden' : 'visible';
+
+      // 초기 전체 목록은 아티스트 행 수에 맞춰 라이브러리 영역을 늘리고
+      // 영상·곡 정보 영역을 조금씩 양보합니다. 선택 후 접으면 재생목록 높이가 회복됩니다.
+      if (!isLandscapeLayout) {
+        if (artistListExpanded) {
+          // 모바일에서는 큰 빈 공간을 만들지 않도록 영상 행을 화면 높이 기준으로 제한합니다.
+          // 확보한 높이는 곡 목록에 남겨 목록을 더 많이 표시합니다.
+          const videoHeight = Math.max(22, 27 - Math.min(3, Math.max(0, rowsVisible - 1)) * 1.2);
+          const trackHeight = Math.max(18, 19 - Math.min(3, Math.max(0, rowsVisible - 1)) * 0.4);
+          appShell.style.gridTemplateRows = `minmax(34px, 5dvh) minmax(0, ${videoHeight}dvh) minmax(118px, ${trackHeight}dvh) minmax(0, 1fr)`;
+        } else {
+          appShell.style.gridTemplateRows = 'minmax(34px, 5dvh) minmax(0, 27dvh) minmax(118px, 19dvh) minmax(0, 1fr)';
+        }
+      } else {
+        appShell.style.gridTemplateRows = '';
+      }
+    }
+
     function renderArtistButtons() {
       artistTabs.replaceChildren();
       artistButtons = [];
+      artistRows = [];
+      const rowSizes = calculateArtistRowSizes(ARTIST_ORDER.length);
+      let offset = 0;
 
-      ARTIST_ORDER.forEach(id => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'artist-button';
-        button.dataset.artist = id;
-        button.textContent = PLAYLISTS[id].label;
-        button.disabled = false;
-        button.setAttribute('aria-expanded', 'false');
-        button.setAttribute('aria-controls', 'playlistPanel');
-        button.addEventListener('click', () => openArtist(id));
-        artistTabs.appendChild(button);
-        artistButtons.push(button);
+      rowSizes.forEach((rowSize, rowIndex) => {
+        const row = document.createElement('div');
+        row.className = 'artist-row';
+        row.style.setProperty('--row-count', String(rowSize));
+        const ids = ARTIST_ORDER.slice(offset, offset + rowSize);
+        row.dataset.artistIds = ids.join('|');
+        row.setAttribute('role', 'group');
+        row.setAttribute('aria-label', `아티스트 ${rowIndex + 1}행`);
+
+        ids.forEach(id => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'artist-button';
+          button.dataset.artist = id;
+          button.textContent = PLAYLISTS[id].label;
+          button.setAttribute('aria-expanded', 'false');
+          button.setAttribute('aria-controls', 'playlistPanel');
+          button.addEventListener('click', () => openArtist(id));
+          row.appendChild(button);
+          artistButtons.push(button);
+        });
+
+        artistTabs.appendChild(row);
+        artistRows.push(row);
+        offset += rowSize;
       });
 
       if (ARTIST_ORDER.length === 0) {
@@ -842,7 +994,20 @@
         placeholder.textContent = '등록된 아티스트가 없습니다.';
         artistTabs.appendChild(placeholder);
       }
+      updateArtistLayout();
     }
+
+    artistToggle.addEventListener('click', () => {
+      artistListExpanded = !artistListExpanded;
+      updateArtistLayout();
+      // 목록을 펼쳤을 때 선택된 아티스트 행이 화면 안에 있도록 이동합니다.
+      if (artistListExpanded && activeArtistId) {
+        const selectedRow = artistRows.find(row => row.dataset.artistIds.split('|').includes(activeArtistId));
+        selectedRow?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    });
+
+    window.addEventListener('resize', updateArtistLayout, { passive: true });
 
     async function loadPlaylistsFromJson() {
       playlistStatus.textContent = 'PLAYLIST LOADING...';
@@ -862,6 +1027,7 @@
         ARTIST_ORDER = Object.keys(PLAYLISTS);
         playlistWarnings = result.warnings;
         playlistLoadError = null;
+        artistListExpanded = true; // 최초 접속에서는 전체 아티스트 목록을 펼쳐 보여줍니다.
         renderArtistButtons();
 
         const trackCount = Object.values(PLAYLISTS).reduce((sum, list) => sum + list.songs.length, 0);
@@ -1011,12 +1177,20 @@
       if (alreadyOpen) {
         libraryZone.classList.remove('is-open');
         activeArtistId = null;
+        artistListExpanded = true;
         artistButtons.forEach(button => button.setAttribute('aria-expanded', 'false'));
+        updateArtistLayout();
         return;
       }
 
       activeArtistId = artistId;
       libraryZone.classList.add('is-open');
+      // 모바일에서는 아티스트 선택 후 한 행만 남겨 곡 목록 공간을 확보합니다.
+      // 가로형 화면은 레이아웃 특성상 전체 아티스트 목록을 유지합니다.
+      if (!window.matchMedia('(orientation: landscape) and (min-width: 680px)').matches) {
+        artistListExpanded = false;
+      }
+      updateArtistLayout();
       artistButtons.forEach(button => {
         button.setAttribute('aria-expanded', String(button.dataset.artist === artistId));
       });
