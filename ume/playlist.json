@@ -974,6 +974,12 @@
           "artist": "네네코 마시로",
           "videoId": "https://www.youtube.com/watch?v=BCL48jiPEdY",
           "start": 0
+        },
+        {
+          "title": "봄꿈 (Spring Dream)",
+          "artist": "네네코 마시로",
+          "videoId": "https://www.youtube.com/watch?v=YmSBbbqadrE",
+          "start": 0
         }
       ]
     },
@@ -1063,6 +1069,36 @@
           "title": "Don‘t tell mom, I’m in Bakmut",
           "artist": "russian",
           "videoId": "https://www.youtube.com/watch?v=79sXfQsFdyM",
+          "start": 0
+        },
+        {
+          "title": "봄꿈 원작자 커버",
+          "artist": "네네코 마시로 - 원작자",
+          "videoId": "https://www.youtube.com/watch?v=Jeo2zEcQrjA",
+          "start": 0
+        },
+        {
+          "title": "LEADER",
+          "artist": "김민철과 하야테",
+          "videoId": "https://www.youtube.com/watch?v=JouEe2BH4hg",
+          "start": 0
+        },
+        {
+          "title": "HOW TO LOVE?",
+          "artist": "김민철과 하야테",
+          "videoId": "https://www.youtube.com/watch?v=BjXmtc_9om8",
+          "start": 0
+        },
+        {
+          "title": "=근 어질",
+          "artist": "리코 & 후야",
+          "videoId": "https://www.youtube.com/watch?v=BV2TM12AH7g",
+          "start": 0
+        },
+        {
+          "title": "All of the Light Live",
+          "artist": "Ye",
+          "videoId": "https://www.youtube.com/watch?v=Y33_F2D_Dco",
           "start": 0
         }
       ]
